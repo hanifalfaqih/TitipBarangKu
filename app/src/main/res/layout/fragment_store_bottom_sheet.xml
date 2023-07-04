@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.product.ProductBottomSheetFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_store_name"
+        style="@style/TextInputLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_store_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:hint="Name"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_store_address"
+        style="@style/TextInputLayout"
+        app:layout_constraintTop_toBottomOf="@id/til_store_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_store_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:hint="Address" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_store_owner_name"
+        style="@style/TextInputLayout"
+        app:layout_constraintTop_toBottomOf="@id/til_store_address"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_store_owner_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:hint="Owner Name" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_store_phone_number"
+        style="@style/TextInputLayout"
+        app:layout_constraintTop_toBottomOf="@id/til_store_owner_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_store_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:hint="Phone Number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_product"
+        style="@style/Button"
+        android:text="Add Store"
+        app:layout_constraintTop_toBottomOf="@+id/til_store_phone_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
