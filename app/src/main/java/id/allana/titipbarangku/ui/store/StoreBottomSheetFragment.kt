@@ -1,22 +1,67 @@
 package id.allana.titipbarangku.ui.store
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import id.allana.titipbarangku.R
+import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
+import id.allana.titipbarangku.data.base.BaseBottomSheetDialogFragment
+import id.allana.titipbarangku.data.model.StoreModel
+import id.allana.titipbarangku.databinding.FragmentStoreBottomSheetBinding
 
 
-class StoreBottomSheetFragment : BottomSheetDialogFragment() {
+class StoreBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentStoreBottomSheetBinding>(FragmentStoreBottomSheetBinding::inflate) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_store_bottom_sheet, container, false)
+    private val viewModel: StoreViewModel by viewModels()
+
+    override fun initView() {
+        getViewBinding().btnAddStore.setOnClickListener {
+            insertStore()
+        }
+    }
+
+    private fun insertStore() {
+        if (validateForm()) {
+            val store = StoreModel(
+                name = getViewBinding().etStoreName.text.toString().trim(),
+                address = getViewBinding().etStoreAddress.text.toString().trim(),
+                ownerName = getViewBinding().etStoreOwnerName.text.toString().trim(),
+                ownerPhoneNumber = getViewBinding().etStorePhoneNumber.text.toString().trim()
+            )
+            viewModel.insertStore(store)
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "Berhasil tambah toko", Snackbar.LENGTH_SHORT).show().also {
+                this@StoreBottomSheetFragment.dismiss()
+            }
+        }
+    }
+
+    private fun validateForm(): Boolean {
+        val textName = getViewBinding().etStoreName.text.toString().trim()
+        val textAddress = getViewBinding().etStoreAddress.text.toString().trim()
+        val textOwnerName = getViewBinding().etStoreOwnerName.text.toString().trim()
+        val textOwnerPhoneNumber = getViewBinding().etStorePhoneNumber.text.toString().trim()
+
+        val isFormValid: Boolean
+
+        when {
+            textName.isEmpty() -> {
+                isFormValid = false
+                getViewBinding().etStoreName.error = "Nama toko harus diisi!"
+            }
+            textAddress.isEmpty() -> {
+                isFormValid = false
+                getViewBinding().etStoreAddress.error = "Alamat toko harus diisi!"
+            }
+            textOwnerName.isEmpty() -> {
+                isFormValid = false
+                getViewBinding().etStoreOwnerName.error = "Nama pemilik toko harus diisi!"
+            }
+            textOwnerPhoneNumber.isEmpty() -> {
+                isFormValid = false
+                getViewBinding().etStorePhoneNumber.error = "Nomor HP pemilik harus diisi!"
+            }
+            else -> {
+                isFormValid = true
+            }
+        }
+        return isFormValid
     }
 
 }
