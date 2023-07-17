@@ -67,7 +67,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_add_product"
+        android:id="@+id/btn_add_store"
         style="@style/Button"
         android:text="Add Store"
         app:layout_constraintTop_toBottomOf="@+id/til_store_phone_number"
