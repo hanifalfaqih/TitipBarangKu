@@ -1,47 +1,84 @@
 package id.allana.titipbarangku.ui.store
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
+import id.allana.titipbarangku.R
+import id.allana.titipbarangku.data.base.BaseFragment
+import id.allana.titipbarangku.data.model.StoreModel
 import id.allana.titipbarangku.databinding.FragmentStoreBinding
+import id.allana.titipbarangku.ui.store.adapter.StoreAdapter
 
-class StoreFragment : Fragment() {
+class StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding::inflate) {
 
-    private var _binding: FragmentStoreBinding? = null
+    private val viewModel: StoreViewModel by viewModels()
+    private val storeAdapter by lazy {
+        StoreAdapter { deleteItem ->
+            showAlertDialog(deleteItem)
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val storeViewModel =
-            ViewModelProvider(this).get(StoreViewModel::class.java)
-
-        _binding = FragmentStoreBinding.inflate(inflater, container, false)
-        return binding.root
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
+        initRecyclerView()
+        getViewBinding().fabAddStore.setOnClickListener {
+            val actionToStoreBottomSheet = R.id.action_navigation_store_to_storeBottomSheetFragment
+            findNavController().navigate(actionToStoreBottomSheet)
+        }
+    }
 
-        binding.fabAddStore.setOnClickListener {
-            StoreBottomSheetFragment().show(childFragmentManager, TAG)
+    private fun initRecyclerView() {
+        getViewBinding().rvStore.apply {
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            adapter = this@StoreFragment.storeAdapter
+        }
+    }
+
+    private fun showAlertDialog(data: StoreModel) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle(getString(R.string.delete_data))
+            setMessage(getString(R.string.msg_delete_data, data.name))
+            setPositiveButton(getString(R.string.delete)) { _, _ ->
+                viewModel.deleteStore(data)
+                Snackbar.make(requireView(), getString(R.string.success_delete_data, data.name), Snackbar.LENGTH_SHORT).show()
+            }
+            setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
+        }.show()
+    }
+
+    override fun observeData() {
+        viewModel.getAllStore().observe(viewLifecycleOwner) { listStore ->
+            viewModel.checkDatabaseEmpty(listStore)
+            storeAdapter.submitList(listStore)
+        }
+        viewModel.checkDatabaseEmptyLiveData().observe(viewLifecycleOwner) { isEmpty ->
+            if (isEmpty) {
+                stateDataEmpty(true)
+            } else {
+                stateDataEmpty(false)
+            }
+        }
+    }
+    private fun stateDataEmpty(isEmpty: Boolean) {
+        getViewBinding().also {
+            if (isEmpty) {
+                it.ivStateDataEmpty.visibility = View.VISIBLE
+                it.tvStateDataEmpty.visibility = View.VISIBLE
+            } else {
+                it.ivStateDataEmpty.visibility = View.GONE
+                it.tvStateDataEmpty.visibility = View.GONE
+            }
         }
     }
 
     companion object {
         private const val TAG = "StoreBottomSheetFragment"
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

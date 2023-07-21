@@ -1,6 +1,7 @@
 package id.allana.titipbarangku.ui.store
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import id.allana.titipbarangku.data.base.BaseBottomSheetDialogFragment
 import id.allana.titipbarangku.data.model.StoreModel
@@ -10,10 +11,15 @@ import id.allana.titipbarangku.databinding.FragmentStoreBottomSheetBinding
 class StoreBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentStoreBottomSheetBinding>(FragmentStoreBottomSheetBinding::inflate) {
 
     private val viewModel: StoreViewModel by viewModels()
+    private val args by navArgs<StoreBottomSheetFragmentArgs>()
 
     override fun initView() {
         getViewBinding().btnAddStore.setOnClickListener {
             insertStore()
+        }
+
+        args.storeData?.let {
+            setDataToView(it)
         }
     }
 
@@ -29,6 +35,15 @@ class StoreBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentStoreBott
             Snackbar.make(requireActivity().findViewById(android.R.id.content), "Berhasil tambah toko", Snackbar.LENGTH_SHORT).show().also {
                 this@StoreBottomSheetFragment.dismiss()
             }
+        }
+    }
+
+    private fun setDataToView(data: StoreModel) {
+        getViewBinding().apply {
+            etStoreName.setText(data.name)
+            etStoreAddress.setText(data.address)
+            etStoreOwnerName.setText(data.ownerName)
+            etStorePhoneNumber.setText(data.ownerPhoneNumber)
         }
     }
 
