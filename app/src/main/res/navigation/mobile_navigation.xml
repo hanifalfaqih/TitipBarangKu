@@ -15,7 +15,11 @@
         android:id="@+id/navigation_store"
         android:name="id.allana.titipbarangku.ui.store.StoreFragment"
         android:label="@string/title_store"
-        tools:layout="@layout/fragment_store" />
+        tools:layout="@layout/fragment_store" >
+        <action
+            android:id="@+id/action_navigation_store_to_storeBottomSheetFragment"
+            app:destination="@id/storeBottomSheetFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_deposit"
@@ -26,10 +30,53 @@
         android:id="@+id/navigation_product"
         android:name="id.allana.titipbarangku.ui.product.ProductFragment"
         android:label="@string/title_product"
-        tools:layout="@layout/fragment_product" />
+        tools:layout="@layout/fragment_product" >
+        <action
+            android:id="@+id/action_navigation_product_to_productBottomSheetFragment"
+            app:destination="@id/productBottomSheetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_category"
         android:name="id.allana.titipbarangku.ui.category.CategoryFragment"
         android:label="@string/title_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_navigation_category_to_categoryBottomSheetFragment"
+            app:destination="@id/categoryBottomSheetFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/productBottomSheetFragment"
+        android:name="id.allana.titipbarangku.ui.product.ProductBottomSheetFragment"
+        android:label="fragment_store_bottom_sheet"
+        tools:layout="@layout/fragment_store_bottom_sheet" >
+        <action
+            android:id="@+id/action_productBottomSheetFragment_to_navigation_product"
+            app:destination="@id/navigation_product" />
+    </dialog>
+    <dialog
+        android:id="@+id/categoryBottomSheetFragment"
+        android:name="id.allana.titipbarangku.ui.category.CategoryBottomSheetFragment"
+        android:label="fragment_category_bottom_sheet"
+        tools:layout="@layout/fragment_category_bottom_sheet" >
+        <action
+            android:id="@+id/action_categoryBottomSheetFragment_to_navigation_category"
+            app:destination="@id/navigation_category" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+    </dialog>
+    <dialog
+        android:id="@+id/storeBottomSheetFragment"
+        android:name="id.allana.titipbarangku.ui.store.StoreBottomSheetFragment"
+        android:label="StoreBottomSheetFragment"
+        tools:layout="@layout/fragment_store_bottom_sheet">
+        <action
+            android:id="@+id/action_storeBottomSheetFragment_to_navigation_store"
+            app:destination="@id/navigation_store" />
+        <argument
+            android:name="storeData"
+            app:argType="id.allana.titipbarangku.data.model.StoreModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
 </navigation>
