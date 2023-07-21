@@ -5,8 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import id.allana.titipbarangku.data.model.CategoryModel
+import id.allana.titipbarangku.data.model.ProductModel
+import id.allana.titipbarangku.data.model.StoreModel
 
-@Database(entities = [CategoryModel::class], version = 1, exportSchema = false)
+@Database(entities = [CategoryModel::class, StoreModel::class, ProductModel::class], version = 1, exportSchema = false)
 abstract class ConsignmentDatabase: RoomDatabase() {
 
     abstract fun consignmentDao(): ConsignmentDao
