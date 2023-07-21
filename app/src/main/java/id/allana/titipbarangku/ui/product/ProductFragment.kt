@@ -1,42 +1,70 @@
 package id.allana.titipbarangku.ui.product
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import id.allana.titipbarangku.R
+import id.allana.titipbarangku.data.base.BaseFragment
+import id.allana.titipbarangku.data.model.ProductWithCategory
 import id.allana.titipbarangku.databinding.FragmentProductBinding
+import id.allana.titipbarangku.ui.product.adapter.ProductAdapter
 
 
-class ProductFragment : Fragment() {
+class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBinding::inflate) {
 
-    private var _binding: FragmentProductBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentProductBinding.inflate(inflater, container, false)
-        return binding.root
+    private val viewModel: ProductViewModel by viewModels()
+    private val productAdapter by lazy {
+        ProductAdapter()
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.fabAddProduct.setOnClickListener {
-            ProductBottomSheetFragment().show(childFragmentManager, TAG)
-        }
-    }
-
     companion object {
         private const val TAG = "ProductBottomSheetFragment"
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun initView() {
+        initRecyclerView()
+
+        getViewBinding().fabAddProduct.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_product_to_productBottomSheetFragment)
+        }
     }
+
+    private fun initRecyclerView() {
+        getViewBinding().rvProduct.apply {
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            adapter = this@ProductFragment.productAdapter
+        }
+    }
+
+    override fun observeData() {
+        viewModel.getCategoryWithProduct().observe(viewLifecycleOwner) { listProduct ->
+            viewModel.checkDatabaseEmpty(listProduct)
+            productAdapter.submitList(listProduct)
+        }
+        viewModel.checkDatabaseEmptyLiveData().observe(viewLifecycleOwner) { isEmpty ->
+            if (isEmpty) {
+                stateDataEmpty(true)
+            } else {
+                stateDataEmpty(false)
+            }
+        }
+    }
+
+    private fun stateDataEmpty(isEmpty: Boolean) {
+        getViewBinding().also {
+            if (isEmpty) {
+                it.ivStateDataEmpty.visibility = View.VISIBLE
+                it.tvStateDataEmpty.visibility = View.VISIBLE
+            } else {
+                it.ivStateDataEmpty.visibility = View.GONE
+                it.tvStateDataEmpty.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun showAlertDialog(data: ProductWithCategory) {
+    }
+
 }
