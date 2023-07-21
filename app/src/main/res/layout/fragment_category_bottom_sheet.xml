@@ -15,8 +15,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_category"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_48sdp"
+            style="@style/EditText"
             android:hint="Category Name"/>
 
     </com.google.android.material.textfield.TextInputLayout>

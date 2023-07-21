@@ -2,6 +2,8 @@ package id.allana.titipbarangku.ui.category
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import id.allana.titipbarangku.data.local.ConsignmentDatabase
 import id.allana.titipbarangku.data.model.CategoryModel
@@ -14,9 +16,24 @@ class CategoryViewModel(application: Application): AndroidViewModel(application)
     private val consignmentDao = ConsignmentDatabase.getDatabase(application).consignmentDao()
     private val repository = ConsignmentRepository(consignmentDao)
 
+    private val checkDatabaseEmptyLiveData = MutableLiveData<Boolean>()
+
+    fun checkDatabaseEmpty(data: List<CategoryModel>) {
+        checkDatabaseEmptyLiveData.value = data.isEmpty()
+    }
+
+    fun checkDatabaseEmptyLiveData(): LiveData<Boolean> = checkDatabaseEmptyLiveData
     fun insertCategory(category: CategoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertCategory(category)
         }
     }
+
+    fun deleteCategory(category: CategoryModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteCategory(category)
+        }
+    }
+
+    fun getAllCategory(): LiveData<List<CategoryModel>> = repository.getAllCategory()
 }

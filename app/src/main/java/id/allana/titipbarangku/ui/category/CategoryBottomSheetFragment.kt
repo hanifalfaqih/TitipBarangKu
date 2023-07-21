@@ -19,7 +19,7 @@ class CategoryBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentCatego
 
     private fun insertCategory() {
         if (validateForm()) {
-            val category = CategoryModel(categoryName = getViewBinding().etCategory.text.toString())
+            val category = CategoryModel(0, categoryName = getViewBinding().etCategory.text.toString())
             viewModel.insertCategory(category)
             Snackbar.make(requireActivity().findViewById(android.R.id.content), "Berhasil tambah kategori", Snackbar.LENGTH_SHORT).show().run {
                 this@CategoryBottomSheetFragment.dismiss()
