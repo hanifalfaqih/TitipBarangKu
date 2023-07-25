@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import id.allana.titipbarangku.data.local.ConsignmentDatabase
-import id.allana.titipbarangku.data.model.ProductWithCategory
 import id.allana.titipbarangku.data.model.ProductModel
+import id.allana.titipbarangku.data.model.ProductWithCategory
 import id.allana.titipbarangku.data.repository.ConsignmentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,6 +26,17 @@ class ProductViewModel(application: Application): AndroidViewModel(application) 
     fun insertProduct(product: ProductModel) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertProduct(product)
+        }
+    }
+    fun updateProduct(product: ProductModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateProduct(product)
+        }
+    }
+
+    fun deleteProduct(product: ProductModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteProduct(product)
         }
     }
 

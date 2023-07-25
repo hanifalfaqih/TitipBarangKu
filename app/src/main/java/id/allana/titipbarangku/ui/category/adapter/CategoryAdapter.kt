@@ -8,9 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.databinding.ItemCategoryBinding
-import id.allana.titipbarangku.ui.category.CategoryBottomSheetFragment
-import id.allana.titipbarangku.ui.category.CategoryBottomSheetFragmentDirections
-import id.allana.titipbarangku.ui.category.CategoryFragment
 import id.allana.titipbarangku.ui.category.CategoryFragmentDirections
 
 class CategoryAdapter(private val itemCategory: (CategoryModel) -> Unit): ListAdapter<CategoryModel, CategoryAdapter.CategoryViewHolder>(CategoryComparator()) {
@@ -21,7 +18,7 @@ class CategoryAdapter(private val itemCategory: (CategoryModel) -> Unit): ListAd
                 it.tvCategoryName.text = data.categoryName
 
                 it.btnEdit.setOnClickListener { view ->
-                    val actionToCategoryBottomSheet = CategoryFragmentDirections.actionNavigationCategoryToCategoryBottomSheetFragment(data.categoryName)
+                    val actionToCategoryBottomSheet = CategoryFragmentDirections.actionNavigationCategoryToCategoryBottomSheetFragment(data)
                     view.findNavController().navigate(actionToCategoryBottomSheet)
                 }
                 it.btnDelete.setOnClickListener {

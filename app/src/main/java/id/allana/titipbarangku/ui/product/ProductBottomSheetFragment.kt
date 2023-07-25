@@ -2,14 +2,16 @@ package id.allana.titipbarangku.ui.product
 
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseBottomSheetDialogFragment
 import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.databinding.FragmentProductBottomSheetBinding
 import id.allana.titipbarangku.ui.category.CategoryViewModel
-
 
 class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProductBottomSheetBinding>(
     FragmentProductBottomSheetBinding::inflate
@@ -23,9 +25,12 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
     private var categoryId = 0
 
     private lateinit var spinnerAdapter: ArrayAdapter<String>
+    private lateinit var spinnerCategory: AutoCompleteTextView
+
+    private val args by navArgs<ProductBottomSheetFragmentArgs>()
 
     override fun initView() {
-        val spinnerCategory = getViewBinding().textDropdownCategory
+        spinnerCategory = getViewBinding().textDropdownCategory
         spinnerAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
@@ -42,31 +47,59 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
         }
 
         getViewBinding().btnAddProduct.setOnClickListener {
-            insertProduct()
+            insertProduct(0)
         }
-        getViewBinding().textDropdownCategory.onItemClickListener =
+        spinnerCategory.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 val selectedCategory = listCategory[position]
                 categoryId = selectedCategory.id
             }
+
+        args.productData?.let { productModel ->
+            categoriViewModel.getAllCategory().observe(viewLifecycleOwner) { list ->
+                for (data in list) {
+                    if (data.id == productModel.idCategory) {
+                        spinnerCategory.setText(data.categoryName)
+                    }
+                }
+            }
+            setDataToView(productModel)
+            getViewBinding().btnAddProduct.text = getString(R.string.update)
+            getViewBinding().btnAddProduct.setOnClickListener {
+                insertProduct(productModel.id)
+            }
+        }
     }
 
-    private fun insertProduct() {
+    private fun setDataToView(data: ProductModel) {
+        getViewBinding().apply {
+            etProductName.setText(data.name)
+            etProductPrice.setText(data.price)
+        }
+    }
+
+    private fun insertProduct(id: Int) {
         if (validateForm()) {
             val product = ProductModel(
-                0,
+                id,
                 name = getViewBinding().etProductName.text.toString(),
                 price = getViewBinding().etProductPrice.text.toString(),
                 idCategory = categoryId
             )
-            viewModel.insertProduct(product)
+
+            val successMessage = if (id == 0) {
+                viewModel.insertProduct(product)
+                getString(R.string.success_add_product)
+            } else {
+                viewModel.updateProduct(product)
+                getString(R.string.success_update_product)
+            }
+
             Snackbar.make(
                 requireActivity().findViewById(android.R.id.content),
-                "Berhasil tambah toko",
+                successMessage,
                 Snackbar.LENGTH_SHORT
-            ).show().also {
-                this@ProductBottomSheetFragment.dismiss()
-            }
+            ).show().also { this.dismiss() }
         }
     }
 
@@ -93,5 +126,4 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
         }
         return isFormValid
     }
-
 }

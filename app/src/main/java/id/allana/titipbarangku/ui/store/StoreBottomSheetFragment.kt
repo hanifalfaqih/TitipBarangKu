@@ -3,6 +3,7 @@ package id.allana.titipbarangku.ui.store
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseBottomSheetDialogFragment
 import id.allana.titipbarangku.data.model.StoreModel
 import id.allana.titipbarangku.databinding.FragmentStoreBottomSheetBinding
@@ -15,15 +16,18 @@ class StoreBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentStoreBott
 
     override fun initView() {
         getViewBinding().btnAddStore.setOnClickListener {
-            insertStore()
+            insertStore(0)
         }
-
-        args.storeData?.let {
-            setDataToView(it)
+        args.storeData?.let { storeModel ->
+            setDataToView(storeModel)
+            getViewBinding().btnAddStore.text = getString(R.string.update)
+            getViewBinding().btnAddStore.setOnClickListener {
+                insertStore(storeModel.id)
+            }
         }
     }
 
-    private fun insertStore() {
+    private fun insertStore(id: Int) {
         if (validateForm()) {
             val store = StoreModel(
                 name = getViewBinding().etStoreName.text.toString().trim(),
@@ -31,10 +35,19 @@ class StoreBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentStoreBott
                 ownerName = getViewBinding().etStoreOwnerName.text.toString().trim(),
                 ownerPhoneNumber = getViewBinding().etStorePhoneNumber.text.toString().trim()
             )
-            viewModel.insertStore(store)
-            Snackbar.make(requireActivity().findViewById(android.R.id.content), "Berhasil tambah toko", Snackbar.LENGTH_SHORT).show().also {
-                this@StoreBottomSheetFragment.dismiss()
+
+            val successMessage = if (id == 0) {
+                viewModel.insertStore(store)
+                getString(R.string.success_add_store)
+            } else {
+                viewModel.updateStore(store)
+                getString(R.string.success_update_store)
             }
+
+            Snackbar.make(
+                requireActivity().findViewById(android.R.id.content),
+                successMessage,
+                Snackbar.LENGTH_SHORT).show().also { this.dismiss() }
         }
     }
 

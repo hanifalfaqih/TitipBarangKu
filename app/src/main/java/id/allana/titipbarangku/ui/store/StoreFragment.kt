@@ -13,7 +13,7 @@ import id.allana.titipbarangku.data.model.StoreModel
 import id.allana.titipbarangku.databinding.FragmentStoreBinding
 import id.allana.titipbarangku.ui.store.adapter.StoreAdapter
 
-class StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding::inflate) {
+class   StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding::inflate) {
 
     private val viewModel: StoreViewModel by viewModels()
     private val storeAdapter by lazy {
