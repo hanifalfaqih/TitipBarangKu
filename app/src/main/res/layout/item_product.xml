@@ -1,71 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
 
-    <data>
-        <variable
-            name="productWithCategory"
-            type="id.allana.titipbarangku.data.model.ProductWithCategory" />
-    </data>
+    <ImageButton
+        android:id="@+id/btn_delete"
+        android:layout_width="@dimen/_37sdp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_product_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_product_name"
+        android:src="@drawable/ic_delete" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <ImageButton
+        android:background="@android:color/transparent"
+        android:id="@+id/btn_edit"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_width="@dimen/_37sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
+        app:layout_constraintEnd_toStartOf="@+id/btn_delete"
+        app:layout_constraintTop_toTopOf="@+id/btn_delete"
+        android:src="@drawable/ic_edit" />
 
-        <ImageButton
-            android:id="@+id/btn_delete"
-            android:layout_width="@dimen/_37sdp"
-            android:layout_height="@dimen/_37sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_delete"
-            app:tint="@color/red_icon" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_product_name"
+        style="@style/Title18"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        app:fontFamily="@font/gothic_a1_semibold"
+        app:layout_constraintEnd_toStartOf="@+id/btn_edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="BERAS" />
 
-        <ImageButton
-            android:id="@+id/btn_edit"
-            android:layout_width="@dimen/_37sdp"
-            android:layout_height="@dimen/_37sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
-            app:layout_constraintEnd_toStartOf="@+id/btn_delete"
-            app:layout_constraintTop_toTopOf="@+id/btn_delete"
-            app:srcCompat="@drawable/ic_edit" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_product_price"
+        style="@style/Body12"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:textColor="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="@+id/tv_product_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_product_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_product_name"
+        tools:text="HARGA" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_product_category"
-            style="@style/Title18"
-            android:text="@{productWithCategory.category.categoryName}"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_edit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_edit"
-            tools:text="TOKO ABCD" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_product_category"
+        style="@style/Body12"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_product_price"
+        app:layout_constraintStart_toStartOf="@+id/tv_product_price"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_price"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="KATEGORI" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_product_name"
-            style="@style/Body12"
-            android:text="@{productWithCategory.product.name}"
-            android:layout_marginTop="@dimen/_4sdp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_product_category"
-            app:layout_constraintStart_toStartOf="@+id/tv_product_category"
-            app:layout_constraintTop_toBottomOf="@id/tv_product_category"
-            tools:text="TOKO ABCD" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_product_price"
-            style="@style/Body12"
-            android:text="@{productWithCategory.product.price}"
-            android:layout_marginTop="@dimen/_4sdp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_product_name"
-            app:layout_constraintStart_toStartOf="@+id/tv_product_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
-            tools:text="TOKO ABCD" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

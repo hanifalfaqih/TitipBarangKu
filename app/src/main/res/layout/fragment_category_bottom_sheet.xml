@@ -16,14 +16,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_category"
             style="@style/EditText"
-            android:hint="Category Name"/>
+            android:hint="@string/category_name"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_category"
         style="@style/Button"
-        android:text="Add Category"
+        android:text="@string/add_category"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

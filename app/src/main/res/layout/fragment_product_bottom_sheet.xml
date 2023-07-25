@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
-        android:hint="Category"
+        android:hint="@string/title_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -37,7 +37,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_product_name"
             style="@style/EditText"
-            android:hint="Product Name"/>
+            android:hint="@string/product_name"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,14 +51,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_product_price"
             style="@style/EditText"
-            android:hint="Product Price" />
+            android:hint="@string/product_price"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_product"
         style="@style/Button"
-        android:text="Add Product"
+        android:text="@string/add_product"
         app:layout_constraintTop_toBottomOf="@+id/til_product_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

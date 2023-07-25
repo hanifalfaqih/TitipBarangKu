@@ -9,13 +9,11 @@
         android:id="@+id/btn_delete"
         android:layout_width="@dimen/_37sdp"
         android:layout_height="@dimen/_37sdp"
-        android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_delete"
-        app:tint="@color/red_icon"/>
+        android:src="@drawable/ic_delete"/>
 
     <ImageButton
         android:id="@+id/btn_edit"
@@ -26,7 +24,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
         app:layout_constraintEnd_toStartOf="@+id/btn_delete"
         app:layout_constraintTop_toTopOf="@+id/btn_delete"
-        app:srcCompat="@drawable/ic_edit" />
+        android:src="@drawable/ic_edit" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_category_name"
