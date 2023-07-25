@@ -13,4 +13,22 @@
     <string name="success_delete_data">Berhasil hapus data %s</string>
     <string name="please_add_store_first">Silahkan tambahkan data toko terlebih dahulu</string>
     <string name="please_add_category_first">Silahkan tambahkan data kategori terlebih dahulu</string>
+    <string name="update">Perbarui</string>
+    <string name="add_category">Tambah Kategori</string>
+    <string name="add_product">Tambah Produk</string>
+    <string name="add_store">Tambah Toko</string>
+    <string name="category_name">Nama Kategori</string>
+    <string name="product_name">Nama Produk</string>
+    <string name="product_price">Harga Produk</string>
+    <string name="name">Nama</string>
+    <string name="address">Alamat</string>
+    <string name="owner_name">Nama Pemilik\n</string>
+    <string name="phone_number">Nomor Handphone</string>
+    <string name="success_add_category">Berhasil tambah kategori</string>
+    <string name="success_update_category">Berhasil perbarui kategori</string>
+    <string name="category_must_be_filled">Kategori harus diisi!</string>
+    <string name="success_update_store">Berhasil perbarui toko</string>
+    <string name="success_update_product">Berhasil perbarui produk</string>
+    <string name="success_add_store">Berhasil tambah toko</string>
+    <string name="success_add_product">Berhasil tambah produk</string>
 </resources>
