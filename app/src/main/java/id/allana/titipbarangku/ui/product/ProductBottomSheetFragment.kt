@@ -1,5 +1,7 @@
 package id.allana.titipbarangku.ui.product
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -12,6 +14,9 @@ import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.databinding.FragmentProductBottomSheetBinding
 import id.allana.titipbarangku.ui.category.CategoryViewModel
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 
 class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProductBottomSheetBinding>(
     FragmentProductBottomSheetBinding::inflate
@@ -30,7 +35,15 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
     private val args by navArgs<ProductBottomSheetFragmentArgs>()
 
     override fun initView() {
+        getViewBinding().etProductPrice.addTextChangedListener(currencyTextWatcher)
+        /**
+         * init spinner category from textDropdownCategory
+         */
         spinnerCategory = getViewBinding().textDropdownCategory
+
+        /**
+         * init spinnerAdapter and set to spinnerCategory
+         */
         spinnerAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
@@ -38,36 +51,50 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
         )
         spinnerCategory.setAdapter(spinnerAdapter)
 
+        /**
+         * get all category to set data for spinnerAdapter
+         */
         categoriViewModel.getAllCategory().observe(viewLifecycleOwner) { list ->
             listCategory = list
+
             for (data in listCategory) {
                 categoryName.add(data.categoryName)
             }
             spinnerAdapter.notifyDataSetChanged()
+
+            /**
+             * update product
+             */
+            args.productData?.let { productModel ->
+                val selectedCategory = listCategory.find { it.id == productModel.idCategory }
+                selectedCategory?.let {
+                    val getCategoryName = it.categoryName
+                    spinnerCategory.setText(getCategoryName, false)
+                    categoryId = it.id
+                }
+
+                setDataToView(productModel)
+                getViewBinding().btnAddProduct.text = getString(R.string.update)
+                getViewBinding().btnAddProduct.setOnClickListener {
+                    insertProduct(productModel.id, categoryId)
+                }
+            }
         }
 
-        getViewBinding().btnAddProduct.setOnClickListener {
-            insertProduct(0)
-        }
+        /**
+         * get id category from itemClick in spinner
+         */
         spinnerCategory.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 val selectedCategory = listCategory[position]
                 categoryId = selectedCategory.id
             }
 
-        args.productData?.let { productModel ->
-            categoriViewModel.getAllCategory().observe(viewLifecycleOwner) { list ->
-                for (data in list) {
-                    if (data.id == productModel.idCategory) {
-                        spinnerCategory.setText(data.categoryName)
-                    }
-                }
-            }
-            setDataToView(productModel)
-            getViewBinding().btnAddProduct.text = getString(R.string.update)
-            getViewBinding().btnAddProduct.setOnClickListener {
-                insertProduct(productModel.id)
-            }
+        /**
+         * add product
+         */
+        getViewBinding().btnAddProduct.setOnClickListener {
+            insertProduct(0, categoryId)
         }
     }
 
@@ -78,15 +105,18 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
         }
     }
 
-    private fun insertProduct(id: Int) {
+    private fun insertProduct(id: Int, idCategory: Int) {
         if (validateForm()) {
             val product = ProductModel(
                 id,
                 name = getViewBinding().etProductName.text.toString(),
                 price = getViewBinding().etProductPrice.text.toString(),
-                idCategory = categoryId
+                idCategory = idCategory
             )
 
+            /**
+             * if id == 0 it will add product, and if id != 0 it will update
+             */
             val successMessage = if (id == 0) {
                 viewModel.insertProduct(product)
                 getString(R.string.success_add_product)
@@ -126,4 +156,31 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
         }
         return isFormValid
     }
+
+    private val currencyTextWatcher: TextWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable) {
+            if (s.toString() != "") {
+                getViewBinding().etProductPrice.removeTextChangedListener(this)
+
+                val cleanString = s.toString().replace("[Rp,.\\s]".toRegex(), "")
+                val parsed = try {
+                    val parsedText = cleanString.toDouble() / 100
+                    val formatter: NumberFormat = DecimalFormat.getCurrencyInstance(Locale("id", "ID"))
+                    formatter.format(parsedText)
+                } catch (e: Exception) {
+                    s.toString()
+                }
+
+                getViewBinding().etProductPrice.setText(parsed)
+                getViewBinding().etProductPrice.setSelection(parsed.length)
+                getViewBinding().etProductPrice.addTextChangedListener(this)
+            }
+        }
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        }
+    }
+
 }
