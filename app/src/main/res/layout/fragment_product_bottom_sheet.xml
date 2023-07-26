@@ -51,7 +51,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_product_price"
             style="@style/EditText"
-            android:hint="@string/product_price"/>
+            android:hint="@string/product_price"
+            android:inputType="numberDecimal"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
