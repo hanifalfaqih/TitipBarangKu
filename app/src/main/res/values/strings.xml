@@ -11,8 +11,9 @@
     <string name="delete">Hapus</string>
     <string name="cancel">Batal</string>
     <string name="success_delete_data">Berhasil hapus data %s</string>
-    <string name="please_add_store_first">Silahkan tambahkan data toko terlebih dahulu</string>
-    <string name="please_add_category_first">Silahkan tambahkan data kategori terlebih dahulu</string>
+    <string name="please_add_store_first">Silakan tambahkan data toko terlebih dahulu</string>
+    <string name="please_add_category_first">Silakan tambahkan data kategori terlebih dahulu</string>
+    <string name="please_add_deposit_first">Silakan tambahkan data deposit terlebih dahulu</string>
     <string name="update">Perbarui</string>
     <string name="add_category">Tambah Kategori</string>
     <string name="add_product">Tambah Produk</string>
@@ -31,4 +32,12 @@
     <string name="success_update_product">Berhasil perbarui produk</string>
     <string name="success_add_store">Berhasil tambah toko</string>
     <string name="success_add_product">Berhasil tambah produk</string>
+    <string name="date">Tanggal</string>
+    <string name="choose_date">Pilih tanggal</string>
+    <string name="add_deposit_product">Tambahkan Barang</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_deposit">Tambah Deposit</string>
+    <string name="success_add_deposit">Berhasil tambah deposit baru</string>
+    <string name="success_update_deposit">Berhasil perbarui data deposit</string>
 </resources>
