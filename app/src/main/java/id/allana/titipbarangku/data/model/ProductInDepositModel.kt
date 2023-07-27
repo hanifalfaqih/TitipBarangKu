@@ -7,14 +7,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "product_in_deposit_model")
 data class ProductInDepositModel(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id_deposit_product")
+    @ColumnInfo(name = "id_product_deposit")
     val id: Int,
     @ColumnInfo(name = "id_deposit")
     val idDeposit: Int,
     @ColumnInfo(name = "id_product")
-    val idProducts: Int,
+    val idProduct: Int,
     @ColumnInfo(name = "quantity")
-    val quantities: Int,
+    val quantity: Int,
     @ColumnInfo(name = "return_quantity")
-    val returnQuantities: Int
+    val returnQuantity: Int
 )
