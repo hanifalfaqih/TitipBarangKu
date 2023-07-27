@@ -25,7 +25,11 @@
         android:id="@+id/navigation_deposit"
         android:name="id.allana.titipbarangku.ui.deposit.DepositFragment"
         android:label="@string/title_deposit"
-        tools:layout="@layout/fragment_deposit" />
+        tools:layout="@layout/fragment_deposit" >
+        <action
+            android:id="@+id/action_navigation_deposit_to_addDepositFragment"
+            app:destination="@id/addDepositFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_product"
         android:name="id.allana.titipbarangku.ui.product.ProductFragment"
@@ -86,4 +90,18 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </dialog>
+    <fragment
+        android:id="@+id/addDepositFragment"
+        android:name="id.allana.titipbarangku.ui.deposit.AddDepositFragment"
+        android:label="@string/add_deposit"
+        tools:layout="@layout/fragment_add_deposit">
+        <action
+            android:id="@+id/action_addDepositFragment_to_productDepositFragment"
+            app:destination="@id/productDepositFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDepositFragment"
+        android:name="id.allana.titipbarangku.ui.deposit.AddProductDepositFragment"
+        android:label="fragment_product_deposit"
+        tools:layout="@layout/fragment_add_product_deposit" />
 </navigation>
