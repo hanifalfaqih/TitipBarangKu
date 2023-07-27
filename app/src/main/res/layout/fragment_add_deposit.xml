@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.deposit.DepositFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pick_store"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:hint="@string/title_store"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <AutoCompleteTextView
+            android:id="@+id/text_dropdown_store"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            tools:text="Toko" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/helper_pick_date"
+        style="@style/Body10"
+        android:textColor="@color/purple_500"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="@+id/pick_store"
+        app:layout_constraintStart_toStartOf="@+id/pick_store"
+        app:layout_constraintTop_toBottomOf="@+id/pick_store"
+        android:text="Tanggal Mulai Deposit" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_pick_date"
+        android:layout_width="@dimen/_48sdp"
+        android:layout_height="@dimen/_48sdp"
+        android:src="@drawable/ic_date"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/helper_pick_date"
+        app:layout_constraintStart_toStartOf="@id/pick_store"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_start_date_deposit"
+        style="@style/Body14"
+        android:layout_marginStart="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_pick_date"
+        app:layout_constraintEnd_toEndOf="@+id/pick_store"
+        app:layout_constraintStart_toEndOf="@+id/btn_pick_date"
+        app:layout_constraintTop_toTopOf="@+id/btn_pick_date"
+        android:text="Pilih tanggal mulai" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_deposit"
+        style="@style/Button"
+        android:text="@string/add_deposit"
+        app:layout_constraintTop_toBottomOf="@+id/btn_pick_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
