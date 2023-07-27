@@ -43,4 +43,5 @@
     <string name="quantity_add_product">Jumlah barang / produk</string>
     <string name="save">Simpan</string>
     <string name="data_store_and_start_date_must_be_filled">Data Toko / Tanggal Deposit harus diisi!</string>
+    <string name="data_product_in_deposit_is_empty">Data barang dalam deposit masih kosong</string>
 </resources>

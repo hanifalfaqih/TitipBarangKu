@@ -7,11 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.data.model.DepositModel
+import id.allana.titipbarangku.data.model.ProductInDepositModel
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.data.model.StatusConverter
 import id.allana.titipbarangku.data.model.StoreModel
 
-@Database(entities = [CategoryModel::class, StoreModel::class, ProductModel::class, DepositModel::class], version = 1, exportSchema = false)
+@Database(entities = [CategoryModel::class, StoreModel::class, ProductModel::class, DepositModel::class, ProductInDepositModel::class], version = 1, exportSchema = false)
 @TypeConverters(StatusConverter::class)
 abstract class ConsignmentDatabase: RoomDatabase() {
 

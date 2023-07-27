@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import id.allana.titipbarangku.data.local.ConsignmentDao
 import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.data.model.DepositModel
+import id.allana.titipbarangku.data.model.ProductInDepositModel
+import id.allana.titipbarangku.data.model.ProductInDepositWithProductModel
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.data.model.ProductWithCategory
 import id.allana.titipbarangku.data.model.StoreModel
@@ -21,8 +23,11 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
     suspend fun insertStore(store: StoreModel) {
         consignmentDao.insertStore(store)
     }
-    suspend fun insertDeposit(deposit: DepositModel) {
-        consignmentDao.insertDeposit(deposit)
+    suspend fun insertDeposit(deposit: DepositModel): Long {
+        return consignmentDao.insertDeposit(deposit)
+    }
+    suspend fun insertProductInDeposit(productDeposit: ProductInDepositModel) {
+        return consignmentDao.insertProductInDeposit(productDeposit)
     }
 
     /**
@@ -57,4 +62,6 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
     fun getAllStore(): LiveData<List<StoreModel>> = consignmentDao.getAllStore()
     fun getAllCategory(): LiveData<List<CategoryModel>> = consignmentDao.getAllCategory()
     fun getCategoryWithProduct(): LiveData<List<ProductWithCategory>> = consignmentDao.getCategoryWithProduct()
+    fun getAllProduct(): LiveData<List<ProductModel>> = consignmentDao.getAllProduct()
+    fun getAllProductInDeposit(idProduct: Int): LiveData<List<ProductInDepositWithProductModel>> = consignmentDao.getAllProductInDeposit(idProduct)
 }

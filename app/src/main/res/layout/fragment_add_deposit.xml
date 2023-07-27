@@ -23,7 +23,7 @@
             android:id="@+id/text_dropdown_store"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"
+            android:inputType="none"
             tools:text="Toko" />
     </com.google.android.material.textfield.TextInputLayout>
 

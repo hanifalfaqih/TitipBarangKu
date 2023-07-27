@@ -1,4 +1,4 @@
-package id.allana.titipbarangku.ui.deposit
+package id.allana.titipbarangku.ui.deposit.add_deposit
 
 import android.app.DatePickerDialog
 import android.view.Menu
@@ -19,6 +19,7 @@ import id.allana.titipbarangku.data.model.DepositModel
 import id.allana.titipbarangku.data.model.Status
 import id.allana.titipbarangku.data.model.StoreModel
 import id.allana.titipbarangku.databinding.FragmentAddDepositBinding
+import id.allana.titipbarangku.ui.deposit.DepositViewModel
 import id.allana.titipbarangku.ui.store.StoreViewModel
 import id.allana.titipbarangku.util.formatDate
 import java.util.Calendar
@@ -37,6 +38,7 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
     private lateinit var spinnerStore: AutoCompleteTextView
 
     private var startDateDeposit: String = ""
+    private var idDeposit: Long = 0L
 
     override fun initView() {
         spinnerStore = getViewBinding().textDropdownStore
@@ -57,15 +59,20 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
         spinnerStore.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val selectedStore = listStore[position]
             storeId = selectedStore.id
-
         }
+
+        getViewBinding().btnAddDeposit.setOnClickListener {
+            insertDeposit(0, storeId)
+        }
+
+        viewModel.idDeposit.observe(viewLifecycleOwner) {
+            idDeposit = it
+        }
+
         getViewBinding().btnPickDate.setOnClickListener {
             showDatePicker()
         }
 
-        getViewBinding().btnAddDeposit.setOnClickListener {
-            insertDeposit(0)
-        }
 
         (requireActivity() as MenuHost).addMenuProvider(object: MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
@@ -78,10 +85,11 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
             }
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
     }
 
-    private fun insertDeposit(id: Int) {
-        if (storeId >= 0) {
+    private fun insertDeposit(id: Long, idStore: Int) {
+        if (idStore == 0) {
             Snackbar.make(requireView(), getString(R.string.data_store_and_start_date_must_be_filled), Snackbar.LENGTH_SHORT).show()
         } else {
             val deposit = DepositModel(
@@ -92,15 +100,19 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
                 status = Status.DEPOSIT
             )
 
-            val successMessage = if (id == 0) {
+            val successMessage = if (id == 0L) {
                 viewModel.insertDeposit(deposit)
                 getString(R.string.success_add_deposit)
             } else {
                 getString(R.string.success_update_deposit)
             }
 
-            Snackbar.make(requireView(), successMessage, Snackbar.LENGTH_SHORT).show().also {
-                this.findNavController().navigate(R.id.action_addDepositFragment_to_productDepositFragment)
+            viewModel.idDeposit.observe(viewLifecycleOwner) {
+                idDeposit = it
+                Snackbar.make(requireView(), successMessage, Snackbar.LENGTH_SHORT).show().also {
+                    val actionToAddProductDeposit = AddDepositFragmentDirections.actionAddDepositFragmentToProductDepositFragment(idDeposit)
+                    this.findNavController().navigate(actionToAddProductDeposit)
+                }
             }
         }
     }

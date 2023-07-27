@@ -41,4 +41,6 @@ class ProductViewModel(application: Application): AndroidViewModel(application) 
     }
 
     fun getCategoryWithProduct(): LiveData<List<ProductWithCategory>> = repository.getCategoryWithProduct()
+    fun getAllProduct(): LiveData<List<ProductModel>> = repository.getAllProduct()
+
 }

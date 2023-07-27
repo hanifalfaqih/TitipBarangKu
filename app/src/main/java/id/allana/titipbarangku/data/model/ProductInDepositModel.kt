@@ -10,7 +10,7 @@ data class ProductInDepositModel(
     @ColumnInfo(name = "id_product_deposit")
     val id: Int,
     @ColumnInfo(name = "id_deposit")
-    val idDeposit: Int,
+    val idDeposit: Long,
     @ColumnInfo(name = "id_product")
     val idProduct: Int,
     @ColumnInfo(name = "quantity")

@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey
 data class DepositModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id_deposit")
-    val id: Int,
+    val id: Long,
     @ColumnInfo("id_store")
     val idStore: Int,
     @ColumnInfo("start_date_deposit")

@@ -92,7 +92,7 @@
     </dialog>
     <fragment
         android:id="@+id/addDepositFragment"
-        android:name="id.allana.titipbarangku.ui.deposit.AddDepositFragment"
+        android:name="id.allana.titipbarangku.ui.deposit.add_deposit.AddDepositFragment"
         android:label="@string/add_deposit"
         tools:layout="@layout/fragment_add_deposit">
         <action
@@ -101,7 +101,14 @@
     </fragment>
     <fragment
         android:id="@+id/productDepositFragment"
-        android:name="id.allana.titipbarangku.ui.deposit.AddProductDepositFragment"
+        android:name="id.allana.titipbarangku.ui.deposit.add_product_deposit.AddProductDepositFragment"
         android:label="fragment_product_deposit"
-        tools:layout="@layout/fragment_add_product_deposit" />
+        tools:layout="@layout/fragment_add_product_deposit" >
+        <argument
+            android:name="idDeposit"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_productDepositFragment_to_navigation_deposit"
+            app:destination="@id/navigation_deposit" />
+    </fragment>
 </navigation>
