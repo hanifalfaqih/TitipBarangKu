@@ -81,7 +81,9 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
     }
 
     private fun insertDeposit(id: Int) {
-        if (validateForm()) {
+        if (storeId >= 0) {
+            Snackbar.make(requireView(), getString(R.string.data_store_and_start_date_must_be_filled), Snackbar.LENGTH_SHORT).show()
+        } else {
             val deposit = DepositModel(
                 id,
                 idStore = storeId,
@@ -101,28 +103,6 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
                 this.findNavController().navigate(R.id.action_addDepositFragment_to_productDepositFragment)
             }
         }
-    }
-
-    private fun validateForm(): Boolean {
-        val textStore = getViewBinding().textDropdownStore.toString()
-        val textStartDateDeposit = getViewBinding().tvStartDateDeposit.toString()
-
-        val isFormValid: Boolean
-
-        when {
-            textStore.isEmpty() -> {
-                isFormValid = false
-                getViewBinding().textDropdownStore.error = "Toko harus diisi!"
-            }
-            textStartDateDeposit.isEmpty() -> {
-                isFormValid = false
-                getViewBinding().tvStartDateDeposit.error = "Tanggal harus diisi!"
-            }
-            else -> {
-                isFormValid = true
-            }
-        }
-        return isFormValid
     }
 
     private fun showDatePicker() {

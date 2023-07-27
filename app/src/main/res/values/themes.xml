@@ -64,6 +64,16 @@
         <item name="cornerRadius">@dimen/_24sdp</item>
     </style>
 
+    <style name="ButtonSecondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_48sdp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_marginStart">@dimen/_16sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_16sdp</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+        <item name="cornerRadius">@dimen/_24sdp</item>
+    </style>
+
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/_48sdp</item>
