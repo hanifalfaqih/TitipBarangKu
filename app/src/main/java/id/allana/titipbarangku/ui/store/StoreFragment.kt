@@ -3,7 +3,6 @@ package id.allana.titipbarangku.ui.store
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -34,7 +33,6 @@ class   StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding:
     private fun initRecyclerView() {
         getViewBinding().rvStore.apply {
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = this@StoreFragment.storeAdapter
         }
     }
