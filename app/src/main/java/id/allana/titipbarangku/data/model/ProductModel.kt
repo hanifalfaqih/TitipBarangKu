@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
@@ -14,7 +15,8 @@ import kotlinx.parcelize.Parcelize
         childColumns = ["id_category"],
         onDelete = ForeignKey.CASCADE
     )
-])
+], indices = [Index("id_category")] // Tambahkan anotasi @Index untuk membuat index pada kolom id_category
+)
 @Parcelize
 data class ProductModel(
     @PrimaryKey(autoGenerate = true)

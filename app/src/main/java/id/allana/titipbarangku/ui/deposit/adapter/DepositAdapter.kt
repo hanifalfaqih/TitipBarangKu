@@ -1,4 +1,4 @@
-package id.allana.titipbarangku.ui.deposit
+package id.allana.titipbarangku.ui.deposit.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,9 @@ import id.allana.titipbarangku.data.model.DepositWithStore
 import id.allana.titipbarangku.data.model.Status
 import id.allana.titipbarangku.databinding.ItemDepositBinding
 
-class DepositAdapter: ListAdapter<DepositWithStore, DepositAdapter.DepositViewHolder>(DepositComparator()) {
+class DepositAdapter: ListAdapter<DepositWithStore, DepositAdapter.DepositViewHolder>(
+    DepositComparator()
+) {
     inner class DepositViewHolder(private val binding: ItemDepositBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: DepositWithStore) {
             binding.also {
@@ -44,12 +46,12 @@ class DepositAdapter: ListAdapter<DepositWithStore, DepositAdapter.DepositViewHo
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): DepositAdapter.DepositViewHolder {
+    ): DepositViewHolder {
         val binding = ItemDepositBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DepositViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: DepositAdapter.DepositViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DepositViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 }

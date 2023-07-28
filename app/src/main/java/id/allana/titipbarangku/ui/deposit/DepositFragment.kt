@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.databinding.FragmentDepositBinding
+import id.allana.titipbarangku.ui.deposit.adapter.DepositAdapter
 
 class DepositFragment : BaseFragment<FragmentDepositBinding>(FragmentDepositBinding::inflate) {
 

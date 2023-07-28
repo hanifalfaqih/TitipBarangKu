@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
+            android:id="@+id/text_dropdown_category"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
@@ -35,6 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_product_name"
             style="@style/EditText"
             android:hint="@string/product_name"/>
 
@@ -48,6 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_product_price"
             style="@style/EditText"
             android:hint="@string/product_price"
             android:inputType="numberDecimal"/>
