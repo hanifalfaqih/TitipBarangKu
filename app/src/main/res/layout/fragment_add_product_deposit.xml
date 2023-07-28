@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            tools:text="Happy" />
+            tools:text="Happy"
+            tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -82,7 +83,7 @@
         tools:visibility="visible" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_state_data_empty"
+        android:id="@id/tv_state_data_empty"
         style="@style/Body10"
         android:text="@string/data_product_in_deposit_is_empty"
         android:textAlignment="center"

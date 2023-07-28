@@ -3,8 +3,8 @@ package id.allana.titipbarangku.data.model
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class ProductInDepositWithProductModel(
-    @Embedded val productDeposit: ProductInDepositModel,
+data class ProductDepositWithProduct(
+    @Embedded val productDeposit: ProductDepositModel,
     @Relation(
         parentColumn = "id_product",
         entityColumn = "id_product"

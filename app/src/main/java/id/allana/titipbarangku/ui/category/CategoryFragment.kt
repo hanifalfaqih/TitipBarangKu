@@ -75,8 +75,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
         }
     }
 
-    companion object {
-        private const val TAG = "CategoryBottomSheetFragment"
-    }
+    companion object
 
 }

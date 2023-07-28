@@ -32,13 +32,13 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
 
     private var storeName = arrayListOf<String>()
     private var listStore = listOf<StoreModel>()
-    private var storeId = 0
 
     private lateinit var spinnerAdapter: ArrayAdapter<String>
     private lateinit var spinnerStore: AutoCompleteTextView
 
     private var startDateDeposit: String = ""
     private var idDeposit: Long = 0L
+    private var idStore = 0
 
     override fun initView() {
         spinnerStore = getViewBinding().textDropdownStore
@@ -54,19 +54,16 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
             for (data in listStore) {
                 storeName.add(data.name)
             }
-            spinnerAdapter.notifyDataSetChanged()
         }
+
         spinnerStore.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val selectedStore = listStore[position]
-            storeId = selectedStore.id
+            idStore = selectedStore.id
         }
 
+        getViewBinding().btnAddDeposit.text = if (idDeposit == 0L) getString(R.string.add_deposit) else getString(R.string.update_deposit)
         getViewBinding().btnAddDeposit.setOnClickListener {
-            insertDeposit(0, storeId)
-        }
-
-        viewModel.idDeposit.observe(viewLifecycleOwner) {
-            idDeposit = it
+            insertDeposit(idDeposit, idStore)
         }
 
         getViewBinding().btnPickDate.setOnClickListener {
@@ -89,12 +86,12 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
     }
 
     private fun insertDeposit(id: Long, idStore: Int) {
-        if (idStore == 0) {
+        if (idStore == 0 || getViewBinding().tvStartDateDeposit.text.toString() == getString(R.string.choose_start_date)) {
             Snackbar.make(requireView(), getString(R.string.data_store_and_start_date_must_be_filled), Snackbar.LENGTH_SHORT).show()
         } else {
             val deposit = DepositModel(
                 id,
-                idStore = storeId,
+                idStore = idStore,
                 startDateDeposit = startDateDeposit,
                 finishDateDeposit = "",
                 status = Status.DEPOSIT
@@ -104,14 +101,17 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
                 viewModel.insertDeposit(deposit)
                 getString(R.string.success_add_deposit)
             } else {
+                viewModel.updateDeposit(deposit)
                 getString(R.string.success_update_deposit)
             }
 
             viewModel.idDeposit.observe(viewLifecycleOwner) {
                 idDeposit = it
                 Snackbar.make(requireView(), successMessage, Snackbar.LENGTH_SHORT).show().also {
-                    val actionToAddProductDeposit = AddDepositFragmentDirections.actionAddDepositFragmentToProductDepositFragment(idDeposit)
-                    this.findNavController().navigate(actionToAddProductDeposit)
+                    if (findNavController().currentDestination?.id == R.id.addDepositFragment) {
+                        val actionToAddProductDeposit = AddDepositFragmentDirections.actionAddDepositFragmentToProductDepositFragment(idDeposit)
+                        findNavController().navigate(actionToAddProductDeposit)
+                    }
                 }
             }
         }

@@ -15,9 +15,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseFragment
-import id.allana.titipbarangku.data.model.ProductInDepositModel
+import id.allana.titipbarangku.data.model.ProductDepositModel
+import id.allana.titipbarangku.data.model.ProductDepositWithProduct
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.databinding.FragmentAddProductDepositBinding
 import id.allana.titipbarangku.ui.deposit.DepositViewModel
@@ -70,7 +73,7 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
         }
 
         getViewBinding().btnAddProduct.setOnClickListener {
-            addProduct(0, idDeposit, productId)
+            addProduct(idDeposit, productId)
         }
 
         getViewBinding().btnFinish.setOnClickListener {
@@ -97,39 +100,42 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
         }
     }
 
-    private fun showAlertDialog(itemProductDeposit: ProductInDepositModel) {
-
+    private fun showAlertDialog(data: ProductDepositWithProduct) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle(getString(R.string.delete_data))
+            setMessage(getString(R.string.msg_delete_data, data.product?.name))
+            setPositiveButton(getString(R.string.delete)) { _, _ ->
+                viewModel.deleteProductDeposit(data.productDeposit)
+                Snackbar.make(requireView(), getString(R.string.success_delete_data, data.product?.name), Snackbar.LENGTH_SHORT).show()
+            }
+            setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
+        }.show()
     }
 
-    private fun addProduct(id: Int, idDeposit: Long, idProduct: Int) {
+    private fun addProduct(idDeposit: Long, idProduct: Int) {
         if (idProduct == 0) {
-            Snackbar.make(requireView(), "Data Produk / Jumlah Barang harus diisi!", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), getString(R.string.msg_product_quantity_must_be_filled), Snackbar.LENGTH_SHORT).show()
         } else {
-            val productDeposit = ProductInDepositModel(
-                id,
+            val productDeposit = ProductDepositModel(
+                0,
                 idDeposit = idDeposit,
                 idProduct = productId,
                 quantity = getViewBinding().etProductQuantity.text.toString().toInt(),
                 returnQuantity = 0
             )
-
-            val successMessage = if (id == 0) {
-                viewModel.insertProductInDeposit(productDeposit)
-                "Berhasil tambah barang ke dalam deposit"
-            } else {
-                "Berhasil perbarui barang ke dalam deposit"
-            }
-
-            Snackbar.make(requireView(), successMessage, Toast.LENGTH_SHORT).show()
+            viewModel.insertProductInDeposit(productDeposit)
+            Snackbar.make(requireView(), getString(R.string.success_add_product_in_deposit), Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun observeData() {
         viewModel.getAllProductInDeposit(idDeposit = idDeposit.toInt()).observe(viewLifecycleOwner) { list ->
-            viewModel.checkDatabaseEmpty(list)
+            viewModel.checkProductInDeposit(list)
             addProductDepositAdapter.submitList(list)
         }
-        viewModel.checkDatabaseEmptyLiveData().observe(viewLifecycleOwner) { isEmpty ->
+        viewModel.checkProductInDepositLiveData().observe(viewLifecycleOwner) { isEmpty ->
             if (isEmpty) {
                 stateDataEmpty(true)
             } else {

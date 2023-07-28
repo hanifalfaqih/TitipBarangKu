@@ -1,7 +1,6 @@
 package id.allana.titipbarangku.util
 
 import java.text.DecimalFormat
-import java.text.NumberFormat
 import java.util.Locale
 
 fun formatRupiah(text: String): String {

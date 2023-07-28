@@ -5,32 +5,32 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import id.allana.titipbarangku.data.model.ProductInDepositModel
-import id.allana.titipbarangku.data.model.ProductInDepositWithProductModel
+import id.allana.titipbarangku.data.model.ProductDepositWithProduct
 import id.allana.titipbarangku.databinding.ItemProductInDepositBinding
 
-class AddProductDepositAdapter(private var itemProductDeposit: (ProductInDepositModel) -> Unit): ListAdapter<ProductInDepositWithProductModel, AddProductDepositAdapter.AddProductDepositViewHolder>(ProductDepositComparator()) {
+class AddProductDepositAdapter(private var itemProductDeposit: (ProductDepositWithProduct) -> Unit): ListAdapter<ProductDepositWithProduct, AddProductDepositAdapter.AddProductDepositViewHolder>(ProductDepositComparator()) {
 
     inner class AddProductDepositViewHolder(private val binding: ItemProductInDepositBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ProductInDepositWithProductModel) {
+        fun bind(data: ProductDepositWithProduct) {
             binding.also {
                 it.tvProductName.text = data.product?.name
                 it.tvProductQuantity.text = data.productDeposit.quantity.toString()
             }
+            itemProductDeposit(data)
         }
     }
 
-    class ProductDepositComparator: DiffUtil.ItemCallback<ProductInDepositWithProductModel>() {
+    class ProductDepositComparator: DiffUtil.ItemCallback<ProductDepositWithProduct>() {
         override fun areItemsTheSame(
-            oldItem: ProductInDepositWithProductModel,
-            newItem: ProductInDepositWithProductModel
+            oldItem: ProductDepositWithProduct,
+            newItem: ProductDepositWithProduct
         ): Boolean {
             return oldItem === newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: ProductInDepositWithProductModel,
-            newItem: ProductInDepositWithProductModel
+            oldItem: ProductDepositWithProduct,
+            newItem: ProductDepositWithProduct
         ): Boolean {
             return oldItem.productDeposit.id == newItem.productDeposit.id
         }

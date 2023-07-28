@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            tools:text="Toko" />
+            tools:text="Toko"
+            tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -35,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="@+id/pick_store"
         app:layout_constraintStart_toStartOf="@+id/pick_store"
         app:layout_constraintTop_toBottomOf="@+id/pick_store"
-        android:text="Tanggal Mulai Deposit" />
+        android:text="@string/start_date_deposit" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_pick_date"
@@ -54,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="@+id/pick_store"
         app:layout_constraintStart_toEndOf="@+id/btn_pick_date"
         app:layout_constraintTop_toTopOf="@+id/btn_pick_date"
-        android:text="Pilih tanggal mulai" />
+        android:text="@string/choose_start_date" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_deposit"

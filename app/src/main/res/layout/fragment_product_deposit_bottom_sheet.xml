@@ -7,24 +7,26 @@
     tools:context=".ui.category.CategoryBottomSheetFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_category"
+        android:id="@+id/til_product_quantity"
         style="@style/TextInputLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_product_quantity"
             style="@style/EditText"
-            android:hint="@string/category_name"/>
+            android:hint="@string/quantity_add_product"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_update_category"
         style="@style/Button"
-        android:text="@string/add_category"
+        android:text="@string/update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_category" />
+        app:layout_constraintTop_toBottomOf="@id/til_product_quantity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

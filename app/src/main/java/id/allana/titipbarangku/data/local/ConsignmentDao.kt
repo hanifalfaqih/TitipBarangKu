@@ -10,8 +10,9 @@ import androidx.room.Transaction
 import androidx.room.Update
 import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.data.model.DepositModel
-import id.allana.titipbarangku.data.model.ProductInDepositModel
-import id.allana.titipbarangku.data.model.ProductInDepositWithProductModel
+import id.allana.titipbarangku.data.model.DepositWithStore
+import id.allana.titipbarangku.data.model.ProductDepositModel
+import id.allana.titipbarangku.data.model.ProductDepositWithProduct
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.data.model.ProductWithCategory
 import id.allana.titipbarangku.data.model.StoreModel
@@ -30,7 +31,7 @@ interface ConsignmentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDeposit(deposit: DepositModel): Long
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertProductInDeposit(productDeposit: ProductInDepositModel)
+    suspend fun insertProductInDeposit(productDeposit: ProductDepositModel)
 
     /**
      * UPDATE
@@ -41,6 +42,10 @@ interface ConsignmentDao {
     suspend fun updateStore(store: StoreModel)
     @Update
     suspend fun updateProduct(product: ProductModel)
+    @Update
+    suspend fun updateDeposit(deposit: DepositModel)
+    @Update
+    suspend fun updateProductDeposit(productDeposit: ProductDepositModel)
 
     /**
      * READ
@@ -55,7 +60,9 @@ interface ConsignmentDao {
     @Query("SELECT * FROM product_model")
     fun getAllProduct(): LiveData<List<ProductModel>>
     @Query("SELECT * FROM product_in_deposit_model WHERE id_deposit= :idDeposit")
-    fun getAllProductInDeposit(idDeposit: Int): LiveData<List<ProductInDepositWithProductModel>>
+    fun getAllProductInDeposit(idDeposit: Int): LiveData<List<ProductDepositWithProduct>>
+    @Query("SELECT * FROM deposit_model")
+    fun getAllDeposit(): LiveData<List<DepositWithStore>>
 
     /**
      * DELETE
@@ -66,7 +73,8 @@ interface ConsignmentDao {
     suspend fun deleteCategory(category: CategoryModel)
     @Delete
     suspend fun deleteProduct(product: ProductModel)
-
+    @Delete
+    suspend fun deleteProductDeposit(productDeposit: ProductDepositModel)
 
 
 }

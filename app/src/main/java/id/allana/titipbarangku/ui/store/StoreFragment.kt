@@ -76,7 +76,5 @@ class   StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding:
         }
     }
 
-    companion object {
-        private const val TAG = "StoreBottomSheetFragment"
-    }
+    companion object
 }

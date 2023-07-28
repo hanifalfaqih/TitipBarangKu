@@ -20,7 +20,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_product_category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_product_name"
-            android:src="@drawable/ic_delete" />
+            android:src="@drawable/ic_delete"
+            android:importantForAccessibility="no" />
 
         <ImageButton
             android:background="@android:color/transparent"
@@ -31,7 +32,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
             app:layout_constraintEnd_toStartOf="@+id/btn_delete"
             app:layout_constraintTop_toTopOf="@+id/btn_delete"
-            android:src="@drawable/ic_edit" />
+            android:src="@drawable/ic_edit"
+            android:importantForAccessibility="no" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_product_name"

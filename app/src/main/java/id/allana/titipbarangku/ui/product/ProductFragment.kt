@@ -21,9 +21,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBind
             showAlertDialog(itemProduct)
         }
     }
-    companion object {
-        private const val TAG = "ProductBottomSheetFragment"
-    }
+    companion object;
 
     override fun initView() {
         initRecyclerView()
