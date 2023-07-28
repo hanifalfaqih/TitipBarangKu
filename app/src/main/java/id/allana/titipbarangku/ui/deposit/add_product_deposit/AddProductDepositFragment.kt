@@ -77,7 +77,7 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
         }
 
         getViewBinding().btnFinish.setOnClickListener {
-
+            requireActivity().finish()
         }
 
         (requireActivity() as MenuHost).addMenuProvider(object: MenuProvider {
