@@ -5,12 +5,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.databinding.FragmentProductBinding
 import id.allana.titipbarangku.ui.product.adapter.ProductAdapter
+import id.allana.titipbarangku.util.snackbar
 
 
 class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBinding::inflate) {
@@ -21,7 +21,6 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBind
             showAlertDialog(itemProduct)
         }
     }
-    companion object;
 
     override fun initView() {
         initRecyclerView()
@@ -70,7 +69,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBind
             setMessage(getString(R.string.msg_delete_data, data.name))
             setPositiveButton(R.string.delete) { _, _ ->
                 viewModel.deleteProduct(data)
-                Snackbar.make(requireView(), getString(R.string.success_delete_data, data.name), Snackbar.LENGTH_SHORT).show()
+                requireView().snackbar(getString(R.string.success_delete_data, data.name))
             }
             setNegativeButton(R.string.cancel) { dialog, _ ->
                 dialog.dismiss()

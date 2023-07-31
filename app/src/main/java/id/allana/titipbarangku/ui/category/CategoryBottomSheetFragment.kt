@@ -1,12 +1,13 @@
 package id.allana.titipbarangku.ui.category
 
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseBottomSheetDialogFragment
 import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.databinding.FragmentCategoryBottomSheetBinding
+import id.allana.titipbarangku.util.snackbar
 
 
 class CategoryBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentCategoryBottomSheetBinding>(FragmentCategoryBottomSheetBinding::inflate) {
@@ -48,11 +49,7 @@ class CategoryBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentCatego
                 getString(R.string.success_update_category)
             }
 
-            Snackbar.make(
-                requireActivity().findViewById(android.R.id.content),
-                successMessage,
-                Snackbar.LENGTH_SHORT).show().also { this.dismiss() }
-
+            requireActivity().findViewById<View>(android.R.id.content).snackbar(successMessage).also { this.dismiss() }
         }
     }
 

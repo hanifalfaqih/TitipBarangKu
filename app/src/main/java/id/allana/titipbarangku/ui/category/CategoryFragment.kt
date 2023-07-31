@@ -5,12 +5,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.databinding.FragmentCategoryBinding
 import id.allana.titipbarangku.ui.category.adapter.CategoryAdapter
+import id.allana.titipbarangku.util.snackbar
 
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryBinding::inflate) {
 
@@ -41,7 +41,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
             setMessage(getString(R.string.msg_delete_data, data.categoryName))
             setPositiveButton(getString(R.string.delete)) { _, _ ->
                 viewModel.deleteCategory(data)
-                Snackbar.make(requireView(), getString(R.string.success_delete_data, data.categoryName), Snackbar.LENGTH_SHORT).show()
+                requireView().snackbar(getString(R.string.success_delete_data, data.categoryName))
             }
             setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
@@ -74,7 +74,4 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
             }
         }
     }
-
-    companion object
-
 }

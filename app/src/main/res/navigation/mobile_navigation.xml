@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_navigation_deposit_to_addDepositHolderActivity"
             app:destination="@id/addDepositHolderActivity" />
+        <action
+            android:id="@+id/action_navigation_deposit_to_detailDepositFragment"
+            app:destination="@id/detailDepositFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_product"
@@ -95,4 +98,9 @@
         android:name="id.allana.titipbarangku.ui.deposit.AddDepositHolderActivity"
         android:label="activity_add_deposit_holder"
         tools:layout="@layout/activity_add_deposit_holder" />
+    <fragment
+        android:id="@+id/detailDepositFragment"
+        android:name="id.allana.titipbarangku.ui.deposit.DetailDepositFragment"
+        android:label="fragment_detail_deposit"
+        tools:layout="@layout/fragment_detail_deposit" />
 </navigation>

@@ -14,6 +14,8 @@
     <string name="please_add_store_first">Silakan tambahkan data toko terlebih dahulu</string>
     <string name="please_add_category_first">Silakan tambahkan data kategori terlebih dahulu</string>
     <string name="please_add_deposit_first">Silakan tambahkan data deposit terlebih dahulu</string>
+    <string name="please_add_product_first">Silakan tambahkan data produk terlebih dahulu</string>
+    <string name="please_add_product_or_store_first">Silakan tambahkan data produk / toko terlebih dahulu</string>
     <string name="update">Perbarui</string>
     <string name="add_category">Tambah Kategori</string>
     <string name="add_product">Tambah Produk</string>
@@ -47,4 +49,6 @@
     <string name="success_add_product_in_deposit">Berhasil tambah barang ke dalam deposit</string>
     <string name="start_date_deposit">Tanggal Mulai Deposit</string>
     <string name="msg_product_quantity_must_be_filled">Data Produk / Jumlah Barang harus diisi!</string>
+    <string name="product_name_must_be_filled">Nama produk harus diisi!</string>
+    <string name="product_price_must_be_filled">Harga produk harus diisi!</string>
 </resources>

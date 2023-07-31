@@ -2,11 +2,13 @@ package id.allana.titipbarangku.ui.deposit.add_product_deposit.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import id.allana.titipbarangku.data.model.ProductDepositWithProduct
 import id.allana.titipbarangku.databinding.ItemProductInDepositBinding
+import id.allana.titipbarangku.ui.deposit.add_product_deposit.AddProductDepositFragmentDirections
 
 class AddProductDepositAdapter(private var itemProductDeposit: (ProductDepositWithProduct) -> Unit): ListAdapter<ProductDepositWithProduct, AddProductDepositAdapter.AddProductDepositViewHolder>(ProductDepositComparator()) {
 
@@ -15,8 +17,16 @@ class AddProductDepositAdapter(private var itemProductDeposit: (ProductDepositWi
             binding.also {
                 it.tvProductName.text = data.product?.name
                 it.tvProductQuantity.text = data.productDeposit.quantity.toString()
+
+                it.btnEdit.setOnClickListener { view ->
+                    val actionToProductBottomSheet = AddProductDepositFragmentDirections.actionProductDepositFragmentToProductDepositBottomSheetFragment(data.productDeposit)
+                    view.findNavController().navigate(actionToProductBottomSheet)
+                }
+
+                it.btnDelete.setOnClickListener {
+                    itemProductDeposit(data)
+                }
             }
-            itemProductDeposit(data)
         }
     }
 

@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -26,6 +25,7 @@ import id.allana.titipbarangku.databinding.FragmentAddProductDepositBinding
 import id.allana.titipbarangku.ui.deposit.DepositViewModel
 import id.allana.titipbarangku.ui.deposit.add_product_deposit.adapter.AddProductDepositAdapter
 import id.allana.titipbarangku.ui.product.ProductViewModel
+import id.allana.titipbarangku.util.snackbar
 
 
 class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>(FragmentAddProductDepositBinding::inflate) {
@@ -106,7 +106,7 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
             setMessage(getString(R.string.msg_delete_data, data.product?.name))
             setPositiveButton(getString(R.string.delete)) { _, _ ->
                 viewModel.deleteProductDeposit(data.productDeposit)
-                Snackbar.make(requireView(), getString(R.string.success_delete_data, data.product?.name), Snackbar.LENGTH_SHORT).show()
+                requireView().snackbar(getString(R.string.success_delete_data, data.product?.name))
             }
             setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
@@ -126,7 +126,7 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
                 returnQuantity = 0
             )
             viewModel.insertProductInDeposit(productDeposit)
-            Snackbar.make(requireView(), getString(R.string.success_add_product_in_deposit), Toast.LENGTH_SHORT).show()
+            requireView().snackbar(getString(R.string.success_add_product_in_deposit))
         }
     }
 

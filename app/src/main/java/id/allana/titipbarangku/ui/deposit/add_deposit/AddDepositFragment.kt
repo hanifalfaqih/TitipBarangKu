@@ -22,6 +22,7 @@ import id.allana.titipbarangku.databinding.FragmentAddDepositBinding
 import id.allana.titipbarangku.ui.deposit.DepositViewModel
 import id.allana.titipbarangku.ui.store.StoreViewModel
 import id.allana.titipbarangku.util.formatDate
+import id.allana.titipbarangku.util.snackbar
 import java.util.Calendar
 
 
@@ -107,7 +108,7 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
 
             viewModel.idDeposit.observe(viewLifecycleOwner) {
                 idDeposit = it
-                Snackbar.make(requireView(), successMessage, Snackbar.LENGTH_SHORT).show().also {
+                requireView().snackbar(successMessage).also {
                     if (findNavController().currentDestination?.id == R.id.addDepositFragment) {
                         val actionToAddProductDeposit = AddDepositFragmentDirections.actionAddDepositFragmentToProductDepositFragment(idDeposit)
                         findNavController().navigate(actionToAddProductDeposit)
@@ -131,7 +132,5 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
         ).show()
     }
 
-    override fun observeData() {
-
-    }
+    override fun observeData() {}
 }

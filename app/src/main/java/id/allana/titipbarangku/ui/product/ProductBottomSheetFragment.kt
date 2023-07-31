@@ -2,18 +2,19 @@ package id.allana.titipbarangku.ui.product
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseBottomSheetDialogFragment
 import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.databinding.FragmentProductBottomSheetBinding
 import id.allana.titipbarangku.ui.category.CategoryViewModel
+import id.allana.titipbarangku.util.snackbar
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
@@ -93,9 +94,11 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
         /**
          * add product
          */
-        getViewBinding().btnAddProduct.setOnClickListener {
-            insertProduct(0, categoryId)
-        }
+        if (listCategory.isNotEmpty()) {
+            getViewBinding().btnAddProduct.setOnClickListener {
+                insertProduct(0, categoryId)
+            }
+        } else requireView().snackbar(getString(R.string.please_add_category_first))
     }
 
     private fun setDataToView(data: ProductModel) {
@@ -125,11 +128,7 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
                 getString(R.string.success_update_product)
             }
 
-            Snackbar.make(
-                requireActivity().findViewById(android.R.id.content),
-                successMessage,
-                Snackbar.LENGTH_SHORT
-            ).show().also { this.dismiss() }
+            requireActivity().findViewById<View>(android.R.id.content).snackbar(successMessage).also { this.dismiss() }
         }
     }
 
@@ -142,12 +141,12 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
         when {
             textProductName.isEmpty() -> {
                 isFormValid = false
-                getViewBinding().etProductName.error = "Nama produk harus diisi!"
+                getViewBinding().etProductName.error = getString(R.string.product_name_must_be_filled)
             }
 
             textProductPrice.isEmpty() -> {
                 isFormValid = false
-                getViewBinding().etProductPrice.error = "Harga produk harus diisi!"
+                getViewBinding().etProductPrice.error = getString(R.string.product_price_must_be_filled)
             }
 
             else -> {
@@ -179,8 +178,7 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
 
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        }
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     }
 
 }

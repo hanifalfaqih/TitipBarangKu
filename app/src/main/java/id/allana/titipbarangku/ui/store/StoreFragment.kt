@@ -75,6 +75,4 @@ class   StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding:
             }
         }
     }
-
-    companion object
 }
