@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.data.model.DepositWithStore
+import id.allana.titipbarangku.data.model.ProductDepositModel
 import id.allana.titipbarangku.databinding.FragmentDetailDepositBinding
 import id.allana.titipbarangku.ui.deposit.adapter.DetailDepositAdapter
 import id.allana.titipbarangku.util.snackbar
@@ -66,6 +67,16 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = this@DetailDepositFragment.detailDepositAdapter
         }
+
+        this.detailDepositAdapter.setOnItemClickCallback(object: DetailDepositAdapter.OnItemClickCallback {
+            override fun onButtonUpdateQuantity(data: ProductDepositModel) {
+                if (data.returnQuantity > data.quantity && data.returnQuantity.toString().isEmpty()) {
+                    requireView().snackbar("Nilai harus lebih kecil atau sama dengan nilai jumlah barang")
+                } else {
+                    viewModel.updateProductDeposit(data)
+                }
+            }
+        })
     }
 
     private fun setDataToView(data: DepositWithStore) {

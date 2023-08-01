@@ -19,5 +19,9 @@ data class ProductDepositModel(
     @ColumnInfo(name = "quantity")
     val quantity: Int,
     @ColumnInfo(name = "return_quantity")
-    val returnQuantity: Int
+    var returnQuantity: Int,
+    @ColumnInfo(name = "total_product_sold")
+    var totalProductSold: Int = 0,
+    @ColumnInfo(name = "is_expanded")
+    var isExpanded: Boolean = false
 ): Parcelable

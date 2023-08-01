@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.isEmpty
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
@@ -77,7 +78,11 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
         }
 
         getViewBinding().btnFinish.setOnClickListener {
+            if (getViewBinding().rvProductInDeposit.isEmpty()) {
+                requireView().snackbar("Silakan tambah produk dulu")
+            } else {
             requireActivity().finish()
+            }
         }
 
         (requireActivity() as MenuHost).addMenuProvider(object: MenuProvider {
