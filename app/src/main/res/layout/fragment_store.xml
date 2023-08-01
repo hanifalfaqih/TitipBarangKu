@@ -43,7 +43,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_state_data_empty"
         style="@style/Body10"
-        android:text="@string/please_add_store_first"
+        android:text="@string/data_store_empty"
         android:textAlignment="center"
         android:visibility="gone"
         android:layout_marginTop="@dimen/_4sdp"

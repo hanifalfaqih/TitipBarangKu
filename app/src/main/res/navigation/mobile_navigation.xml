@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_navigation_store_to_storeBottomSheetFragment"
             app:destination="@id/storeBottomSheetFragment" />
+        <action
+            android:id="@+id/action_navigation_store_to_detailStoreFragment"
+            app:destination="@id/detailStoreFragment" />
     </fragment>
 
     <fragment
@@ -101,6 +104,22 @@
     <fragment
         android:id="@+id/detailDepositFragment"
         android:name="id.allana.titipbarangku.ui.deposit.DetailDepositFragment"
-        android:label="fragment_detail_deposit"
-        tools:layout="@layout/fragment_detail_deposit" />
+        android:label="@string/detail_deposit"
+        tools:layout="@layout/fragment_detail_deposit">
+        <argument
+            android:name="dataDepositWithStore"
+            android:defaultValue="@null"
+            app:argType="id.allana.titipbarangku.data.model.DepositWithStore"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailStoreFragment"
+        android:name="id.allana.titipbarangku.ui.store.DetailStoreFragment"
+        android:label="DetailStoreFragment"
+        tools:layout="@layout/fragment_detail_store">
+        <argument
+            android:name="dataDetailStore"
+            app:argType="id.allana.titipbarangku.data.model.StoreModel"
+            app:nullable="true" />
+    </fragment>
 </navigation>

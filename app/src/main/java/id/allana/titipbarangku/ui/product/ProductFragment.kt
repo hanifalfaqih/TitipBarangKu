@@ -3,12 +3,14 @@ package id.allana.titipbarangku.ui.product
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.databinding.FragmentProductBinding
+import id.allana.titipbarangku.ui.category.CategoryViewModel
 import id.allana.titipbarangku.ui.product.adapter.ProductAdapter
 import id.allana.titipbarangku.util.snackbar
 
@@ -16,6 +18,7 @@ import id.allana.titipbarangku.util.snackbar
 class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBinding::inflate) {
 
     private val viewModel: ProductViewModel by viewModels()
+    private val categoryViewModel: CategoryViewModel by viewModels()
     private val productAdapter by lazy {
         ProductAdapter { itemProduct ->
             showAlertDialog(itemProduct)
@@ -25,14 +28,23 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBind
     override fun initView() {
         initRecyclerView()
 
-        getViewBinding().fabAddProduct.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_product_to_productBottomSheetFragment)
+        categoryViewModel.getAllCategory().observe(viewLifecycleOwner) { list ->
+            getViewBinding().fabAddProduct.setOnClickListener {
+                if (list.isNotEmpty()) {
+                    findNavController().navigate(R.id.action_navigation_product_to_productBottomSheetFragment)
+                } else {
+                    requireView().snackbar(getString(R.string.please_add_category_first))
+                }
+            }
         }
+
+
     }
 
     private fun initRecyclerView() {
         getViewBinding().rvProduct.apply {
             layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = this@ProductFragment.productAdapter
         }
     }

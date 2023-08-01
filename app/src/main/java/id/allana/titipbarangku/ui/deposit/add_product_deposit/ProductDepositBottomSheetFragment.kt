@@ -17,7 +17,7 @@ class ProductDepositBottomSheetFragment : BaseBottomSheetDialogFragment<Fragment
 
     override fun initView() {
         args.productDepositData?.let { productDepositModel ->
-            getViewBinding().etProductQuantity.setText(productDepositModel.quantity)
+            getViewBinding().etProductQuantity.setText(productDepositModel.quantity.toString())
             getViewBinding().btnUpdateCategory.setOnClickListener {
                 updateProductDeposit(productDepositModel)
             }

@@ -11,11 +11,12 @@
     <string name="delete">Hapus</string>
     <string name="cancel">Batal</string>
     <string name="success_delete_data">Berhasil hapus data %s</string>
-    <string name="please_add_store_first">Silakan tambahkan data toko terlebih dahulu</string>
-    <string name="please_add_category_first">Silakan tambahkan data kategori terlebih dahulu</string>
-    <string name="please_add_deposit_first">Silakan tambahkan data deposit terlebih dahulu</string>
-    <string name="please_add_product_first">Silakan tambahkan data produk terlebih dahulu</string>
-    <string name="please_add_product_or_store_first">Silakan tambahkan data produk / toko terlebih dahulu</string>
+    <string name="data_store_empty">Tidak ada data toko ditemukan</string>
+    <string name="data_category_empty">Tidak ada data kategori ditemukan</string>
+    <string name="data_deposit_empty">Tidak ada data deposit ditemukan</string>
+    <string name="data_product_empty">Tidak ada data produk ditemukan</string>
+    <string name="please_add_product_or_store_first">Silakan tambah data produk / toko terlebih dahulu</string>
+    <string name="please_add_category_first">Silakan tambah data kategori terlebih dahulu</string>
     <string name="update">Perbarui</string>
     <string name="add_category">Tambah Kategori</string>
     <string name="add_product">Tambah Produk</string>
@@ -51,4 +52,9 @@
     <string name="msg_product_quantity_must_be_filled">Data Produk / Jumlah Barang harus diisi!</string>
     <string name="product_name_must_be_filled">Nama produk harus diisi!</string>
     <string name="product_price_must_be_filled">Harga produk harus diisi!</string>
+    <string name="detail_deposit">Detail Deposit</string>
+    <string name="finish">Finish</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="history_deposit">Riwayat Deposit</string>
 </resources>

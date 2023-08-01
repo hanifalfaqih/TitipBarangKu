@@ -27,6 +27,11 @@ class StoreAdapter(private var itemStore: (StoreModel) -> Unit): ListAdapter<Sto
                 it.btnDelete.setOnClickListener {
                     itemStore(data)
                 }
+
+                itemView.setOnClickListener { view ->
+                    val actionToDetailStore = StoreFragmentDirections.actionNavigationStoreToDetailStoreFragment(data)
+                    view.findNavController().navigate(actionToDetailStore)
+                }
             }
         }
     }

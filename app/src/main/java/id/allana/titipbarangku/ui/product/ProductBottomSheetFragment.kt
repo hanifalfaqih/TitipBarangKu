@@ -94,11 +94,9 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
         /**
          * add product
          */
-        if (listCategory.isNotEmpty()) {
-            getViewBinding().btnAddProduct.setOnClickListener {
-                insertProduct(0, categoryId)
-            }
-        } else requireView().snackbar(getString(R.string.please_add_category_first))
+        getViewBinding().btnAddProduct.setOnClickListener {
+            insertProduct(0, categoryId)
+        }
     }
 
     private fun setDataToView(data: ProductModel) {

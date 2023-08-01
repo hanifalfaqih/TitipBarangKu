@@ -6,30 +6,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_8sdp">
 
-    <ImageButton
-        android:id="@+id/btn_delete"
-        android:layout_width="@dimen/_37sdp"
-        android:layout_height="@dimen/_37sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_delete"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_product_quantity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_product_name"
-        android:importantForAccessibility="no" />
-
-    <ImageButton
-        android:background="@android:color/transparent"
-        android:id="@+id/btn_edit"
-        android:layout_height="@dimen/_37sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
-        android:layout_width="@dimen/_37sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
-        app:layout_constraintEnd_toStartOf="@+id/btn_delete"
-        app:layout_constraintTop_toTopOf="@+id/btn_delete"
-        android:src="@drawable/ic_edit"
-        android:importantForAccessibility="no" />
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_product_name"
         style="@style/Title18"
@@ -37,7 +13,7 @@
         android:layout_marginEnd="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_4sdp"
         app:fontFamily="@font/gothic_a1_semibold"
-        app:layout_constraintEnd_toStartOf="@+id/btn_edit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="BERAS" />

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import id.allana.titipbarangku.data.local.ConsignmentDatabase
+import id.allana.titipbarangku.data.model.DepositModel
 import id.allana.titipbarangku.data.model.StoreModel
 import id.allana.titipbarangku.data.repository.ConsignmentRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,12 +17,17 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
     private val consignmentDao = ConsignmentDatabase.getDatabase(application).consignmentDao()
     private val repository = ConsignmentRepository(consignmentDao)
 
-    private val checkDatabaseEmptyLiveData = MutableLiveData<Boolean>()
+    private val checkDatabaseEmpty = MutableLiveData<Boolean>()
     fun checkDatabaseEmpty(data: List<StoreModel>) {
-        checkDatabaseEmptyLiveData.value = data.isEmpty()
+        checkDatabaseEmpty.value = data.isEmpty()
     }
 
-    fun checkDatabaseEmptyLiveData(): LiveData<Boolean> = checkDatabaseEmptyLiveData
+    fun checkDatabaseEmptyLiveData(): LiveData<Boolean> = checkDatabaseEmpty
+
+    fun checkDepositInStore(data: List<DepositModel>) {
+        checkDatabaseEmpty.value = data.isEmpty()
+    }
+    fun checkDepositInStoreLiveData(): LiveData<Boolean> = checkDatabaseEmpty
 
     fun insertStore(store: StoreModel) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -41,5 +47,6 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getAllStore(): LiveData<List<StoreModel>> = repository.getAllStore()
+    fun getAllDepositInStore(idStore: Int) = repository.getAllDepositInStore(idStore)
 
 }

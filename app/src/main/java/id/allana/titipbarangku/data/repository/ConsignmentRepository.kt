@@ -75,4 +75,5 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
     fun getAllProduct(): LiveData<List<ProductModel>> = consignmentDao.getAllProduct()
     fun getAllProductInDeposit(idProduct: Int): LiveData<List<ProductDepositWithProduct>> = consignmentDao.getAllProductInDeposit(idProduct)
     fun getAllDeposit(): LiveData<List<DepositWithStore>> = consignmentDao.getAllDeposit()
+    fun getAllDepositInStore(idStore: Int): LiveData<List<DepositModel>> = consignmentDao.getAllDepositInStore(idStore)
 }

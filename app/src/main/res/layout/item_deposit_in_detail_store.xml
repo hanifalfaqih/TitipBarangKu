@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_8sdp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_status_deposit"
+        style="@style/Body12"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:textColor="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="DEPOSIT" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_start_date_deposit"
+        style="@style/Body10"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_status_deposit"
+        app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
+        tools:text="START DATE" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/symbol_until"
+        style="@style/Body12"
+        android:text=" - "
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        app:layout_constraintStart_toEndOf="@id/tv_start_date_deposit"
+        app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_end_date_deposit"
+        style="@style/Body10"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        app:layout_constraintStart_toEndOf="@id/symbol_until"
+        app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="END DATE" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

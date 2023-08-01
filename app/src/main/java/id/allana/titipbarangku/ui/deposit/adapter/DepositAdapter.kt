@@ -2,12 +2,14 @@ package id.allana.titipbarangku.ui.deposit.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import id.allana.titipbarangku.data.model.DepositWithStore
 import id.allana.titipbarangku.data.model.Status
 import id.allana.titipbarangku.databinding.ItemDepositBinding
+import id.allana.titipbarangku.ui.deposit.DepositFragmentDirections
 
 class DepositAdapter: ListAdapter<DepositWithStore, DepositAdapter.DepositViewHolder>(
     DepositComparator()
@@ -22,6 +24,10 @@ class DepositAdapter: ListAdapter<DepositWithStore, DepositAdapter.DepositViewHo
                     Status.DEPOSIT -> "DEPOSIT"
                     else -> "SELESAI"
                 }
+            }
+            itemView.setOnClickListener {
+                val actionToDetailDeposit = DepositFragmentDirections.actionNavigationDepositToDetailDepositFragment(data)
+                it.findNavController().navigate(actionToDetailDeposit)
             }
         }
     }

@@ -1,10 +1,12 @@
 package id.allana.titipbarangku.data.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "deposit_model", foreignKeys = [
     ForeignKey(
@@ -15,6 +17,7 @@ import androidx.room.PrimaryKey
     )
 ], indices = [Index("id_store")] // Tambahkan anotasi @Index untuk membuat index pada kolom id_category
 )
+@Parcelize
 data class DepositModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id_deposit")
@@ -27,8 +30,7 @@ data class DepositModel(
     val finishDateDeposit: String,
     @ColumnInfo("status")
     val status: Status
-
-)
+): Parcelable
 
 enum class Status{
     DEPOSIT,

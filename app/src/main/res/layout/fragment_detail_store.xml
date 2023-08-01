@@ -23,57 +23,41 @@
                 android:id="@+id/tv_store_name"
                 style="@style/Title18"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
-                android:drawableStart="@drawable/ic_store_color"
-                android:drawablePadding="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="TOKO ABCD" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_status_deposit"
+                android:id="@+id/tv_store_address"
                 style="@style/Body12"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:drawableStart="@drawable/ic_status"
-                android:drawablePadding="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_store_name"
                 app:layout_constraintStart_toStartOf="@+id/tv_store_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_store_name"
-                tools:text="DEPOSIT" />
+                tools:text="Semarang" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_start_date_deposit"
+                android:id="@+id/tv_store_owner_name"
                 style="@style/Body12"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
-                android:drawableStart="@drawable/ic_date_24dp"
-                android:drawablePadding="@dimen/_8sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tv_status_deposit"
-                app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
-                tools:text="TOKO ABCD" />
+                app:layout_constraintEnd_toEndOf="@id/tv_store_address"
+                app:layout_constraintStart_toStartOf="@+id/tv_store_address"
+                app:layout_constraintTop_toBottomOf="@+id/tv_store_address"
+                tools:text="Hanif" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/symbol_until"
+                android:id="@+id/tv_store_owner_phone_number"
                 style="@style/Body12"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:text=" - "
-                app:layout_constraintBottom_toBottomOf="@+id/tv_start_date_deposit"
-                app:layout_constraintStart_toEndOf="@id/tv_start_date_deposit"
-                app:layout_constraintTop_toTopOf="@+id/tv_start_date_deposit" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_end_date_deposit"
-                style="@style/Body12"
-                android:layout_margin="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_store_owner_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_store_owner_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_store_owner_name"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/symbol_until"
-                app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
-                tools:text="TOKO ABCD" />
+                tools:text="082221365052" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -85,19 +69,19 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:text="List Produk"
+        android:text="@string/history_deposit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_detail_deposit" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_product_in_deposit"
+        android:id="@+id/rv_deposit_in_store"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/list_product_in_deposit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_product_in_detail_deposit"/>
+        tools:listitem="@layout/item_deposit"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_state_data_empty"
