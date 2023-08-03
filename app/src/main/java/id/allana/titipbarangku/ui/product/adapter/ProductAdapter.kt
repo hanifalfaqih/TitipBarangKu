@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.data.model.ProductWithCategory
 import id.allana.titipbarangku.databinding.ItemProductBinding
@@ -17,9 +18,9 @@ class ProductAdapter(private var itemProduct: (ProductModel) -> Unit): ListAdapt
     inner class ProductViewHolder(private val binding: ItemProductBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ProductWithCategory) {
             binding.also {
-                it.tvProductCategory.text = data.category?.categoryName
                 it.tvProductName.text = data.product.name
-                it.tvProductPrice.text = formatRupiah(data.product.price)
+                it.tvProductPrice.text = itemView.context.getString(R.string.format_show_list, formatRupiah(data.product.price))
+                it.tvProductCategory.text = itemView.context.getString(R.string.format_show_list, data.category?.categoryName)
 
                 it.btnEdit.setOnClickListener { view ->
                     val actionToProductBottomSheet = ProductFragmentDirections.actionNavigationProductToProductBottomSheetFragment(data.product)

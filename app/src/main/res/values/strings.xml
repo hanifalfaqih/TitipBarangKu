@@ -6,11 +6,14 @@
     <string name="title_product">Produk</string>
     <string name="title_category">Kategori</string>
 
+    <string name="format_show_list">: %s</string>
     <string name="delete_data">"Hapus data"</string>
     <string name="msg_delete_data">"Yakin akan menghapus data %s"</string>
+    <string name="msg_delete_data_deposit">"Yakin akan menghapus data deposit dari toko %s"</string>
     <string name="delete">Hapus</string>
     <string name="cancel">Batal</string>
     <string name="success_delete_data">Berhasil hapus data %s</string>
+    <string name="success_delete_data_deposit">Berhasil hapus data deposit</string>
     <string name="data_store_empty">Tidak ada data toko ditemukan</string>
     <string name="data_category_empty">Tidak ada data kategori ditemukan</string>
     <string name="data_deposit_empty">Tidak ada data deposit ditemukan</string>

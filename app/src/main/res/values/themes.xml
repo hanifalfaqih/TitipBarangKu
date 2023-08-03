@@ -14,6 +14,46 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Nunito.16.Title" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/nunito</item>
+    </style>
+
+    <style name="Nunito.12.Body" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/nunito</item>
+    </style>
+
+    <style name="Nunito.10.Body" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/nunito</item>
+    </style>
+
+    <style name="Nunito.8.Body" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_8ssp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/nunito</item>
+    </style>
+
+    <style name="Nunito.6.Body" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_6ssp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/nunito</item>
+    </style>
+
     <style name="Title18" parent="Widget.MaterialComponents.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>

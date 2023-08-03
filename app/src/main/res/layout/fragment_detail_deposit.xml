@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:layout_marginBottom="?android:attr/actionBarSize">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_detail_deposit"
@@ -79,6 +80,14 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_finish_deposit"
+        style="@style/Button"
+        android:text="DEPOSIT SELESAI"
+        app:layout_constraintTop_toBottomOf="@id/cv_detail_deposit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/list_product_in_deposit"
         style="@style/Title18"
@@ -88,16 +97,17 @@
         android:text="List Produk"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cv_detail_deposit" />
+        app:layout_constraintTop_toBottomOf="@id/btn_finish_deposit" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_product_in_deposit"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/list_product_in_deposit"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_product_in_detail_deposit"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/list_product_in_deposit"
+        tools:listitem="@layout/item_product_in_detail_deposit" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_state_data_empty"

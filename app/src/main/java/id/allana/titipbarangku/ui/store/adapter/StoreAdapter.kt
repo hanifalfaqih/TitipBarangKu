@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.model.StoreModel
 import id.allana.titipbarangku.databinding.ItemStoreBinding
 import id.allana.titipbarangku.ui.store.StoreFragmentDirections
@@ -16,9 +17,9 @@ class StoreAdapter(private var itemStore: (StoreModel) -> Unit): ListAdapter<Sto
         fun bind(data: StoreModel) {
             binding.also {
                 it.tvStoreName.text = data.name
-                it.tvStoreAddress.text = data.address
-                it.tvStoreOwnerName.text = data.ownerName
-                it.tvStoreOwnerPhoneNumber.text = data.ownerPhoneNumber
+                it.tvStoreAddress.text = itemView.context.getString(R.string.format_show_list, data.address)
+                it.tvStoreOwnerName.text = itemView.context.getString(R.string.format_show_list, data.ownerName)
+                it.tvStoreOwnerPhoneNumber.text = itemView.context.getString(R.string.format_show_list, data.ownerPhoneNumber)
 
                 it.btnEdit.setOnClickListener { view ->
                     val actionToStoreBottomSheet = StoreFragmentDirections.actionNavigationStoreToStoreBottomSheetFragment(data)

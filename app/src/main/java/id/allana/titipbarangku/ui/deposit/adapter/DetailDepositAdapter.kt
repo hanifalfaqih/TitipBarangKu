@@ -33,9 +33,29 @@ class DetailDepositAdapter :
                 var totalProductSold = data.productDeposit.totalProductSold
 
                 it.tvProductName.text = data.product?.name
-                it.tvProductQuantity.text = "Jumlah Barang = $quantity"
-                it.tvProductReturnQuantity.text = "Jumlah Barang Kembali = $returnQuantity"
-                it.tvTotalProductSold.text = "Total Barang Terjual  = $totalProductSold"
+                it.tvProductQuantity.text = itemView.context.getString(R.string.format_show_list, quantity.toString())
+                it.tvProductReturnQuantity.text = itemView.context.getString(R.string.format_show_list, returnQuantity.toString())
+                it.tvTotalProductSold.text = itemView.context.getString(R.string.format_show_list, totalProductSold)
+
+                it.btnUpdateReturnQuantity.setOnClickListener {
+                    val valueReturnQuantity = binding.etReturnQuantity.text.toString()
+                    returnQuantity = if (valueReturnQuantity.isNullOrEmpty()) 0 else valueReturnQuantity.toInt()
+                    data.productDeposit.returnQuantity = returnQuantity
+
+                    // Calculate total product sold and update the UI
+                    totalProductSold = (data.productDeposit.quantity - returnQuantity).toString()
+                    data.productDeposit.totalProductSold = totalProductSold
+
+                    val productDeposit = ProductDepositModel(
+                        id = id,
+                        idDeposit = idDeposit,
+                        idProduct = idProduct,
+                        quantity = quantity,
+                        returnQuantity = returnQuantity,
+                        totalProductSold = totalProductSold,
+                    )
+                    onItemClickCallback.onButtonUpdateQuantity(productDeposit)
+                }
 
                 it.btnExpand.setOnClickListener {
                     data.productDeposit.isExpanded = !data.productDeposit.isExpanded
@@ -46,27 +66,6 @@ class DetailDepositAdapter :
                         binding.btnExpand.setImageResource(R.drawable.ic_arrow_down)
                         binding.layoutReturnQuantity.visibility = View.GONE
                     }
-                }
-
-
-                it.btnUpdateReturnQuantity.setOnClickListener {
-                    val valueReturnQuantity = binding.etReturnQuantity.text.toString()
-                    returnQuantity = if (valueReturnQuantity.isNullOrEmpty()) 0 else valueReturnQuantity.toInt()
-                    data.productDeposit.returnQuantity = returnQuantity
-
-                    // Calculate total product sold and update the UI
-                    totalProductSold = data.productDeposit.quantity - returnQuantity
-                    data.productDeposit.totalProductSold = totalProductSold
-
-                    val productDeposit = ProductDepositModel(
-                        id = id,
-                        idDeposit = idDeposit,
-                        idProduct = idProduct,
-                        quantity = quantity,
-                        returnQuantity = returnQuantity,
-                        totalProductSold = totalProductSold
-                    )
-                    onItemClickCallback.onButtonUpdateQuantity(productDeposit)
                 }
             }
         }
@@ -84,7 +83,7 @@ class DetailDepositAdapter :
             oldItem: ProductDepositWithProduct,
             newItem: ProductDepositWithProduct
         ): Boolean {
-            return oldItem.productDeposit.id == newItem.productDeposit.id
+            return oldItem.productDeposit.id == newItem.productDeposit.id && oldItem.productDeposit.quantity == newItem.productDeposit.quantity && oldItem.productDeposit.returnQuantity == newItem.productDeposit.returnQuantity
         }
 
     }

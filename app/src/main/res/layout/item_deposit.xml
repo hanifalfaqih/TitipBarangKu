@@ -13,28 +13,39 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_store_name"
-            style="@style/Title18"
+            style="@style/Nunito.16.Title"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            app:fontFamily="@font/gothic_a1_semibold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="TOKO ABCD" />
 
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@color/gray_item_divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_store_name" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_status_deposit"
-            style="@style/Body12"
-            android:layout_marginTop="@dimen/_4sdp"
+            style="@style/Nunito.12.Body"
             android:textColor="@color/purple_500"
+            android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="@+id/tv_store_name"
             app:layout_constraintStart_toStartOf="@+id/tv_store_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_store_name"
+            app:layout_constraintTop_toBottomOf="@id/divider"
             tools:text="DEPOSIT" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_start_date_deposit"
-            style="@style/Body10"
+            style="@style/Nunito.12.Body"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +55,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/symbol_until"
-            style="@style/Body12"
+            style="@style/Nunito.12.Body"
             android:text=" - "
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_8sdp"
@@ -55,7 +66,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_end_date_deposit"
-            style="@style/Body10"
+            style="@style/Nunito.12.Body"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_8sdp"

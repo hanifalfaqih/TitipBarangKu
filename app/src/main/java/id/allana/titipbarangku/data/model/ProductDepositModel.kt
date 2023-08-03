@@ -3,10 +3,18 @@ package id.allana.titipbarangku.data.model
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "product_in_deposit_model")
+@Entity(tableName = "product_in_deposit_model", foreignKeys = [
+    ForeignKey(
+        entity = ProductModel::class,
+        parentColumns = ["id_product"],
+        childColumns = ["id_product"],
+        onDelete = ForeignKey.CASCADE
+    )
+])
 @Parcelize
 data class ProductDepositModel(
     @PrimaryKey(autoGenerate = true)
@@ -21,7 +29,7 @@ data class ProductDepositModel(
     @ColumnInfo(name = "return_quantity")
     var returnQuantity: Int,
     @ColumnInfo(name = "total_product_sold")
-    var totalProductSold: Int = 0,
+    var totalProductSold: String = "-",
     @ColumnInfo(name = "is_expanded")
     var isExpanded: Boolean = false
 ): Parcelable

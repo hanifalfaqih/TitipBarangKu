@@ -2,10 +2,12 @@ package id.allana.titipbarangku.ui.deposit.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.model.DepositWithStore
 import id.allana.titipbarangku.data.model.Status
 import id.allana.titipbarangku.databinding.ItemDepositBinding
@@ -20,9 +22,15 @@ class DepositAdapter: ListAdapter<DepositWithStore, DepositAdapter.DepositViewHo
                 it.tvStoreName.text = data.store?.name
                 it.tvStartDateDeposit.text = data.deposit.startDateDeposit
                 it.tvEndDateDeposit.text = data.deposit.finishDateDeposit
-                it.tvStatusDeposit.text = when (data.deposit.status) {
-                    Status.DEPOSIT -> "DEPOSIT"
-                    else -> "SELESAI"
+                when (data.deposit.status) {
+                    Status.DEPOSIT -> {
+                        it.tvStatusDeposit.text = "DEPOSIT"
+                        it.tvStatusDeposit.setTextColor(ContextCompat.getColor(itemView.context, R.color.purple_500))
+                    }
+                    else -> {
+                        it.tvStatusDeposit.text = "FINISH"
+                        it.tvStatusDeposit.setTextColor(ContextCompat.getColor(itemView.context, R.color.teal_200))
+                    }
                 }
             }
             itemView.setOnClickListener {

@@ -80,6 +80,8 @@ interface ConsignmentDao {
     suspend fun deleteProduct(product: ProductModel)
     @Delete
     suspend fun deleteProductDeposit(productDeposit: ProductDepositModel)
+    @Delete
+    suspend fun deleteDeposit(deposit: DepositModel)
 
 
 }

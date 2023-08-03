@@ -8,10 +8,4 @@
         android:title="@string/delete"
         app:showAsAction="ifRoom"/>
 
-    <item
-        android:id="@+id/menu_finish_deposit"
-        android:icon="@drawable/ic_finish"
-        android:title="@string/finish"
-        app:showAsAction="ifRoom"/>
-
 </menu>

@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.data.model.StoreModel
@@ -48,7 +47,6 @@ class DetailStoreFragment : BaseFragment<FragmentDetailStoreBinding>(FragmentDet
     private fun initRecyclerView() {
         getViewBinding().rvDepositInStore.apply {
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = this@DetailStoreFragment.detailStoreAdapter
         }
     }

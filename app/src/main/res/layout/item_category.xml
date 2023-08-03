@@ -10,7 +10,6 @@
         android:id="@+id/btn_delete"
         android:layout_width="@dimen/_37sdp"
         android:layout_height="@dimen/_37sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +20,7 @@
         android:id="@+id/btn_edit"
         android:layout_width="@dimen/_37sdp"
         android:layout_height="@dimen/_37sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
         app:layout_constraintEnd_toStartOf="@+id/btn_delete"
@@ -31,13 +30,18 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_category_name"
-        style="@style/Title18"
-        android:layout_marginStart="@dimen/_8sdp"
+        style="@style/Nunito.16.Title"
         android:layout_marginEnd="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_edit"
         app:layout_constraintEnd_toStartOf="@+id/btn_edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_edit"
         tools:text="TOKO ABCD" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_item_divider"
+        app:layout_constraintTop_toBottomOf="@id/btn_edit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

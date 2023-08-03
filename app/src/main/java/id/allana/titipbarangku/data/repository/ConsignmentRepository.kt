@@ -65,6 +65,9 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
     suspend fun deleteProductDeposit(productDeposit: ProductDepositModel) {
         consignmentDao.deleteProductDeposit(productDeposit)
     }
+    suspend fun deleteDeposit(deposit: DepositModel) {
+        consignmentDao.deleteDeposit(deposit)
+    }
 
     /**
      * READ

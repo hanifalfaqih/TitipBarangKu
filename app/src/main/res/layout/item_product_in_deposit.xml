@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,19 +11,17 @@
         android:id="@+id/btn_delete"
         android:layout_width="@dimen/_37sdp"
         android:layout_height="@dimen/_37sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
         android:background="@android:color/transparent"
+        android:importantForAccessibility="no"
         android:src="@drawable/ic_delete"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_product_quantity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_product_name"
-        android:importantForAccessibility="no" />
+        app:layout_constraintTop_toTopOf="@+id/tv_product_name" />
 
     <ImageButton
         android:background="@android:color/transparent"
         android:id="@+id/btn_edit"
         android:layout_height="@dimen/_37sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
         android:layout_width="@dimen/_37sdp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
         app:layout_constraintEnd_toStartOf="@+id/btn_delete"
@@ -32,10 +31,8 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_product_name"
-        style="@style/Title18"
-        android:layout_marginStart="@dimen/_8sdp"
+        style="@style/Nunito.16.Title"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_4sdp"
         app:fontFamily="@font/gothic_a1_semibold"
         app:layout_constraintEnd_toStartOf="@+id/btn_edit"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,15 +40,28 @@
         tools:text="BERAS" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_product_quantity"
-        style="@style/Body12"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:textColor="@color/purple_500"
-        app:layout_constraintEnd_toEndOf="@+id/tv_product_name"
+        android:id="@+id/product_quantity"
+        style="@style/Nunito.12.Body"
+        android:layout_marginTop="@dimen/_8sdp"
         app:layout_constraintStart_toStartOf="@+id/tv_product_name"
         app:layout_constraintTop_toBottomOf="@id/tv_product_name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="HARGA" />
+        android:text="Jumlah" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_product_quantity"
+        style="@style/Nunito.12.Body"
+        android:layout_marginStart="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/product_quantity"
+        app:layout_constraintEnd_toEndOf="@+id/tv_product_name"
+        app:layout_constraintStart_toEndOf="@+id/product_quantity"
+        app:layout_constraintTop_toTopOf="@+id/product_quantity"
+        tools:text="JUMLAH" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_item_divider"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintTop_toBottomOf="@id/tv_product_quantity"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

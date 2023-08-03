@@ -4,6 +4,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -12,13 +13,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.data.model.DepositWithStore
 import id.allana.titipbarangku.data.model.ProductDepositModel
+import id.allana.titipbarangku.data.model.Status
 import id.allana.titipbarangku.databinding.FragmentDetailDepositBinding
 import id.allana.titipbarangku.ui.deposit.adapter.DetailDepositAdapter
+import id.allana.titipbarangku.util.formatDate
 import id.allana.titipbarangku.util.snackbar
+import java.util.Calendar
 
 class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(FragmentDetailDepositBinding::inflate) {
 
@@ -50,10 +55,9 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
                         findNavController().navigateUp()
                     }
                     R.id.menu_delete -> {
-                        requireView().snackbar("DELETE")
-                    }
-                    R.id.menu_finish_deposit -> {
-                        requireView().snackbar("FINISH")
+                        args.dataDepositWithStore?.let { depositWithStore ->
+                            showAlertDialog(depositWithStore)
+                        }
                     }
                 }
                 return true
@@ -70,8 +74,8 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
 
         this.detailDepositAdapter.setOnItemClickCallback(object: DetailDepositAdapter.OnItemClickCallback {
             override fun onButtonUpdateQuantity(data: ProductDepositModel) {
-                if (data.returnQuantity > data.quantity && data.returnQuantity.toString().isEmpty()) {
-                    requireView().snackbar("Nilai harus lebih kecil atau sama dengan nilai jumlah barang")
+                if (data.returnQuantity > data.quantity) {
+                    requireView().snackbar("Nilai tidak boleh kosong atau lebih dari jumlah barang")
                 } else {
                     viewModel.updateProductDeposit(data)
                 }
@@ -84,14 +88,52 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
             tvStoreName.text = data.store?.name
             tvStartDateDeposit.text = data.deposit.startDateDeposit
             tvEndDateDeposit.text = data.deposit.finishDateDeposit
-            tvStatusDeposit.text = data.deposit.status.name
+            /**
+             * parsing status from DepositModel to view model for live update status
+             */
+            viewModel.getUpdateStatusDeposit(data.deposit.status)
         }
+
     }
 
     override fun observeData() {
         viewModel.getAllProductInDeposit(idDeposit = idDeposit.toInt()).observe(viewLifecycleOwner) { list ->
             viewModel.checkProductInDeposit(list)
             detailDepositAdapter.submitList(list)
+
+            val allTotalProductSoldNotEmpty = list.all { data ->
+                data.productDeposit.totalProductSold != "-"
+            }
+            getViewBinding().btnFinishDeposit.setOnClickListener {
+                if (allTotalProductSoldNotEmpty) {
+                    val endDateDeposit = Calendar.getInstance()
+                    val year = endDateDeposit.get(Calendar.YEAR)
+                    val month = endDateDeposit.get(Calendar.MONTH)
+                    val dayOfMonth = endDateDeposit.get(Calendar.DAY_OF_MONTH)
+                    val date = formatDate(year, month, dayOfMonth)
+
+                    val depositWithNewStatus = args.dataDepositWithStore?.deposit?.copy(status = Status.FINISH, finishDateDeposit = date)
+                    depositWithNewStatus?.let { deposit ->
+                        viewModel.getUpdateStatusDeposit(deposit.status)
+                        viewModel.updateDeposit(deposit)
+                    }
+                } else {
+                    requireView().snackbar("Pastikan jumlah barang kembali dalam setiap data produk sudah terisi")
+                }
+            }
+        }
+        viewModel.getUpdateStatusDepositLiveData().observe(viewLifecycleOwner) { updateStatusDeposit ->
+            when (updateStatusDeposit) {
+                Status.DEPOSIT -> {
+                    getViewBinding().tvStatusDeposit.text = "DEPOSIT"
+                    getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
+                }
+                Status.FINISH -> {
+                    getViewBinding().tvStatusDeposit.text = "FINISH"
+                    getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
+                }
+                else -> requireView().snackbar("INVALID STATUS DEPOSIT")
+            }
         }
         viewModel.checkProductInDepositLiveData().observe(viewLifecycleOwner) { isEmpty ->
             if (isEmpty) {
@@ -100,6 +142,21 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
                 stateDataEmpty(false)
             }
         }
+    }
+
+    private fun showAlertDialog(data: DepositWithStore) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle(getString(R.string.delete_data))
+            setMessage(getString(R.string.msg_delete_data_deposit, data.store?.name))
+            setPositiveButton(getString(R.string.delete)) { _, _ ->
+                viewModel.deleteDeposit(data.deposit)
+                requireView().snackbar(getString(R.string.success_delete_data_deposit))
+                findNavController().navigateUp()
+            }
+            setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
+        }.show()
     }
 
     private fun stateDataEmpty(isEmpty: Boolean) {

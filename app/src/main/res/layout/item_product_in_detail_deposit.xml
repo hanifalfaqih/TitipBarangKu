@@ -1,111 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_8sdp">
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/btn_expand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_down"
-        android:backgroundTint="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_product_name"
-        style="@style/Title18"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_4sdp"
-        app:fontFamily="@font/gothic_a1_semibold"
-        app:layout_constraintEnd_toStartOf="@+id/btn_expand"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="BERAS" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_product_quantity"
-        style="@style/Body12"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:layout_marginBottom="@dimen/_4sdp"
-        android:textColor="@color/purple_500"
-        app:layout_constraintEnd_toEndOf="@+id/tv_product_name"
-        app:layout_constraintStart_toStartOf="@+id/tv_product_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_product_name"
-        tools:text="HARGA" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_product_return_quantity"
-        style="@style/Body12"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:layout_marginBottom="@dimen/_4sdp"
-        android:textColor="@color/purple_500"
-        app:layout_constraintEnd_toEndOf="@+id/tv_product_quantity"
-        app:layout_constraintStart_toStartOf="@+id/tv_product_quantity"
-        app:layout_constraintTop_toBottomOf="@id/tv_product_quantity"
-        tools:text="HARGA" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_total_product_sold"
-        style="@style/Body12"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:layout_marginBottom="@dimen/_4sdp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_product_quantity"
-        app:layout_constraintStart_toStartOf="@+id/tv_product_quantity"
-        app:layout_constraintTop_toBottomOf="@id/tv_product_return_quantity"
-        tools:text="HARGA" />
+    android:layout_margin="@dimen/_8sdp"
+    app:strokeWidth="@dimen/_1sdp"
+    app:strokeColor="@color/purple_500">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_return_quantity"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/tv_total_product_sold"
-        app:layout_constraintStart_toStartOf="@id/tv_total_product_sold"
-        app:layout_constraintTop_toBottomOf="@id/tv_total_product_sold">
+        android:padding="@dimen/_4sdp">
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_expand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:src="@drawable/ic_arrow_down"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/return_quantity"
-            style="@style/Body12"
-            android:text="Jumlah Barang Kembali"
+            android:id="@+id/tv_product_name"
+            style="@style/Nunito.12.Body"
+            app:fontFamily="@font/gothic_a1_semibold"
+            app:layout_constraintEnd_toStartOf="@+id/btn_expand"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="BERAS" />
 
-        <EditText
-            android:id="@+id/et_return_quantity"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/product_quantity"
+            style="@style/Nunito.10.Body"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="@+id/tv_product_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
+            android:text="Jumlah Barang" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_product_quantity"
+            style="@style/Nunito.10.Body"
+            app:layout_constraintBottom_toBottomOf="@+id/product_quantity"
+            app:layout_constraintEnd_toStartOf="@+id/btn_expand"
+            app:layout_constraintStart_toEndOf="@+id/product_return_quantity"
+            tools:text="Barang Dititipkan" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/product_return_quantity"
+            style="@style/Nunito.10.Body"
+            android:layout_marginTop="@dimen/_6sdp"
+            app:layout_constraintStart_toStartOf="@+id/tv_product_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_quantity"
+            android:text="Jumlah Barang Kembali     " />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_product_return_quantity"
+            style="@style/Nunito.10.Body"
+            app:layout_constraintEnd_toEndOf="@+id/tv_product_quantity"
+            app:layout_constraintStart_toStartOf="@+id/tv_product_quantity"
+            app:layout_constraintTop_toTopOf="@+id/product_return_quantity"
+            tools:text="Barang Kembali" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/total_product_sold"
+            style="@style/Nunito.10.Body"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:text="Total Barang Terjual"
+            app:layout_constraintStart_toStartOf="@+id/tv_product_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_return_quantity" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_total_product_sold"
+            style="@style/Nunito.10.Body"
+            app:layout_constraintEnd_toEndOf="@+id/tv_product_quantity"
+            app:layout_constraintStart_toEndOf="@+id/product_return_quantity"
+            app:layout_constraintTop_toTopOf="@+id/total_product_sold"
+            tools:text="Barang Terjual" />
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:singleLine="true"
-            android:hint="Jumlah barang"
-            app:layout_constraintTop_toBottomOf="@id/return_quantity"
-            app:layout_constraintStart_toStartOf="@id/return_quantity"
-            app:layout_constraintEnd_toEndOf="@id/return_quantity"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_update_return_quantity"
-            style="@style/ButtonSecondary"
-            android:text="Perbarui Return Quantity"
-            app:layout_constraintTop_toBottomOf="@id/et_return_quantity"
+            app:strokeColor="@color/purple_500"
+            app:strokeWidth="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv_total_product_sold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_return_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:visibility="gone">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/return_quantity"
+                    style="@style/Nunito.10.Body"
+                    android:text="Jumlah Barang Kembali"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_return_quantity"
+                    style="@style/Nunito.10.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:hint="Jumlah"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    app:layout_constraintEnd_toEndOf="@+id/return_quantity"
+                    app:layout_constraintStart_toStartOf="@id/return_quantity"
+                    app:layout_constraintTop_toBottomOf="@id/return_quantity" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_update_return_quantity"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_32sdp"
+                    android:text="Perbarui"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_return_quantity"
+                    app:strokeColor="@color/purple_500" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -9,7 +9,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_status_deposit"
-        style="@style/Body12"
+        style="@style/Nunito.12.Body"
         android:layout_marginTop="@dimen/_4sdp"
         android:textColor="@color/purple_500"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_start_date_deposit"
-        style="@style/Body10"
+        style="@style/Nunito.10.Body"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,7 +29,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/symbol_until"
-        style="@style/Body12"
+        style="@style/Nunito.10.Body"
         android:text=" - "
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_8sdp"
@@ -40,7 +40,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_end_date_deposit"
-        style="@style/Body10"
+        style="@style/Nunito.10.Body"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_8sdp"
         android:layout_marginStart="@dimen/_8sdp"
@@ -48,5 +48,12 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="END DATE" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/gray_item_divider"
+        app:layout_constraintTop_toBottomOf="@id/tv_end_date_deposit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

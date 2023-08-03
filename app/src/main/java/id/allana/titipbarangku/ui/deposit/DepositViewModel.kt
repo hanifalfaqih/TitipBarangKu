@@ -10,6 +10,7 @@ import id.allana.titipbarangku.data.model.DepositModel
 import id.allana.titipbarangku.data.model.DepositWithStore
 import id.allana.titipbarangku.data.model.ProductDepositModel
 import id.allana.titipbarangku.data.model.ProductDepositWithProduct
+import id.allana.titipbarangku.data.model.Status
 import id.allana.titipbarangku.data.repository.ConsignmentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,6 +23,7 @@ class DepositViewModel(application: Application) : AndroidViewModel(application)
     private val _idDeposit = MutableLiveData<Long>()
     val idDeposit: LiveData<Long> = _idDeposit
 
+    private val updateStatusDeposit = MutableLiveData<Status>()
     private val checkDatabaseEmpty = MutableLiveData<Boolean>()
 
     fun insertDeposit(deposit: DepositModel) {
@@ -55,8 +57,20 @@ class DepositViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun deleteDeposit(deposit: DepositModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteDeposit(deposit)
+        }
+    }
+
     fun getAllProductInDeposit(idDeposit: Int) = repository.getAllProductInDeposit(idDeposit)
     fun getAllDeposit() = repository.getAllDeposit()
+
+    fun getUpdateStatusDeposit(data: Status) {
+        updateStatusDeposit.value = data
+    }
+
+    fun getUpdateStatusDepositLiveData(): LiveData<Status> = updateStatusDeposit
 
     fun checkProductInDeposit(data: List<ProductDepositWithProduct>) {
         checkDatabaseEmpty.value = data.isEmpty()
