@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.model.ProductDepositWithProduct
 import id.allana.titipbarangku.databinding.ItemProductInDepositBinding
 import id.allana.titipbarangku.ui.deposit.add_product_deposit.AddProductDepositFragmentDirections
@@ -16,7 +17,7 @@ class AddProductDepositAdapter(private var itemProductDeposit: (ProductDepositWi
         fun bind(data: ProductDepositWithProduct) {
             binding.also {
                 it.tvProductName.text = data.product?.name
-                it.tvProductQuantity.text = data.productDeposit.quantity.toString()
+                it.tvProductQuantity.text = itemView.context.getString(R.string.format_show_list, data.productDeposit.quantity.toString())
 
                 it.btnEdit.setOnClickListener { view ->
                     val actionToProductBottomSheet = AddProductDepositFragmentDirections.actionProductDepositFragmentToProductDepositBottomSheetFragment(data.productDeposit)

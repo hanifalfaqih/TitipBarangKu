@@ -81,7 +81,7 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
             if (getViewBinding().rvProductInDeposit.isEmpty()) {
                 requireView().snackbar("Silakan tambah produk dulu")
             } else {
-            requireActivity().finish()
+                requireActivity().finish()
             }
         }
 
@@ -132,6 +132,8 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
             )
             viewModel.insertProductInDeposit(productDeposit)
             requireView().snackbar(getString(R.string.success_add_product_in_deposit))
+            spinnerProduct.setText("", false)
+            getViewBinding().etProductQuantity.text?.clear()
         }
     }
 
