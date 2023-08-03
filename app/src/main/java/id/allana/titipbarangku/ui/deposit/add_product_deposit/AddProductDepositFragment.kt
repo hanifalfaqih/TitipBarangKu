@@ -29,7 +29,8 @@ import id.allana.titipbarangku.ui.product.ProductViewModel
 import id.allana.titipbarangku.util.snackbar
 
 
-class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>(FragmentAddProductDepositBinding::inflate) {
+class AddProductDepositFragment :
+    BaseFragment<FragmentAddProductDepositBinding>(FragmentAddProductDepositBinding::inflate) {
 
     private val viewModel: DepositViewModel by viewModels()
     private val productViewModel: ProductViewModel by viewModels()
@@ -85,7 +86,7 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
             }
         }
 
-        (requireActivity() as MenuHost).addMenuProvider(object: MenuProvider {
+        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -121,30 +122,39 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
 
     private fun addProduct(idDeposit: Long, idProduct: Int) {
         if (idProduct == 0) {
-            Snackbar.make(requireView(), getString(R.string.msg_product_quantity_must_be_filled), Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(
+                requireView(),
+                getString(R.string.msg_product_quantity_must_be_filled),
+                Snackbar.LENGTH_SHORT
+            ).show()
         } else {
-            val productDeposit = ProductDepositModel(
-                0,
-                idDeposit = idDeposit,
-                idProduct = productId,
-                quantity = getViewBinding().etProductQuantity.text.toString().toInt(),
-                returnQuantity = 0
-            )
-            viewModel.insertProductInDeposit(productDeposit)
-            requireView().snackbar(getString(R.string.success_add_product_in_deposit))
-            spinnerProduct.setText("", false)
-            getViewBinding().etProductQuantity.apply {
-                text?.clear()
-                clearFocus()
+            if (getViewBinding().etProductQuantity.text.toString().toInt() == 0) {
+                requireView().snackbar("Jumlah tidak boleh 0")
+            } else {
+                val productDeposit = ProductDepositModel(
+                    0,
+                    idDeposit = idDeposit,
+                    idProduct = productId,
+                    quantity = getViewBinding().etProductQuantity.text.toString().toInt(),
+                    returnQuantity = 0
+                )
+                viewModel.insertProductInDeposit(productDeposit)
+                requireView().snackbar(getString(R.string.success_add_product_in_deposit))
+                spinnerProduct.setText("", false)
+                getViewBinding().etProductQuantity.apply {
+                    text?.clear()
+                    clearFocus()
+                }
             }
         }
     }
 
     override fun observeData() {
-        viewModel.getAllProductInDeposit(idDeposit = idDeposit.toInt()).observe(viewLifecycleOwner) { list ->
-            viewModel.checkProductInDeposit(list)
-            addProductDepositAdapter.submitList(list)
-        }
+        viewModel.getAllProductInDeposit(idDeposit = idDeposit.toInt())
+            .observe(viewLifecycleOwner) { list ->
+                viewModel.checkProductInDeposit(list)
+                addProductDepositAdapter.submitList(list)
+            }
         viewModel.checkProductInDepositLiveData().observe(viewLifecycleOwner) { isEmpty ->
             if (isEmpty) {
                 stateDataEmpty(true)
