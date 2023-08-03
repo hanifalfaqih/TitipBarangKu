@@ -133,7 +133,10 @@ class AddProductDepositFragment : BaseFragment<FragmentAddProductDepositBinding>
             viewModel.insertProductInDeposit(productDeposit)
             requireView().snackbar(getString(R.string.success_add_product_in_deposit))
             spinnerProduct.setText("", false)
-            getViewBinding().etProductQuantity.text?.clear()
+            getViewBinding().etProductQuantity.apply {
+                text?.clear()
+                clearFocus()
+            }
         }
     }
 
