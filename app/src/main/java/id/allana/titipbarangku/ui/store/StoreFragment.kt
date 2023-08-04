@@ -40,7 +40,7 @@ class   StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding:
     private fun showAlertDialog(data: StoreModel) {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle(getString(R.string.delete_data))
-            setMessage(getString(R.string.msg_delete_data, data.name))
+            setMessage(getString(R.string.msg_delete_data_store, data.name, data.name, data.name))
             setPositiveButton(getString(R.string.delete)) { _, _ ->
                 viewModel.deleteStore(data)
                 Snackbar.make(requireView(), getString(R.string.success_delete_data, data.name), Snackbar.LENGTH_SHORT).show()

@@ -75,7 +75,7 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
         this.detailDepositAdapter.setOnItemClickCallback(object: DetailDepositAdapter.OnItemClickCallback {
             override fun onButtonUpdateQuantity(data: ProductDepositModel) {
                 if (data.returnQuantity > data.quantity) {
-                    requireView().snackbar("Nilai tidak boleh kosong atau lebih dari jumlah barang")
+                    requireView().snackbar(getString(R.string.value_cant_empty_or_more_than_quantity))
                 } else {
                     viewModel.updateProductDeposit(data)
                 }
@@ -118,27 +118,34 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
                         viewModel.updateDeposit(deposit)
                     }
                 } else {
-                    requireView().snackbar("Pastikan jumlah barang kembali dalam setiap data produk sudah terisi")
+                    requireView().snackbar(getString(R.string.value_return_quantity_must_be_filled))
                 }
             }
         }
         viewModel.getUpdateStatusDepositLiveData().observe(viewLifecycleOwner) { updateStatusDeposit ->
             when (updateStatusDeposit) {
                 Status.DEPOSIT -> {
-                    getViewBinding().tvStatusDeposit.text = "DEPOSIT"
+                    getViewBinding().tvStatusDeposit.text = getString(R.string.deposit)
                     getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
+                    getViewBinding().btnFinishDeposit.also {
+                        it.text = getString(R.string.status_deposit_done)
+                        it.isEnabled = false
+                    }
+
                 }
                 Status.FINISH -> {
-                    getViewBinding().tvStatusDeposit.text = "FINISH"
+                    getViewBinding().tvStatusDeposit.text = getString(R.string.finish).uppercase()
                     getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
                 }
-                else -> requireView().snackbar("INVALID STATUS DEPOSIT")
+                else -> requireView().snackbar(getString(R.string.invalid_status_deposit))
             }
         }
         viewModel.checkProductInDepositLiveData().observe(viewLifecycleOwner) { isEmpty ->
             if (isEmpty) {
+                getViewBinding().btnFinishDeposit.isEnabled = false
                 stateDataEmpty(true)
             } else {
+                getViewBinding().btnFinishDeposit.isEnabled = true
                 stateDataEmpty(false)
             }
         }

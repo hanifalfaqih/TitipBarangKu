@@ -9,6 +9,8 @@
     <string name="format_show_list">: %s</string>
     <string name="delete_data">"Hapus data"</string>
     <string name="msg_delete_data">"Yakin akan menghapus data %s"</string>
+    <string name="msg_delete_data_store">"Yakin akan menghapus toko %s? Jika anda menghapus toko %s, data deposit yang terkait dengan toko %s juga akan terhapus"</string>
+    <string name="msg_delete_data_product">"Yakin akan menghapus produk %s? Jika anda menghapus produk %s, data produk %s yang ada terkait dalam deposit juga akan terhapus"</string>
     <string name="msg_delete_data_deposit">"Yakin akan menghapus data deposit dari toko %s"</string>
     <string name="delete">Hapus</string>
     <string name="cancel">Batal</string>
@@ -45,7 +47,7 @@
     <string name="quantity_add_product">Jumlah (satuan/kilo)</string>
     <string name="save">Simpan</string>
     <string name="data_store_and_start_date_must_be_filled">Data Toko / Tanggal Deposit harus diisi!</string>
-    <string name="data_product_in_deposit_is_empty">Data barang dalam deposit masih kosong</string>
+    <string name="data_product_in_deposit_is_empty">Data produk dalam deposit kosong, kemungkinan karena anda menghapus data produk yang terkait dengan deposit ini</string>
     <string name="add_product_deposit">Tambah Barang Deposit</string>
     <string name="choose_start_date">Pilih tanggal mulai</string>
     <string name="update_deposit">Perbarui Deposit</string>
@@ -57,7 +59,12 @@
     <string name="product_price_must_be_filled">Harga produk harus diisi!</string>
     <string name="detail_deposit">Detail Deposit</string>
     <string name="finish">Finish</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="history_deposit">Riwayat Deposit</string>
+    <string name="value_cant_empty_or_more_than_quantity">Nilai tidak boleh kosong atau lebih dari jumlah barang</string>
+    <string name="value_return_quantity_must_be_filled">Pastikan jumlah barang kembali dalam setiap data produk sudah terisi</string>
+    <string name="deposit">DEPOSIT</string>
+    <string name="status_deposit_done">Status Deposit Selesai</string>
+    <string name="invalid_status_deposit">INVALID STATUS DEPOSIT</string>
+    <string name="list_product">List Produk</string>
+    <string name="update_status_deposit">Perbarui Status Deposit</string>
 </resources>

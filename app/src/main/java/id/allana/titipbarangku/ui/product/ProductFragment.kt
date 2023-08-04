@@ -76,7 +76,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBind
     private fun showAlertDialog(data: ProductModel) {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle(R.string.delete_data)
-            setMessage(getString(R.string.msg_delete_data, data.name))
+            setMessage(getString(R.string.msg_delete_data_product, data.name, data.name, data.name))
             setPositiveButton(R.string.delete) { _, _ ->
                 viewModel.deleteProduct(data)
                 requireView().snackbar(getString(R.string.success_delete_data, data.name))

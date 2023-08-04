@@ -83,7 +83,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_finish_deposit"
         style="@style/Button"
-        android:text="DEPOSIT SELESAI"
+        android:text="@string/update_status_deposit"
         app:layout_constraintTop_toBottomOf="@id/cv_detail_deposit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -94,7 +94,7 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:text="List Produk"
+        android:text="@string/list_product"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_finish_deposit" />
