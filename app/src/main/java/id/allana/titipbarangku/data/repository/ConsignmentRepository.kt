@@ -10,7 +10,6 @@ import id.allana.titipbarangku.data.model.ProductDepositWithProduct
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.data.model.ProductWithCategory
 import id.allana.titipbarangku.data.model.StoreModel
-import id.allana.titipbarangku.util.convertToDouble
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -102,13 +101,13 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
         }
     }
 
-    fun calculateTotalProductSoldWithPrice(listProductDeposit: List<ProductDepositWithProduct>): Double {
-        var totalAmount = 0.0
+    fun calculateTotalProductSoldWithPrice(listProductDeposit: List<ProductDepositWithProduct>): String {
+        var totalAmount = 0
         for (productDeposit in listProductDeposit) {
-            val productPrice = productDeposit.product?.price?.let { convertToDouble(it) }
-            val totalProductSold = productDeposit.productDeposit.totalProductSold.toDouble()
+            val productPrice = productDeposit.product?.price
+            val totalProductSold = productDeposit.productDeposit.totalProductSold.toInt()
             totalAmount =  totalProductSold * productPrice!!
         }
-        return totalAmount
+        return totalAmount.toString()
     }
 }

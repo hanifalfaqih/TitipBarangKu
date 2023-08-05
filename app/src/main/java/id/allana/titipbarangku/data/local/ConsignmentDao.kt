@@ -69,6 +69,7 @@ interface ConsignmentDao {
     fun getAllDepositInStore(idStore: Int): LiveData<List<DepositModel>>
     @Query("SELECT * FROM deposit_model")
     fun getAllDeposit(): LiveData<List<DepositModel>>
+    @Transaction
     @Query("SELECT * FROM product_in_deposit_model")
     fun getAllProductInDeposit(): LiveData<List<ProductDepositWithProduct>>
 

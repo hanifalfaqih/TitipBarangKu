@@ -36,9 +36,9 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_status_deposit"
             style="@style/Nunito.12.Body"
-            android:textColor="@color/purple_500"
             android:layout_marginTop="@dimen/_8sdp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_store_name"
+            android:textColor="@color/purple_500"
+            app:layout_constraintEnd_toEndOf="@+id/divider"
             app:layout_constraintStart_toStartOf="@+id/tv_store_name"
             app:layout_constraintTop_toBottomOf="@id/divider"
             tools:text="DEPOSIT" />
@@ -62,7 +62,8 @@
             android:layout_marginStart="@dimen/_8sdp"
             app:layout_constraintStart_toEndOf="@id/tv_start_date_deposit"
             app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="HardcodedText" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_end_date_deposit"

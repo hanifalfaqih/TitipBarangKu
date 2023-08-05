@@ -17,7 +17,7 @@ class HomepageViewModel(application: Application) : AndroidViewModel(application
     private val repository = ConsignmentRepository(consignmentDao)
 
     private val getAllFilteredDepositLiveData = MutableLiveData<List<ProductDepositWithProduct>>()
-    private val calculateTotalAmountLiveData = MutableLiveData<Double>()
+    private val calculateTotalAmountLiveData = MutableLiveData<String>()
     fun getAllDeposit() = repository.getAllDeposit()
     fun getAllProductInDeposit() = repository.getAllProductInDeposit()
 
@@ -30,10 +30,9 @@ class HomepageViewModel(application: Application) : AndroidViewModel(application
     fun calculateTotalAmountLiveData(listProductDeposit: List<ProductDepositWithProduct>) {
         viewModelScope.launch {
             calculateTotalAmountLiveData.postValue(repository.calculateTotalProductSoldWithPrice(listProductDeposit))
-
         }
     }
 
     fun getAllFilterdDepositLiveData(): LiveData<List<ProductDepositWithProduct>> = getAllFilteredDepositLiveData
-    fun calculateTotalAmountLiveData(): LiveData<Double> = calculateTotalAmountLiveData
+    fun calculateTotalAmountLiveData(): LiveData<String> = calculateTotalAmountLiveData
 }

@@ -27,5 +27,5 @@ data class ProductModel(
     @ColumnInfo("product_name")
     val name: String,
     @ColumnInfo("product_price")
-    val price: String
+    val price: Int
 ): Parcelable

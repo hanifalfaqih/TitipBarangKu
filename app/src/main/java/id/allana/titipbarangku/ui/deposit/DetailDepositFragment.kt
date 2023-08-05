@@ -41,6 +41,7 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
             depositWithStore?.let {
                 idDeposit = it.deposit.id
                 setDataToView(it)
+                viewModel.getUpdateStatusDeposit(it.deposit.status)
             }
         }
 
@@ -88,9 +89,6 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
             tvStoreName.text = data.store?.name
             tvStartDateDeposit.text = data.deposit.startDateDeposit
             tvEndDateDeposit.text = data.deposit.finishDateDeposit
-            /**
-             * parsing status from DepositModel to view model for live update status
-             */
             viewModel.getUpdateStatusDeposit(data.deposit.status)
         }
 
@@ -123,29 +121,22 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
             }
         }
         viewModel.getUpdateStatusDepositLiveData().observe(viewLifecycleOwner) { updateStatusDeposit ->
-            when (updateStatusDeposit) {
-                Status.DEPOSIT -> {
-                    getViewBinding().tvStatusDeposit.text = getString(R.string.deposit)
-                    getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
-                    getViewBinding().btnFinishDeposit.also {
-                        it.text = getString(R.string.status_deposit_done)
-                        it.isEnabled = false
-                    }
-
-                }
-                Status.FINISH -> {
-                    getViewBinding().tvStatusDeposit.text = getString(R.string.finish).uppercase()
-                    getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
-                }
-                else -> requireView().snackbar(getString(R.string.invalid_status_deposit))
+            if (updateStatusDeposit.name == "DEPOSIT") {
+                getViewBinding().tvStatusDeposit.text = getString(R.string.deposit)
+                getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
+                getViewBinding().btnFinishDeposit.text = getString(R.string.update_status_deposit)
+                getViewBinding().btnFinishDeposit.isEnabled = true
+            } else {
+                getViewBinding().tvStatusDeposit.text = getString(R.string.finish).uppercase()
+                getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
+                getViewBinding().btnFinishDeposit.text = getString(R.string.status_deposit_done)
+                getViewBinding().btnFinishDeposit.isEnabled = false
             }
         }
         viewModel.checkProductInDepositLiveData().observe(viewLifecycleOwner) { isEmpty ->
             if (isEmpty) {
-                getViewBinding().btnFinishDeposit.isEnabled = false
                 stateDataEmpty(true)
             } else {
-                getViewBinding().btnFinishDeposit.isEnabled = true
                 stateDataEmpty(false)
             }
         }

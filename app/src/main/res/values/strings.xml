@@ -63,8 +63,9 @@
     <string name="value_cant_empty_or_more_than_quantity">Nilai tidak boleh kosong atau lebih dari jumlah barang</string>
     <string name="value_return_quantity_must_be_filled">Pastikan jumlah barang kembali dalam setiap data produk sudah terisi</string>
     <string name="deposit">DEPOSIT</string>
-    <string name="status_deposit_done">Status Deposit Selesai</string>
+    <string name="status_deposit_done">Deposit Selesai</string>
     <string name="invalid_status_deposit">INVALID STATUS DEPOSIT</string>
     <string name="list_product">List Produk</string>
     <string name="update_status_deposit">Perbarui Status Deposit</string>
+    <string name="total_sales">Total Penjualan</string>
 </resources>

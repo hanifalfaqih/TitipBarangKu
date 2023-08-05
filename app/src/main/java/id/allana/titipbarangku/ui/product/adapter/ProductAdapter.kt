@@ -19,7 +19,7 @@ class ProductAdapter(private var itemProduct: (ProductModel) -> Unit): ListAdapt
         fun bind(data: ProductWithCategory) {
             binding.also {
                 it.tvProductName.text = data.product.name
-                it.tvProductPrice.text = itemView.context.getString(R.string.format_show_list, formatRupiah(data.product.price))
+                it.tvProductPrice.text = itemView.context.getString(R.string.format_show_list, formatRupiah(data.product.price.toString()))
                 it.tvProductCategory.text = itemView.context.getString(R.string.format_show_list, data.category?.categoryName)
 
                 it.btnEdit.setOnClickListener { view ->

@@ -14,6 +14,7 @@ import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.databinding.FragmentProductBottomSheetBinding
 import id.allana.titipbarangku.ui.category.CategoryViewModel
+import id.allana.titipbarangku.util.convertToInt
 import id.allana.titipbarangku.util.snackbar
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -111,7 +112,7 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
             val product = ProductModel(
                 id,
                 name = getViewBinding().etProductName.text.toString(),
-                price = getViewBinding().etProductPrice.text.toString(),
+                price = convertToInt(getViewBinding().etProductPrice.text.toString()) ,
                 idCategory = idCategory
             )
 
