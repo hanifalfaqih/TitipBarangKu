@@ -64,10 +64,13 @@ interface ConsignmentDao {
     fun getAllProductInDeposit(idDeposit: Int): LiveData<List<ProductDepositWithProduct>>
     @Transaction
     @Query("SELECT * FROM deposit_model")
-    fun getAllDeposit(): LiveData<List<DepositWithStore>>
+    fun getAllDepositWithStore(): LiveData<List<DepositWithStore>>
     @Query("SELECT * FROM deposit_model WHERE id_store= :idStore")
     fun getAllDepositInStore(idStore: Int): LiveData<List<DepositModel>>
-
+    @Query("SELECT * FROM deposit_model")
+    fun getAllDeposit(): LiveData<List<DepositModel>>
+    @Query("SELECT * FROM product_in_deposit_model")
+    fun getAllProductInDeposit(): LiveData<List<ProductDepositWithProduct>>
 
     /**
      * DELETE

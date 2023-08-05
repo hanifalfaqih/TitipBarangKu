@@ -64,7 +64,7 @@ class DepositViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun getAllProductInDeposit(idDeposit: Int) = repository.getAllProductInDeposit(idDeposit)
-    fun getAllDeposit() = repository.getAllDeposit()
+    fun getAllDepositWithStore() = repository.getAllDepositWithStore()
 
     fun getUpdateStatusDeposit(data: Status) {
         updateStatusDeposit.value = data

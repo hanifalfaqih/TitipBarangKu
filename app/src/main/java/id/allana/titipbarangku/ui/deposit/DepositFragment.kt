@@ -48,7 +48,7 @@ class DepositFragment : BaseFragment<FragmentDepositBinding>(FragmentDepositBind
     }
 
     override fun observeData() {
-        viewModel.getAllDeposit().observe(viewLifecycleOwner) { list ->
+        viewModel.getAllDepositWithStore().observe(viewLifecycleOwner) { list ->
             viewModel.checkDeposit(list)
             depositAdapter.submitList(list)
         }

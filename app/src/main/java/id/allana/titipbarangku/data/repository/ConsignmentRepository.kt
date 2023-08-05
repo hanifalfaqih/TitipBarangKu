@@ -10,6 +10,11 @@ import id.allana.titipbarangku.data.model.ProductDepositWithProduct
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.data.model.ProductWithCategory
 import id.allana.titipbarangku.data.model.StoreModel
+import id.allana.titipbarangku.util.convertToDouble
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
     /**
@@ -77,6 +82,33 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
     fun getCategoryWithProduct(): LiveData<List<ProductWithCategory>> = consignmentDao.getCategoryWithProduct()
     fun getAllProduct(): LiveData<List<ProductModel>> = consignmentDao.getAllProduct()
     fun getAllProductInDeposit(idProduct: Int): LiveData<List<ProductDepositWithProduct>> = consignmentDao.getAllProductInDeposit(idProduct)
-    fun getAllDeposit(): LiveData<List<DepositWithStore>> = consignmentDao.getAllDeposit()
+    fun getAllDepositWithStore(): LiveData<List<DepositWithStore>> = consignmentDao.getAllDepositWithStore()
     fun getAllDepositInStore(idStore: Int): LiveData<List<DepositModel>> = consignmentDao.getAllDepositInStore(idStore)
+    fun getAllDeposit(): LiveData<List<DepositModel>> = consignmentDao.getAllDeposit()
+    fun getAllProductInDeposit(): LiveData<List<ProductDepositWithProduct>> = consignmentDao.getAllProductInDeposit()
+    fun filterByCurrentMonth(listDeposit: List<DepositModel>, listProductDeposit: List<ProductDepositWithProduct>): List<ProductDepositWithProduct> {
+        val currentMonth = Calendar.getInstance().get(Calendar.MONTH)
+
+        val currentListDeposit = listDeposit.filter { deposit ->
+            val depositStartDate = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID")).parse(deposit.startDateDeposit)
+            val depositMonth = Calendar.getInstance().apply {
+                time = depositStartDate as Date
+            }.get(Calendar.MONTH)
+            depositMonth == currentMonth
+        }
+
+        return listProductDeposit.filter { productDeposit ->
+            currentListDeposit.any { it.id == productDeposit.productDeposit.idDeposit }
+        }
+    }
+
+    fun calculateTotalProductSoldWithPrice(listProductDeposit: List<ProductDepositWithProduct>): Double {
+        var totalAmount = 0.0
+        for (productDeposit in listProductDeposit) {
+            val productPrice = productDeposit.product?.price?.let { convertToDouble(it) }
+            val totalProductSold = productDeposit.productDeposit.totalProductSold.toDouble()
+            totalAmount =  totalProductSold * productPrice!!
+        }
+        return totalAmount
+    }
 }
