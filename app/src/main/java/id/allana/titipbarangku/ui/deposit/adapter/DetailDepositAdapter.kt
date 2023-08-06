@@ -38,8 +38,15 @@ class DetailDepositAdapter :
                 it.tvTotalProductSold.text = itemView.context.getString(R.string.format_show_list, totalProductSold)
 
                 it.btnUpdateReturnQuantity.setOnClickListener {
+                    val isEmpty: Boolean
                     val valueReturnQuantity = binding.etReturnQuantity.text.toString()
-                    returnQuantity = if (valueReturnQuantity.isNullOrEmpty()) 0 else valueReturnQuantity.toInt()
+                    if (valueReturnQuantity.isNotEmpty()) {
+                        returnQuantity = valueReturnQuantity.toInt()
+                        isEmpty = false
+                    } else {
+                        isEmpty = true
+                    }
+                    //returnQuantity = if (valueReturnQuantity.isEmpty()) 0 else valueReturnQuantity.toInt()
                     data.productDeposit.returnQuantity = returnQuantity
 
                     // Calculate total product sold and update the UI
@@ -54,7 +61,7 @@ class DetailDepositAdapter :
                         returnQuantity = returnQuantity,
                         totalProductSold = totalProductSold,
                     )
-                    onItemClickCallback.onButtonUpdateQuantity(productDeposit)
+                    onItemClickCallback.onButtonUpdateQuantity(productDeposit, isEmpty)
                 }
 
                 it.btnExpand.setOnClickListener {
@@ -108,6 +115,6 @@ class DetailDepositAdapter :
     }
 
     interface OnItemClickCallback {
-        fun onButtonUpdateQuantity(data: ProductDepositModel)
+        fun onButtonUpdateQuantity(data: ProductDepositModel, isEmpty: Boolean)
     }
 }

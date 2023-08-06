@@ -74,9 +74,11 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
         }
 
         this.detailDepositAdapter.setOnItemClickCallback(object: DetailDepositAdapter.OnItemClickCallback {
-            override fun onButtonUpdateQuantity(data: ProductDepositModel) {
-                if (data.returnQuantity > data.quantity) {
-                    requireView().snackbar(getString(R.string.value_cant_empty_or_more_than_quantity))
+            override fun onButtonUpdateQuantity(data: ProductDepositModel, isEmpty: Boolean) {
+                if (isEmpty) {
+                    requireView().snackbar(getString(R.string.value_cant_empty))
+                } else if (data.returnQuantity > data.quantity) {
+                    requireView().snackbar(getString(R.string.value_cant_more_than_quantity))
                 } else {
                     viewModel.updateProductDeposit(data)
                 }

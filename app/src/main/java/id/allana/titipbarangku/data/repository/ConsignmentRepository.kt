@@ -105,7 +105,11 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
         var totalAmount = 0
         for (productDeposit in listProductDeposit) {
             val productPrice = productDeposit.product?.price
-            val totalProductSold = productDeposit.productDeposit.totalProductSold.toInt()
+            val totalProductSold = if (productDeposit.productDeposit.totalProductSold == "-") {
+                0
+            } else {
+                productDeposit.productDeposit.totalProductSold.toInt()
+            }
             totalAmount =  totalProductSold * productPrice!!
         }
         return totalAmount.toString()

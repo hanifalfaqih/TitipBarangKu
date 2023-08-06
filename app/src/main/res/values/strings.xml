@@ -60,7 +60,8 @@
     <string name="detail_deposit">Detail Deposit</string>
     <string name="finish">Finish</string>
     <string name="history_deposit">Riwayat Deposit</string>
-    <string name="value_cant_empty_or_more_than_quantity">Nilai tidak boleh kosong atau lebih dari jumlah barang</string>
+    <string name="value_cant_empty">Nilai jumlah barang kembali tidak boleh kosong</string>
+    <string name="value_cant_more_than_quantity">Nilai tidak boleh lebih dari jumlah barang yang disetor</string>
     <string name="value_return_quantity_must_be_filled">Pastikan jumlah barang kembali dalam setiap data produk sudah terisi</string>
     <string name="deposit">DEPOSIT</string>
     <string name="status_deposit_done">Deposit Selesai</string>
@@ -68,4 +69,5 @@
     <string name="list_product">List Produk</string>
     <string name="update_status_deposit">Perbarui Status Deposit</string>
     <string name="total_sales">Total Penjualan</string>
+    <string name="rp_0_00">Rp 0,00</string>
 </resources>
