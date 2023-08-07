@@ -112,7 +112,7 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
                     val dayOfMonth = endDateDeposit.get(Calendar.DAY_OF_MONTH)
                     val date = formatDate(year, month, dayOfMonth)
 
-                    val depositWithNewStatus = args.dataDepositWithStore?.deposit?.copy(status = Status.FINISH, finishDateDeposit = date)
+                    val depositWithNewStatus = args.dataDepositWithStore?.deposit?.copy(status = Status.SELESAI, finishDateDeposit = date)
                     depositWithNewStatus?.let { deposit ->
                         viewModel.getUpdateStatusDeposit(deposit.status)
                         viewModel.updateDeposit(deposit)
