@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import id.allana.titipbarangku.data.local.ConsignmentDatabase
 import id.allana.titipbarangku.data.model.DepositModel
+import id.allana.titipbarangku.data.model.DepositWithStore
 import id.allana.titipbarangku.data.model.ProductDepositWithProduct
 import id.allana.titipbarangku.data.repository.ConsignmentRepository
 import kotlinx.coroutines.launch
@@ -16,8 +17,15 @@ class HomepageViewModel(application: Application) : AndroidViewModel(application
     private val consignmentDao = ConsignmentDatabase.getDatabase(application).consignmentDao()
     private val repository = ConsignmentRepository(consignmentDao)
 
-    private val getAllFilteredDepositLiveData = MutableLiveData<List<ProductDepositWithProduct>>()
-    private val calculateTotalAmountLiveData = MutableLiveData<String>()
+    private val filteredDepositLiveData = MutableLiveData<List<ProductDepositWithProduct>>()
+    private val totalAmountLiveData = MutableLiveData<Int>()
+
+    private val checkDatabaseEmpty = MutableLiveData<Boolean>()
+    fun checkDatabaseEmpty(data: List<DepositWithStore>) {
+        checkDatabaseEmpty.value = data.isEmpty()
+    }
+
+    fun checkDatabaseEmptyLiveData(): LiveData<Boolean> = checkDatabaseEmpty
 
     fun getAllUnfinishedDeposit() = repository.getAllUnfinishedDeposit()
     fun getAllDeposit() = repository.getAllDeposit()
@@ -25,16 +33,17 @@ class HomepageViewModel(application: Application) : AndroidViewModel(application
 
     fun getAllFilteredDeposit(listDeposit: List<DepositModel>, listProductDeposit: List<ProductDepositWithProduct>) {
         viewModelScope.launch {
-            getAllFilteredDepositLiveData.postValue(repository.filterByCurrentMonth(listDeposit, listProductDeposit))
+            filteredDepositLiveData.postValue(repository.filterByCurrentMonth(listDeposit, listProductDeposit))
         }
     }
 
     fun calculateTotalAmountLiveData(listProductDeposit: List<ProductDepositWithProduct>) {
         viewModelScope.launch {
-            calculateTotalAmountLiveData.postValue(repository.calculateTotalProductSoldWithPrice(listProductDeposit))
+            val totalAmount = repository.calculateTotalProductSoldWithPrice(listProductDeposit)
+            totalAmountLiveData.postValue(totalAmount)
         }
     }
 
-    fun getAllFilterdDepositLiveData(): LiveData<List<ProductDepositWithProduct>> = getAllFilteredDepositLiveData
-    fun calculateTotalAmountLiveData(): LiveData<String> = calculateTotalAmountLiveData
+    fun getAllFilterdDepositLiveData(): LiveData<List<ProductDepositWithProduct>> = filteredDepositLiveData
+    fun calculateTotalAmountLiveData(): LiveData<Int> = totalAmountLiveData
 }

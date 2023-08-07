@@ -27,9 +27,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_store_name"
             style="@style/Nunito.18.Title"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-
+            android:layout_margin="@dimen/_16sdp"
             app:layout_constraintEnd_toStartOf="@+id/store_asset"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,11 +57,12 @@
             tools:text="TANGGAL DEPOSIT" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_finish_deposit"
         style="@style/ButtonThird"
         android:text="@string/update_status_deposit"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/cv_detail_deposit"
         app:layout_constraintTop_toBottomOf="@id/cv_detail_deposit" />
 
     <com.google.android.material.textview.MaterialTextView

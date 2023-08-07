@@ -19,7 +19,8 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:src="@drawable/ic_delete"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAccessibility="no" />
 
         <ImageButton
             android:id="@+id/btn_edit"
@@ -62,7 +63,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintStart_toStartOf="@+id/tv_store_name"
             app:layout_constraintTop_toBottomOf="@id/divider"
-            android:text="Alamat" />
+            android:text="@string/address" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_store_address"
@@ -78,7 +79,7 @@
             android:layout_marginTop="@dimen/_4sdp"
             app:layout_constraintStart_toStartOf="@+id/store_address"
             app:layout_constraintTop_toBottomOf="@+id/tv_store_address"
-            android:text="Pemilik" />
+            android:text="@string/owner_name" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_store_owner_name"
@@ -97,7 +98,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/store_owner_name"
             app:layout_constraintTop_toBottomOf="@id/tv_store_owner_name"
-            android:text="Nomor Telepon     " />
+            android:text="@string/phone_number" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_store_owner_phone_number"

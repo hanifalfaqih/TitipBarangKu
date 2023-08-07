@@ -36,7 +36,8 @@
         android:layout_marginStart="@dimen/_8sdp"
         app:layout_constraintStart_toEndOf="@id/tv_start_date_deposit"
         app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="HardcodedText" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_end_date_deposit"

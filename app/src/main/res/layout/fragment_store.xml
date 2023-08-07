@@ -42,7 +42,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_state_data_empty"
-        style="@style/Body10"
+        style="@style/Nunito.10.Body"
         android:text="@string/data_store_empty"
         android:textAlignment="center"
         android:visibility="gone"

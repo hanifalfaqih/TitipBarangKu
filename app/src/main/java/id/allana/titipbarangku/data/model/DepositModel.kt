@@ -34,5 +34,5 @@ data class DepositModel(
 
 enum class Status{
     DEPOSIT,
-    FINISH
+    SELESAI
 }

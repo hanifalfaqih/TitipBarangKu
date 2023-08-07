@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_4sdp">
+        android:padding="@dimen/_8sdp">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_expand"

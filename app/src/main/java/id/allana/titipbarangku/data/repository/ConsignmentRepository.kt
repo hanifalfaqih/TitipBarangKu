@@ -102,17 +102,17 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
         }
     }
 
-    fun calculateTotalProductSoldWithPrice(listProductDeposit: List<ProductDepositWithProduct>): String {
+    fun calculateTotalProductSoldWithPrice(listProductDeposit: List<ProductDepositWithProduct>): Int {
         var totalAmount = 0
         for (productDeposit in listProductDeposit) {
-            val productPrice = productDeposit.product?.price
+            val productPrice = productDeposit.product?.price ?: 0
             val totalProductSold = if (productDeposit.productDeposit.totalProductSold == "-") {
                 0
             } else {
                 productDeposit.productDeposit.totalProductSold.toInt()
             }
-            totalAmount =  totalProductSold * productPrice!!
+            totalAmount +=  totalProductSold * productPrice
         }
-        return totalAmount.toString()
+        return totalAmount
     }
 }

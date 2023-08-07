@@ -21,6 +21,7 @@
     <string name="data_category_empty">Tidak ada data kategori ditemukan</string>
     <string name="data_deposit_empty">Tidak ada data deposit ditemukan</string>
     <string name="data_product_empty">Tidak ada data produk ditemukan</string>
+    <string name="data_deposit_not_yet_finish">Tidak ada data deposit yang belum selesai ditemukan</string>
     <string name="please_add_product_or_store_first">Silakan tambah data produk / toko terlebih dahulu</string>
     <string name="please_add_category_first">Silakan tambah data kategori terlebih dahulu</string>
     <string name="update">Perbarui</string>
@@ -32,7 +33,7 @@
     <string name="product_price">Harga Produk</string>
     <string name="name">Nama Toko</string>
     <string name="address">Alamat</string>
-    <string name="owner_name">Nama Pemilik\n</string>
+    <string name="owner_name">Nama Pemilik</string>
     <string name="phone_number">Nomor Handphone</string>
     <string name="success_add_category">Berhasil tambah kategori</string>
     <string name="success_update_category">Berhasil perbarui kategori</string>
@@ -66,12 +67,10 @@
     <string name="value_return_quantity_must_be_filled">Pastikan jumlah barang kembali dalam setiap data produk sudah terisi</string>
     <string name="deposit">DEPOSIT</string>
     <string name="status_deposit_done">Deposit Selesai</string>
-    <string name="invalid_status_deposit">INVALID STATUS DEPOSIT</string>
     <string name="list_product">List Produk</string>
-    <string name="update_status_deposit">Perbarui Status Deposit</string>
+    <string name="update_status_deposit">Tandai Deposit Selesai</string>
     <string name="total_sales">Total Penjualan</string>
     <string name="rp_0_00">Rp 0,00</string>
-    <string name="close">Tutup</string>
     <string name="please_add_product_first">Silakan tambah produk dulu</string>
     <string name="quantity_cant_zero">Jumlah tidak boleh 0</string>
     <string name="deposit_caps">DEPOSIT</string>
@@ -82,4 +81,5 @@
     <string name="total">Jumlah</string>
     <string name="price">Harga</string>
     <string name="category">Kategori</string>
+    <string name="unfinished_deposit">Deposit Belum Selesai</string>
 </resources>
