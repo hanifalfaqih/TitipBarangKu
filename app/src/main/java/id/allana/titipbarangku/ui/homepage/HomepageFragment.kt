@@ -2,8 +2,10 @@ package id.allana.titipbarangku.ui.homepage
 
 import android.icu.text.DateFormatSymbols
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.databinding.FragmentHomepageBinding
+import id.allana.titipbarangku.ui.deposit.adapter.DepositAdapter
 import id.allana.titipbarangku.util.formatRupiah
 import java.util.Calendar
 import java.util.Locale
@@ -12,12 +14,21 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
 
     private val viewModel: HomepageViewModel by viewModels()
 
+    private val depositAdapter: DepositAdapter by lazy {
+        DepositAdapter()
+    }
+
     override fun initView() {
+        initRecyclerView()
         getCurrentMonth()
         viewModel.getAllDeposit()
     }
 
     override fun observeData() {
+        viewModel.getAllUnfinishedDeposit().observe(viewLifecycleOwner) { listDepositWithStore ->
+            depositAdapter.submitList(listDepositWithStore)
+        }
+
         /**
          * first, get data LIST DEPOSIT
          */
@@ -48,10 +59,15 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
                  */
                 viewModel.calculateTotalAmountLiveData().observe(viewLifecycleOwner) { totalAmount ->
                     getViewBinding().tvTotalAmountSales.text = formatRupiah(totalAmount.toString())
-
-//                    Log.d(HomepageFragment::class.java.simpleName, formatRupiah(totalAmount.toString()))
                 }
             }
+        }
+    }
+
+    private fun initRecyclerView() {
+        getViewBinding().rvUnfinishedDeposit.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = this@HomepageFragment.depositAdapter
         }
     }
 

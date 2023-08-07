@@ -91,11 +91,9 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
     private fun setDataToView(data: DepositWithStore) {
         getViewBinding().apply {
             tvStoreName.text = data.store?.name
-            tvStartDateDeposit.text = data.deposit.startDateDeposit
-            tvEndDateDeposit.text = data.deposit.finishDateDeposit
+            tvDateDeposit.text = getString(R.string.format_date_deposit, data.deposit.startDateDeposit, data.deposit.finishDateDeposit)
             viewModel.getUpdateStatusDeposit(data.deposit.status)
         }
-
     }
 
     override fun observeData() {

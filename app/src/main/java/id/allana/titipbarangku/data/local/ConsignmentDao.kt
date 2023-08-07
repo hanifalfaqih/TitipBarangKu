@@ -65,6 +65,9 @@ interface ConsignmentDao {
     @Transaction
     @Query("SELECT * FROM deposit_model")
     fun getAllDepositWithStore(): LiveData<List<DepositWithStore>>
+    @Transaction
+    @Query("SELECT * FROM deposit_model WHERE status = 'DEPOSIT'")
+    fun getAllUnfinishedDeposit(): LiveData<List<DepositWithStore>>
     @Query("SELECT * FROM deposit_model WHERE id_store= :idStore")
     fun getAllDepositInStore(idStore: Int): LiveData<List<DepositModel>>
     @Query("SELECT * FROM deposit_model")

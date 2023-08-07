@@ -6,91 +6,69 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="?android:attr/actionBarSize">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_detail_deposit"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/cv_detail_deposit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        app:cardElevation="@dimen/_8sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/store_asset"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_margin="@dimen/_16sdp"
+            android:src="@drawable/ic_store_asset"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_store_name"
-                style="@style/Title18"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:drawableStart="@drawable/ic_store_color"
-                android:drawablePadding="@dimen/_8sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="TOKO ABCD" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_store_name"
+            style="@style/Nunito.18.Title"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_status_deposit"
-                style="@style/Body12"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:drawableStart="@drawable/ic_status"
-                android:drawablePadding="@dimen/_8sdp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_store_name"
-                app:layout_constraintStart_toStartOf="@+id/tv_store_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_store_name"
-                tools:text="DEPOSIT" />
+            app:layout_constraintEnd_toStartOf="@+id/store_asset"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TOKO ABCD" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_start_date_deposit"
-                style="@style/Body12"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
-                android:drawableStart="@drawable/ic_date_24dp"
-                android:drawablePadding="@dimen/_8sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tv_status_deposit"
-                app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
-                tools:text="TOKO ABCD" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_status_deposit"
+            style="@style/Nunito.12.Body"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:drawableStart="@drawable/ic_status"
+            android:drawablePadding="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_store_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_store_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_store_name"
+            tools:text="DEPOSIT" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/symbol_until"
-                style="@style/Body12"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:text=" - "
-                app:layout_constraintBottom_toBottomOf="@+id/tv_start_date_deposit"
-                app:layout_constraintStart_toEndOf="@id/tv_start_date_deposit"
-                app:layout_constraintTop_toTopOf="@+id/tv_start_date_deposit" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_date_deposit"
+            style="@style/Nunito.12.Body"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:drawableStart="@drawable/ic_date_24dp"
+            android:drawablePadding="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_status_deposit"
+            app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
+            tools:text="TANGGAL DEPOSIT" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_end_date_deposit"
-                style="@style/Body12"
-                android:layout_margin="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/symbol_until"
-                app:layout_constraintTop_toBottomOf="@+id/tv_status_deposit"
-                tools:text="TOKO ABCD" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_finish_deposit"
-        style="@style/Button"
+        style="@style/ButtonThird"
         android:text="@string/update_status_deposit"
-        app:layout_constraintTop_toBottomOf="@id/cv_detail_deposit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/cv_detail_deposit" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/list_product_in_deposit"
-        style="@style/Title18"
+        style="@style/Nunito.18.Title"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_8sdp"
@@ -123,7 +101,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@id/tv_state_data_empty"
-        style="@style/Body10"
+        style="@style/Nunito.10.Body"
         android:text="@string/data_product_in_deposit_is_empty"
         android:textAlignment="center"
         android:visibility="gone"

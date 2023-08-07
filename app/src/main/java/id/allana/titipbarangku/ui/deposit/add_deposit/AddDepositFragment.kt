@@ -50,6 +50,7 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
         )
         spinnerStore.setAdapter(spinnerAdapter)
 
+        storeViewModel.getAllStore()
         storeViewModel.getAllStore().observe(viewLifecycleOwner) { list ->
             listStore = list
             for (data in listStore) {

@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.deposit.DepositFragment">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/store_asset"
+        android:layout_width="@dimen/_125sdp"
+        android:layout_height="@dimen/_125sdp"
+        android:src="@drawable/ic_store_asset"
+        android:layout_margin="@dimen/_36sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/pick_store"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -17,7 +27,7 @@
         android:hint="@string/title_store"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/store_asset">
 
         <AutoCompleteTextView
             android:id="@+id/text_dropdown_store"
@@ -30,7 +40,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/helper_pick_date"
-        style="@style/Body10"
+        style="@style/Nunito.10.Body"
         android:textColor="@color/purple_500"
         android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="@+id/pick_store"
@@ -49,7 +59,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_start_date_deposit"
-        style="@style/Body14"
+        style="@style/Nunito.14.Title"
         android:layout_marginStart="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_pick_date"
         app:layout_constraintEnd_toEndOf="@+id/pick_store"

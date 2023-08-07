@@ -32,7 +32,6 @@
         android:id="@+id/tv_product_name"
         style="@style/Nunito.16.Title"
         android:layout_marginEnd="@dimen/_8sdp"
-        app:fontFamily="@font/gothic_a1_semibold"
         app:layout_constraintBottom_toBottomOf="@+id/btn_edit"
         app:layout_constraintEnd_toStartOf="@+id/btn_edit"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +44,7 @@
         android:layout_marginTop="@dimen/_8sdp"
         app:layout_constraintStart_toStartOf="@+id/tv_product_name"
         app:layout_constraintTop_toBottomOf="@id/tv_product_name"
-        android:text="Harga" />
+        android:text="@string/price" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_product_price"
@@ -65,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/product_price"
         app:layout_constraintTop_toBottomOf="@+id/tv_product_price"
-        android:text="Kategori" />
+        android:text="@string/category" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_product_category"

@@ -7,6 +7,7 @@
     <string name="title_category">Kategori</string>
 
     <string name="format_show_list">: %s</string>
+    <string name="format_date_deposit">%s - %s</string>
     <string name="delete_data">"Hapus data"</string>
     <string name="msg_delete_data">"Yakin akan menghapus data %s"</string>
     <string name="msg_delete_data_store">"Yakin akan menghapus toko %s? Jika anda menghapus toko %s, data deposit yang terkait dengan toko %s juga akan terhapus"</string>
@@ -73,4 +74,12 @@
     <string name="close">Tutup</string>
     <string name="please_add_product_first">Silakan tambah produk dulu</string>
     <string name="quantity_cant_zero">Jumlah tidak boleh 0</string>
+    <string name="deposit_caps">DEPOSIT</string>
+    <string name="finish_caps">FINISH</string>
+    <string name="total_product">Jumlah Barang</string>
+    <string name="total_product_return">Jumlah Barang Kembali</string>
+    <string name="total_product_sold">Total Barang Terjual</string>
+    <string name="total">Jumlah</string>
+    <string name="price">Harga</string>
+    <string name="category">Kategori</string>
 </resources>

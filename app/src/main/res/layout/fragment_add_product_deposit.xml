@@ -80,11 +80,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_finish"
+        app:layout_constraintVertical_bias="0.35000002"
         tools:visibility="visible" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@id/tv_state_data_empty"
-        style="@style/Body10"
+        style="@style/Nunito.10.Body"
         android:text="@string/data_product_in_deposit_is_empty"
         android:textAlignment="center"
         android:visibility="gone"

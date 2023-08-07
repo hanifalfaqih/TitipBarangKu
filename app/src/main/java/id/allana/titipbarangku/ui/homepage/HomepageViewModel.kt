@@ -18,6 +18,8 @@ class HomepageViewModel(application: Application) : AndroidViewModel(application
 
     private val getAllFilteredDepositLiveData = MutableLiveData<List<ProductDepositWithProduct>>()
     private val calculateTotalAmountLiveData = MutableLiveData<String>()
+
+    fun getAllUnfinishedDeposit() = repository.getAllUnfinishedDeposit()
     fun getAllDeposit() = repository.getAllDeposit()
     fun getAllProductInDeposit() = repository.getAllProductInDeposit()
 
