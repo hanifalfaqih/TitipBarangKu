@@ -21,8 +21,8 @@ import id.allana.titipbarangku.data.model.StoreModel
 import id.allana.titipbarangku.databinding.FragmentAddDepositBinding
 import id.allana.titipbarangku.ui.deposit.DepositViewModel
 import id.allana.titipbarangku.ui.store.StoreViewModel
+import id.allana.titipbarangku.util.ConstantValue.SNACKBAR_DURATION
 import id.allana.titipbarangku.util.formatDate
-import id.allana.titipbarangku.util.snackbar
 import java.util.Calendar
 
 
@@ -88,7 +88,7 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
 
     private fun insertDeposit(id: Long, idStore: Int) {
         if (idStore == 0 || getViewBinding().tvStartDateDeposit.text.toString() == getString(R.string.choose_start_date)) {
-            Snackbar.make(requireView(), getString(R.string.data_store_and_start_date_must_be_filled), Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), getString(R.string.data_store_and_start_date_must_be_filled), SNACKBAR_DURATION).show()
         } else {
             val deposit = DepositModel(
                 id,
@@ -108,7 +108,7 @@ class AddDepositFragment : BaseFragment<FragmentAddDepositBinding>(FragmentAddDe
 
             viewModel.idDeposit.observe(viewLifecycleOwner) {
                 idDeposit = it
-                requireView().snackbar(successMessage).also {
+                Snackbar.make(requireView(), successMessage, SNACKBAR_DURATION).show().also {
                     if (findNavController().currentDestination?.id == R.id.addDepositFragment) {
                         val actionToAddProductDeposit = AddDepositFragmentDirections.actionAddDepositFragmentToProductDepositFragment(idDeposit)
                         findNavController().navigate(actionToAddProductDeposit)

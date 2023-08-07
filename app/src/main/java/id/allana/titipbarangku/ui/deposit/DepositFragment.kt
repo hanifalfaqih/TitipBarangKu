@@ -35,7 +35,7 @@ class DepositFragment : BaseFragment<FragmentDepositBinding>(FragmentDepositBind
             if (listProduct.isNotEmpty() && listStore.isNotEmpty()) {
                 findNavController().navigate(R.id.action_navigation_deposit_to_addDepositHolderActivity)
             } else {
-                requireView().snackbar(getString(R.string.please_add_product_or_store_first))
+                requireView().snackbar(getString(R.string.please_add_product_or_store_first), R.id.fab_add_deposit)
             }
         }
     }

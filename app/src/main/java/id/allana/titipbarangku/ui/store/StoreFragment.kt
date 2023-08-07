@@ -5,20 +5,19 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.data.model.StoreModel
 import id.allana.titipbarangku.databinding.FragmentStoreBinding
 import id.allana.titipbarangku.ui.store.adapter.StoreAdapter
+import id.allana.titipbarangku.util.snackbar
 
-class   StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding::inflate) {
+class StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding::inflate) {
 
     private val viewModel: StoreViewModel by viewModels()
     private val storeAdapter by lazy {
         StoreAdapter { deleteItem ->
             showAlertDialog(deleteItem)
-
         }
     }
 
@@ -43,7 +42,7 @@ class   StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding:
             setMessage(getString(R.string.msg_delete_data_store, data.name, data.name, data.name))
             setPositiveButton(getString(R.string.delete)) { _, _ ->
                 viewModel.deleteStore(data)
-                Snackbar.make(requireView(), getString(R.string.success_delete_data, data.name), Snackbar.LENGTH_SHORT).show()
+                requireActivity().findViewById<View>(android.R.id.content).snackbar(getString(R.string.success_delete_data, data.name), R.id.fab_add_store)
             }
             setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()

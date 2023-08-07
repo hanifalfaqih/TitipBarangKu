@@ -41,7 +41,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
             setMessage(getString(R.string.msg_delete_data, data.categoryName))
             setPositiveButton(getString(R.string.delete)) { _, _ ->
                 viewModel.deleteCategory(data)
-                requireView().snackbar(getString(R.string.success_delete_data, data.categoryName))
+                requireView().snackbar(getString(R.string.success_delete_data, data.categoryName), R.id.fab_add_category)
             }
             setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()

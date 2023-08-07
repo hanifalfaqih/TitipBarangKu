@@ -127,7 +127,7 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
                 getString(R.string.success_update_product)
             }
 
-            requireActivity().findViewById<View>(android.R.id.content).snackbar(successMessage).also { this.dismiss() }
+            requireActivity().findViewById<View>(android.R.id.content).snackbar(successMessage, R.id.fab_add_product).also { this.dismiss() }
         }
     }
 

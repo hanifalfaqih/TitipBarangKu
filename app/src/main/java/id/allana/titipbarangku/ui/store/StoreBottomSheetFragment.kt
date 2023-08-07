@@ -1,12 +1,13 @@
 package id.allana.titipbarangku.ui.store
 
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseBottomSheetDialogFragment
 import id.allana.titipbarangku.data.model.StoreModel
 import id.allana.titipbarangku.databinding.FragmentStoreBottomSheetBinding
+import id.allana.titipbarangku.util.snackbar
 
 
 class StoreBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentStoreBottomSheetBinding>(FragmentStoreBottomSheetBinding::inflate) {
@@ -44,10 +45,7 @@ class StoreBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentStoreBott
                 getString(R.string.success_update_store)
             }
 
-            Snackbar.make(
-                requireActivity().findViewById(android.R.id.content),
-                successMessage,
-                Snackbar.LENGTH_SHORT).show().also { this.dismiss() }
+            requireActivity().findViewById<View>(android.R.id.content).snackbar(successMessage, R.id.fab_add_store).also { this.dismiss() }
         }
     }
 

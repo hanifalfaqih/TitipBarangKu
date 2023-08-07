@@ -32,7 +32,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBind
                 if (list.isNotEmpty()) {
                     findNavController().navigate(R.id.action_navigation_product_to_productBottomSheetFragment)
                 } else {
-                    requireView().snackbar(getString(R.string.please_add_category_first))
+                    requireView().snackbar(getString(R.string.please_add_category_first), R.id.fab_add_product)
                 }
             }
         }
@@ -79,7 +79,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBind
             setMessage(getString(R.string.msg_delete_data_product, data.name, data.name, data.name))
             setPositiveButton(R.string.delete) { _, _ ->
                 viewModel.deleteProduct(data)
-                requireView().snackbar(getString(R.string.success_delete_data, data.name))
+                requireView().snackbar(getString(R.string.success_delete_data, data.name), R.id.fab_add_product)
             }
             setNegativeButton(R.string.cancel) { dialog, _ ->
                 dialog.dismiss()

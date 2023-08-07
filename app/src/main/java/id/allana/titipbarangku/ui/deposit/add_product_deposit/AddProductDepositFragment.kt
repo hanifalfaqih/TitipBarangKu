@@ -26,7 +26,7 @@ import id.allana.titipbarangku.databinding.FragmentAddProductDepositBinding
 import id.allana.titipbarangku.ui.deposit.DepositViewModel
 import id.allana.titipbarangku.ui.deposit.add_product_deposit.adapter.AddProductDepositAdapter
 import id.allana.titipbarangku.ui.product.ProductViewModel
-import id.allana.titipbarangku.util.snackbar
+import id.allana.titipbarangku.util.ConstantValue.SNACKBAR_DURATION
 
 
 class AddProductDepositFragment :
@@ -80,7 +80,7 @@ class AddProductDepositFragment :
 
         getViewBinding().btnFinish.setOnClickListener {
             if (getViewBinding().rvProductInDeposit.isEmpty()) {
-                requireView().snackbar("Silakan tambah produk dulu")
+                Snackbar.make(requireView(), getString(R.string.please_add_product_first), SNACKBAR_DURATION).show()
             } else {
                 requireActivity().finish()
             }
@@ -112,7 +112,7 @@ class AddProductDepositFragment :
             setMessage(getString(R.string.msg_delete_data, data.product?.name))
             setPositiveButton(getString(R.string.delete)) { _, _ ->
                 viewModel.deleteProductDeposit(data.productDeposit)
-                requireView().snackbar(getString(R.string.success_delete_data, data.product?.name))
+                Snackbar.make(requireView(), getString(R.string.success_delete_data, data.product?.name), SNACKBAR_DURATION).show()
             }
             setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
@@ -125,11 +125,11 @@ class AddProductDepositFragment :
             Snackbar.make(
                 requireView(),
                 getString(R.string.msg_product_quantity_must_be_filled),
-                Snackbar.LENGTH_SHORT
+                SNACKBAR_DURATION
             ).show()
         } else {
             if (getViewBinding().etProductQuantity.text.toString().toInt() == 0) {
-                requireView().snackbar("Jumlah tidak boleh 0")
+                Snackbar.make(requireView(), getString(R.string.quantity_cant_zero), SNACKBAR_DURATION).show()
             } else {
                 val productDeposit = ProductDepositModel(
                     0,
@@ -139,7 +139,7 @@ class AddProductDepositFragment :
                     returnQuantity = 0
                 )
                 viewModel.insertProductInDeposit(productDeposit)
-                requireView().snackbar(getString(R.string.success_add_product_in_deposit))
+                Snackbar.make(requireView(), getString(R.string.success_add_product_in_deposit), SNACKBAR_DURATION).show()
                 spinnerProduct.setText("", false)
                 getViewBinding().etProductQuantity.apply {
                     text?.clear()

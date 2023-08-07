@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.data.model.DepositWithStore
@@ -21,6 +22,7 @@ import id.allana.titipbarangku.data.model.ProductDepositModel
 import id.allana.titipbarangku.data.model.Status
 import id.allana.titipbarangku.databinding.FragmentDetailDepositBinding
 import id.allana.titipbarangku.ui.deposit.adapter.DetailDepositAdapter
+import id.allana.titipbarangku.util.ConstantValue.SNACKBAR_DURATION
 import id.allana.titipbarangku.util.formatDate
 import id.allana.titipbarangku.util.snackbar
 import java.util.Calendar
@@ -76,9 +78,9 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
         this.detailDepositAdapter.setOnItemClickCallback(object: DetailDepositAdapter.OnItemClickCallback {
             override fun onButtonUpdateQuantity(data: ProductDepositModel, isEmpty: Boolean) {
                 if (isEmpty) {
-                    requireView().snackbar(getString(R.string.value_cant_empty))
+                    requireView().snackbar(getString(R.string.value_cant_empty), R.id.nav_view)
                 } else if (data.returnQuantity > data.quantity) {
-                    requireView().snackbar(getString(R.string.value_cant_more_than_quantity))
+                    requireView().snackbar(getString(R.string.value_cant_more_than_quantity), R.id.nav_view)
                 } else {
                     viewModel.updateProductDeposit(data)
                 }
@@ -118,7 +120,7 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
                         viewModel.updateDeposit(deposit)
                     }
                 } else {
-                    requireView().snackbar(getString(R.string.value_return_quantity_must_be_filled))
+                    requireView().snackbar(getString(R.string.value_return_quantity_must_be_filled), R.id.nav_view)
                 }
             }
         }
@@ -150,8 +152,16 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
             setMessage(getString(R.string.msg_delete_data_deposit, data.store?.name))
             setPositiveButton(getString(R.string.delete)) { _, _ ->
                 viewModel.deleteDeposit(data.deposit)
-                requireView().snackbar(getString(R.string.success_delete_data_deposit))
-                findNavController().navigateUp()
+                Snackbar.make(requireView(), R.string.success_delete_data_deposit, SNACKBAR_DURATION
+                ).addCallback(object: Snackbar.Callback() {
+                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                        super.onDismissed(transientBottomBar, event)
+                        if (event == DISMISS_EVENT_TIMEOUT) {
+                            // Snackbar selesai ditampilkan
+                            findNavController().navigateUp()
+                        }
+                    }
+                }).setAnchorView(R.id.nav_view).show()
             }
             setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()

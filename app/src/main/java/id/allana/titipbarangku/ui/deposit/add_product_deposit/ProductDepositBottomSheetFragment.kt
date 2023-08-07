@@ -2,12 +2,13 @@ package id.allana.titipbarangku.ui.deposit.add_product_deposit
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseBottomSheetDialogFragment
 import id.allana.titipbarangku.data.model.ProductDepositModel
 import id.allana.titipbarangku.databinding.FragmentProductDepositBottomSheetBinding
 import id.allana.titipbarangku.ui.deposit.DepositViewModel
-import id.allana.titipbarangku.util.snackbar
+import id.allana.titipbarangku.util.ConstantValue.SNACKBAR_DURATION
 
 
 class ProductDepositBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProductDepositBottomSheetBinding>(FragmentProductDepositBottomSheetBinding::inflate) {
@@ -34,7 +35,8 @@ class ProductDepositBottomSheetFragment : BaseBottomSheetDialogFragment<Fragment
                 returnQuantity = 0
             )
             viewModel.updateProductDeposit(productDeposit)
-            requireView().snackbar(getString(R.string.success_update_product_deposit)).also { this.dismiss() }
+
+            Snackbar.make(requireView(), getString(R.string.success_update_product_deposit), SNACKBAR_DURATION).show().also { this.dismiss() }
         }
     }
 

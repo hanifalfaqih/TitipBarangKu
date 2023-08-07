@@ -49,7 +49,7 @@ class CategoryBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentCatego
                 getString(R.string.success_update_category)
             }
 
-            requireActivity().findViewById<View>(android.R.id.content).snackbar(successMessage).also { this.dismiss() }
+            requireActivity().findViewById<View>(android.R.id.content).snackbar(successMessage, R.id.fab_add_category).also { this.dismiss() }
         }
     }
 
