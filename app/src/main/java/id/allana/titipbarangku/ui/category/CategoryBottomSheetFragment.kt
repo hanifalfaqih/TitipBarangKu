@@ -15,11 +15,14 @@ class CategoryBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentCatego
     private val viewModel: CategoryViewModel by viewModels()
     private val args by navArgs<CategoryBottomSheetFragmentArgs>()
 
+    private var idCategory = 0
+
     override fun initView() {
         getViewBinding().btnAddCategory.setOnClickListener {
-            insertCategory(0)
+            insertCategory(idCategory)
         }
         args.categoryData?.let { categoryModel ->
+            idCategory = categoryModel.id
             /**
              * set category name from args to edit text
              */
@@ -32,14 +35,14 @@ class CategoryBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentCatego
              * when button clicked if args not null, it will update data
              */
             getViewBinding().btnAddCategory.setOnClickListener {
-                insertCategory(categoryModel.id)
+                insertCategory(idCategory)
             }
         }
     }
 
     private fun insertCategory(id: Int) {
         if (validateForm()) {
-            val category = CategoryModel(0, categoryName = getViewBinding().etCategory.text.toString())
+            val category = CategoryModel(id, categoryName = getViewBinding().etCategory.text.toString())
 
             val successMessage = if (id == 0) {
                 viewModel.insertCategory(category)

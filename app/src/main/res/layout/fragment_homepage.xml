@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito"
                 android:textSize="@dimen/_16ssp"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/brown_500"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito"
                 android:textSize="@dimen/_16ssp"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/brown_500"
                 android:layout_margin="@dimen/_8sdp"
                 android:text="@string/rp_0_00" />
 

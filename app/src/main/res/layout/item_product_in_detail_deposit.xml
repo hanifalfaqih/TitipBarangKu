@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_8sdp"
     app:strokeWidth="@dimen/_1sdp"
-    app:strokeColor="@color/purple_500">
+    app:strokeColor="@color/brown_500">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:strokeColor="@color/purple_500"
+            app:strokeColor="@color/brown_500"
             app:strokeWidth="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_4sdp"
             app:layout_constraintTop_toBottomOf="@id/tv_total_product_sold"
@@ -125,7 +125,7 @@
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/et_return_quantity"
-                    app:strokeColor="@color/purple_500" />
+                    app:strokeColor="@color/brown_500" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -125,12 +125,12 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
         viewModel.getUpdateStatusDepositLiveData().observe(viewLifecycleOwner) { updateStatusDeposit ->
             if (updateStatusDeposit.name == "DEPOSIT") {
                 getViewBinding().tvStatusDeposit.text = getString(R.string.deposit)
-                getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
+                getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.brown_500))
                 getViewBinding().btnFinishDeposit.text = getString(R.string.update_status_deposit)
                 getViewBinding().btnFinishDeposit.isEnabled = true
             } else {
                 getViewBinding().tvStatusDeposit.text = getString(R.string.finish).uppercase()
-                getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
+                getViewBinding().tvStatusDeposit.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_200))
                 getViewBinding().btnFinishDeposit.text = getString(R.string.status_deposit_done)
                 getViewBinding().btnFinishDeposit.isEnabled = false
             }

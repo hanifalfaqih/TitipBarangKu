@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_32sdp"
+    android:background="@color/blue_50">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_deposit_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_deposit_intro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_deposit"
+        style="@style/NunitoSemiBold.16.Title"
+        android:text="@string/feature_deposit"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_deposit_intro"
+        app:layout_constraintTop_toTopOf="@id/iv_deposit_intro" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_description_deposit"
+        style="@style/Nunito.12.Body"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:text="@string/text_desc_feature_deposit"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_deposit_intro"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_deposit" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_product_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_product_intro"
+        android:layout_marginTop="@dimen/_32sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_description_deposit" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_product"
+        style="@style/NunitoSemiBold.16.Title"
+        android:text="@string/feature_product"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_product_intro"
+        app:layout_constraintTop_toTopOf="@id/iv_product_intro" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_description_product"
+        style="@style/Nunito.12.Body"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:text="@string/text_desc_feature_product"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_product_intro"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_product" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_category_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_category_intro"
+        android:layout_marginTop="@dimen/_32sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_description_product" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_category"
+        style="@style/NunitoSemiBold.16.Title"
+        android:text="@string/feature_category"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_category_intro"
+        app:layout_constraintTop_toTopOf="@id/iv_category_intro" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_description_category"
+        style="@style/Nunito.12.Body"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:text="@string/text_desc_feature_category"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_category_intro"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_category" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_store_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_store_72dp"
+        android:layout_marginTop="@dimen/_32sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_description_category" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_store"
+        style="@style/NunitoSemiBold.16.Title"
+        android:text="@string/feature_store"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_store_intro"
+        app:layout_constraintTop_toTopOf="@id/iv_store_intro" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_description_store"
+        style="@style/Nunito.12.Body"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:text="@string/text_desc_feature_store"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_store_intro"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_store" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class StoreModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id_store")
-    val id: Int = 0,
+    val id: Int,
     @ColumnInfo("store_name")
     val name: String,
     @ColumnInfo("store_address")

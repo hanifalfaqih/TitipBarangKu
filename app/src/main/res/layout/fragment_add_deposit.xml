@@ -41,7 +41,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/helper_pick_date"
         style="@style/Nunito.10.Body"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/brown_500"
         android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="@+id/pick_store"
         app:layout_constraintStart_toStartOf="@+id/pick_store"

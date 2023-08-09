@@ -24,11 +24,11 @@ class DepositAdapter: ListAdapter<DepositWithStore, DepositAdapter.DepositViewHo
                 when (data.deposit.status) {
                     Status.DEPOSIT -> {
                         it.tvStatusDeposit.text = itemView.context.getString(R.string.deposit_caps)
-                        it.tvStatusDeposit.setTextColor(ContextCompat.getColor(itemView.context, R.color.purple_500))
+                        it.tvStatusDeposit.setTextColor(ContextCompat.getColor(itemView.context, R.color.brown_500))
                     }
                     else -> {
                         it.tvStatusDeposit.text = itemView.context.getString(R.string.finish_caps)
-                        it.tvStatusDeposit.setTextColor(ContextCompat.getColor(itemView.context, R.color.teal_200))
+                        it.tvStatusDeposit.setTextColor(ContextCompat.getColor(itemView.context, R.color.blue_200))
                     }
                 }
             }

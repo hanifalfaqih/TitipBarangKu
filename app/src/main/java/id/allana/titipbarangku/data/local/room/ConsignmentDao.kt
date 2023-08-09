@@ -1,4 +1,4 @@
-package id.allana.titipbarangku.data.local
+package id.allana.titipbarangku.data.local.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

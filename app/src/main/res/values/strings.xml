@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TitipBarangKu</string>
+    <string name="app_name">Titipin</string>
     <string name="title_homepage">Beranda</string>
     <string name="title_store">Toko</string>
     <string name="title_deposit">Deposit</string>
@@ -31,8 +31,8 @@
     <string name="category_name">Nama Kategori</string>
     <string name="product_name">Nama Produk</string>
     <string name="product_price">Harga Produk</string>
-    <string name="name">Nama Toko</string>
-    <string name="address">Alamat</string>
+    <string name="store_name">Nama Toko</string>
+    <string name="store_address">Alamat</string>
     <string name="owner_name">Nama Pemilik</string>
     <string name="phone_number">Nomor Handphone</string>
     <string name="success_add_category">Berhasil tambah kategori</string>
@@ -70,11 +70,11 @@
     <string name="list_product">List Produk</string>
     <string name="update_status_deposit">Tandai Deposit Selesai</string>
     <string name="total_sales">Total Penjualan</string>
-    <string name="rp_0_00">Rp 0,00</string>
+    <string name="rp_0_00">Rp0</string>
     <string name="please_add_product_first">Silakan tambah produk dulu</string>
     <string name="quantity_cant_zero">Jumlah tidak boleh 0</string>
     <string name="deposit_caps">DEPOSIT</string>
-    <string name="finish_caps">FINISH</string>
+    <string name="finish_caps">SELESAI</string>
     <string name="total_product">Jumlah Barang</string>
     <string name="total_product_return">Jumlah Barang Kembali</string>
     <string name="total_product_sold">Total Barang Terjual</string>
@@ -82,4 +82,15 @@
     <string name="price">Harga</string>
     <string name="category">Kategori</string>
     <string name="unfinished_deposit">Deposit Belum Selesai</string>
+    <string name="t_i_t_i_p_i_n">T I T I P I N</string>
+    <string name="save_store_name">Simpan Nama Toko</string>
+    <string name="feature_deposit">Fitur Deposit</string>
+    <string name="text_desc_feature_deposit">Atur deposit barang yang kamu titipkan, jumlah barang, jumlah barang kembali, dan barang laku terjual</string>
+    <string name="feature_product">Fitur Produk</string>
+    <string name="text_desc_feature_product">Tambah produk daganganmu, masukkan harga dan sesuaikan dengan kategori yang sudah ditambahkan</string>
+    <string name="feature_category">Fitur Kategori</string>
+    <string name="text_desc_feature_category">Sesuaikan kategori untuk memudahkan pengelompokan produk yang ditambahkan</string>
+    <string name="feature_store">Fitur Toko</string>
+    <string name="text_desc_feature_store">Simpan semua data toko langganan dimana kamu biasanya menitipkan barang daganganmu</string>
+    <string name="text_desc_titipin">Titipin adalah aplikasi pencatatan konsinyasi barang (deposit). \nDengan 4 fitur utama, fitur kategori, fitur produk, fitur deposit, fitur toko</string>
 </resources>

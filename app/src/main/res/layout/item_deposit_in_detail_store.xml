@@ -11,7 +11,7 @@
         android:id="@+id/tv_status_deposit"
         style="@style/Nunito.12.Body"
         android:layout_marginTop="@dimen/_4sdp"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/brown_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

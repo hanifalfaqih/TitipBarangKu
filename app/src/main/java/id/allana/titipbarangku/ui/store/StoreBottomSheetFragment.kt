@@ -15,22 +15,26 @@ class StoreBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentStoreBott
     private val viewModel: StoreViewModel by viewModels()
     private val args by navArgs<StoreBottomSheetFragmentArgs>()
 
+    private var idStore = 0
+
     override fun initView() {
-        getViewBinding().btnAddStore.setOnClickListener {
-            insertStore(0)
-        }
         args.storeData?.let { storeModel ->
+            idStore = storeModel.id
             setDataToView(storeModel)
             getViewBinding().btnAddStore.text = getString(R.string.update)
             getViewBinding().btnAddStore.setOnClickListener {
-                insertStore(storeModel.id)
+                insertStore(idStore)
             }
+        }
+        getViewBinding().btnAddStore.setOnClickListener {
+            insertStore(idStore)
         }
     }
 
     private fun insertStore(id: Int) {
         if (validateForm()) {
             val store = StoreModel(
+                id = idStore,
                 name = getViewBinding().etStoreName.text.toString().trim(),
                 address = getViewBinding().etStoreAddress.text.toString().trim(),
                 ownerName = getViewBinding().etStoreOwnerName.text.toString().trim(),

@@ -1,4 +1,4 @@
-package id.allana.titipbarangku.data.local
+package id.allana.titipbarangku.data.local.room
 
 import android.content.Context
 import androidx.room.Database

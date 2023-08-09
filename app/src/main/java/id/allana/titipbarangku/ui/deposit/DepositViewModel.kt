@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import id.allana.titipbarangku.data.local.ConsignmentDatabase
+import id.allana.titipbarangku.data.local.room.ConsignmentDatabase
 import id.allana.titipbarangku.data.model.DepositModel
 import id.allana.titipbarangku.data.model.DepositWithStore
 import id.allana.titipbarangku.data.model.ProductDepositModel

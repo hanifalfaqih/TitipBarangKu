@@ -1,7 +1,7 @@
 package id.allana.titipbarangku.data.repository
 
 import androidx.lifecycle.LiveData
-import id.allana.titipbarangku.data.local.ConsignmentDao
+import id.allana.titipbarangku.data.local.room.ConsignmentDao
 import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.data.model.DepositModel
 import id.allana.titipbarangku.data.model.DepositWithStore
