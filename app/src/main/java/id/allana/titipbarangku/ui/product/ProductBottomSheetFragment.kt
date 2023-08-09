@@ -15,10 +15,8 @@ import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.databinding.FragmentProductBottomSheetBinding
 import id.allana.titipbarangku.ui.category.CategoryViewModel
 import id.allana.titipbarangku.util.convertToInt
+import id.allana.titipbarangku.util.formatRupiah
 import id.allana.titipbarangku.util.snackbar
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.Locale
 
 class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProductBottomSheetBinding>(
     FragmentProductBottomSheetBinding::inflate
@@ -29,7 +27,7 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
 
     private var categoryName = arrayListOf<String>()
     private var listCategory = listOf<CategoryModel>()
-    private var categoryId = 0
+    private var idCategory = 0
 
     private lateinit var spinnerAdapter: ArrayAdapter<String>
     private lateinit var spinnerCategory: AutoCompleteTextView
@@ -72,13 +70,13 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
                 selectedCategory?.let {
                     val getCategoryName = it.categoryName
                     spinnerCategory.setText(getCategoryName, false)
-                    categoryId = it.id
+                    idCategory = it.id
                 }
 
                 setDataToView(productModel)
                 getViewBinding().btnAddProduct.text = getString(R.string.update)
                 getViewBinding().btnAddProduct.setOnClickListener {
-                    insertProduct(productModel.id, categoryId)
+                    insertProduct(productModel.id, idCategory)
                 }
             }
         }
@@ -89,21 +87,21 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
         spinnerCategory.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 val selectedCategory = listCategory[position]
-                categoryId = selectedCategory.id
+                idCategory = selectedCategory.id
             }
 
         /**
          * add product
          */
         getViewBinding().btnAddProduct.setOnClickListener {
-            insertProduct(0, categoryId)
+            insertProduct(0, idCategory)
         }
     }
 
     private fun setDataToView(data: ProductModel) {
         getViewBinding().apply {
             etProductName.setText(data.name)
-            etProductPrice.setText(data.price)
+            etProductPrice.setText(formatRupiah(data.price.toString()))
         }
     }
 
@@ -160,14 +158,7 @@ class ProductBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentProduct
             if (s.toString() != "") {
                 getViewBinding().etProductPrice.removeTextChangedListener(this)
 
-                val cleanString = s.toString().replace("[Rp,.\\s]".toRegex(), "")
-                val parsed = try {
-                    val parsedText = cleanString.toDouble() / 100
-                    val formatter: NumberFormat = DecimalFormat.getCurrencyInstance(Locale("id", "ID"))
-                    formatter.format(parsedText)
-                } catch (e: Exception) {
-                    s.toString()
-                }
+                val parsed = formatRupiah(s.toString())
 
                 getViewBinding().etProductPrice.setText(parsed)
                 getViewBinding().etProductPrice.setSelection(parsed.length)
