@@ -36,7 +36,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_status_deposit"
             style="@style/Nunito.12.Body"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:drawableStart="@drawable/ic_status"
             android:drawablePadding="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="@+id/tv_store_name"
@@ -47,7 +47,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_date_deposit"
             style="@style/Nunito.12.Body"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_4sdp"
             android:drawableStart="@drawable/ic_date_24dp"
             android:drawablePadding="@dimen/_8sdp"
@@ -67,7 +67,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/list_product_in_deposit"
-        style="@style/Nunito.18.Title"
+        style="@style/Nunito.16.Title"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_8sdp"

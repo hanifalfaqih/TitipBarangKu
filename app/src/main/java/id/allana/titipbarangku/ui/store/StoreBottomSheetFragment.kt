@@ -73,19 +73,19 @@ class StoreBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentStoreBott
         when {
             textName.isEmpty() -> {
                 isFormValid = false
-                getViewBinding().etStoreName.error = "Nama toko harus diisi!"
+                getViewBinding().etStoreName.error = getString(R.string.store_name_must_be_filled)
             }
             textAddress.isEmpty() -> {
                 isFormValid = false
-                getViewBinding().etStoreAddress.error = "Alamat toko harus diisi!"
+                getViewBinding().etStoreAddress.error = getString(R.string.store_address_must_be_filled)
             }
             textOwnerName.isEmpty() -> {
                 isFormValid = false
-                getViewBinding().etStoreOwnerName.error = "Nama pemilik toko harus diisi!"
+                getViewBinding().etStoreOwnerName.error = getString(R.string.store_owner_name_must_be_filled)
             }
             textOwnerPhoneNumber.isEmpty() -> {
                 isFormValid = false
-                getViewBinding().etStorePhoneNumber.error = "Nomor HP pemilik harus diisi!"
+                getViewBinding().etStorePhoneNumber.error = getString(R.string.store_phone_number_must_be_filled)
             }
             else -> {
                 isFormValid = true

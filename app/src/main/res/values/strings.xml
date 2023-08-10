@@ -59,8 +59,8 @@
     <string name="msg_product_quantity_must_be_filled">Data Produk / Jumlah Barang harus diisi!</string>
     <string name="product_name_must_be_filled">Nama produk harus diisi!</string>
     <string name="product_price_must_be_filled">Harga produk harus diisi!</string>
-    <string name="detail_deposit">Detail Deposit</string>
-    <string name="finish">Finish</string>
+    <string name="detail_deposit">Detil Deposit</string>
+    <string name="finish">Selesai</string>
     <string name="history_deposit">Riwayat Deposit</string>
     <string name="value_cant_empty">Nilai jumlah barang kembali tidak boleh kosong</string>
     <string name="value_cant_more_than_quantity">Nilai tidak boleh lebih dari jumlah barang yang disetor</string>
@@ -93,4 +93,12 @@
     <string name="feature_store">Fitur Toko</string>
     <string name="text_desc_feature_store">Simpan semua data toko langganan dimana kamu biasanya menitipkan barang daganganmu</string>
     <string name="text_desc_titipin">Titipin adalah aplikasi pencatatan konsinyasi barang (deposit). \nDengan 4 fitur utama, fitur kategori, fitur produk, fitur deposit, fitur toko</string>
+    <string name="greeting_business_name">%s, %s</string>
+    <string name="store_name_must_be_filled">Nama toko harus diisi!</string>
+    <string name="store_address_must_be_filled">Alamat toko harus diisi!</string>
+    <string name="store_owner_name_must_be_filled">Nama pemilik toko harus diisi!</string>
+    <string name="store_phone_number_must_be_filled">Nomor HP pemilik harus diisi!</string>
+    <string name="business_name">Nama Usaha</string>
+    <string name="helper_business_name">Silakan tambah nama usaha Anda</string>
+    <string name="text_greeting">Halo!</string>
 </resources>

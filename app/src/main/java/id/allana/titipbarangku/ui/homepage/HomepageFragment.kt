@@ -3,7 +3,9 @@ package id.allana.titipbarangku.ui.homepage
 import android.icu.text.DateFormatSymbols
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import id.allana.titipbarangku.R
 import id.allana.titipbarangku.data.base.BaseFragment
 import id.allana.titipbarangku.databinding.FragmentHomepageBinding
 import id.allana.titipbarangku.ui.deposit.adapter.DepositAdapter
@@ -27,6 +29,15 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
     }
 
     override fun observeData() {
+        viewModel.getUserStoreName().observe(viewLifecycleOwner) { userStoreName ->
+            if (userStoreName == "") {
+                val actionToHomepageBottomSheet = HomepageFragmentDirections.actionNavigationHomepageToHomepageBottomSheetFragment()
+                findNavController().navigate(actionToHomepageBottomSheet)
+            } else {
+                getViewBinding().tvGreetingBusinessName.text = getString(R.string.greeting_business_name, getCurrentHour(), userStoreName)
+            }
+        }
+
         viewModel.getAllUnfinishedDeposit().observe(viewLifecycleOwner) { listDepositWithStore ->
             viewModel.checkDatabaseEmpty(listDepositWithStore)
             depositAdapter.submitList(listDepositWithStore)
@@ -78,6 +89,15 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
         getViewBinding().rvUnfinishedDeposit.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = this@HomepageFragment.depositAdapter
+        }
+    }
+
+    private fun getCurrentHour(): String {
+        return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+            in 0..11 -> "Selamat pagi!"
+            in 12..15 -> "Selamat siang!"
+            in 16..18 -> "Selamat sore!"
+            else -> "Selamat malam!"
         }
     }
 

@@ -9,6 +9,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_store_name"
         style="@style/TextInputLayout"
+        app:helperTextEnabled="true"
+        app:helperText="@string/helper_business_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -16,7 +18,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_store_name"
             style="@style/EditText"
-            android:hint="@string/store_name"/>
+            android:hint="@string/business_name"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

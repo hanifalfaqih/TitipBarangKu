@@ -8,12 +8,21 @@
     tools:context=".ui.homepage.HomepageFragment">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/total_sales"
-        style="@style/Nunito.18.Title"
+        android:id="@+id/tv_greeting_business_name"
+        style="@style/NunitoBold.20.Title"
         android:layout_margin="@dimen/_8sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/text_greeting" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/total_sales"
+        style="@style/Nunito.16.Title"
+        android:layout_margin="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_greeting_business_name"
         android:text="@string/total_sales" />
 
     <com.google.android.material.card.MaterialCardView
@@ -60,7 +69,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/deposit"
-        style="@style/Nunito.18.Title"
+        style="@style/Nunito.16.Title"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_24sdp"
