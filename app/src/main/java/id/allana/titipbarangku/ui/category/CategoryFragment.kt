@@ -50,28 +50,27 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
     }
 
     override fun observeData() {
+        observeAllCategory()
+        observeCheckDatabaseEmpty()
+    }
+
+    private fun observeAllCategory() {
         viewModel.getAllCategory().observe(viewLifecycleOwner) { listCategory ->
             viewModel.checkDatabaseEmpty(listCategory)
             categoryAdapter.submitList(listCategory)
         }
+    }
+
+    private fun observeCheckDatabaseEmpty() {
         viewModel.checkDatabaseEmptyLiveData().observe(viewLifecycleOwner) { isEmpty ->
-            if (isEmpty) {
-                stateDataEmpty(true)
-            } else {
-                stateDataEmpty(false)
-            }
+            if (isEmpty) stateDataEmpty(true) else stateDataEmpty(false)
         }
     }
 
     private fun stateDataEmpty(isEmpty: Boolean) {
-        getViewBinding().also {
-            if (isEmpty) {
-                it.ivStateDataEmpty.visibility = View.VISIBLE
-                it.tvStateDataEmpty.visibility = View.VISIBLE
-            } else {
-                it.ivStateDataEmpty.visibility = View.GONE
-                it.tvStateDataEmpty.visibility = View.GONE
-            }
+        getViewBinding().apply {
+            ivStateDataEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+            tvStateDataEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
         }
     }
 }

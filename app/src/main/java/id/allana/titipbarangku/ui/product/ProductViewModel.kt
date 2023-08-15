@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import id.allana.titipbarangku.data.local.room.ConsignmentDatabase
+import id.allana.titipbarangku.data.model.ProductDepositModel
 import id.allana.titipbarangku.data.model.ProductModel
 import id.allana.titipbarangku.data.model.ProductWithCategory
 import id.allana.titipbarangku.data.repository.ConsignmentRepository
@@ -42,5 +43,6 @@ class ProductViewModel(application: Application): AndroidViewModel(application) 
 
     fun getCategoryWithProduct(): LiveData<List<ProductWithCategory>> = repository.getCategoryWithProduct()
     fun getAllProduct(): LiveData<List<ProductModel>> = repository.getAllProduct()
+    fun getAllProductDeposit(): LiveData<List<ProductDepositModel>> = repository.getAllProductDeposit()
 
 }

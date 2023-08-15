@@ -101,4 +101,10 @@
     <string name="business_name">Nama Usaha</string>
     <string name="helper_business_name">Silakan tambah nama usaha Anda</string>
     <string name="text_greeting">Halo!</string>
+    <string name="logout">Keluar</string>
+    <string name="login_with_google">Masuk dengan Google</string>
+    <string name="welcome_titipin">Selamat Datang \n<font color="#775842">Titipin</font></string>
+    <string name="please_sign_in_first">Silakan masuk terlebih dahulu!</string>
+    <string name="backup">Cadangkan</string>
+    <string name="restore">Pulihkan</string>
 </resources>

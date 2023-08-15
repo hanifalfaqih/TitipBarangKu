@@ -1,15 +1,16 @@
 package id.allana.titipbarangku.ui.splash
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.activity.viewModels
-import id.allana.titipbarangku.MainActivity
+import androidx.appcompat.app.AppCompatActivity
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.ui.homepage.HomepageViewModel
-import id.allana.titipbarangku.ui.intro.IntroScreenActivity
+import id.allana.titipbarangku.util.navigateToIntroScreen
+import id.allana.titipbarangku.util.navigateToLoginScreen
+import id.allana.titipbarangku.util.navigateToMainScreen
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
@@ -22,35 +23,30 @@ class SplashScreenActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 viewModel.getUserFirstTimeOpenApp().observe(this@SplashScreenActivity) { isFirstTimeOpen ->
-                    if (isFirstTimeOpen) {
-                        navigateToIntroScreen()
-                    } else {
-                        navigateToHomepageScreen()
+                    viewModel.getAuthUserLiveData().observe(this@SplashScreenActivity) { authUser ->
+                        Log.d(SplashScreenActivity::class.java.simpleName, "DATA AUTH USER: $authUser")
+                        if (isFirstTimeOpen) {
+                            navigateToIntroScreen(this@SplashScreenActivity)
+                        } else if (authUser == "") {
+                            navigateToLoginScreen(this@SplashScreenActivity)
+                        } else {
+                            navigateToMainScreen(this@SplashScreenActivity)
+                        }
                     }
                 }
             }
-
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+
+        viewModel.getAuthUser(this)
         timer.start()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         timer.cancel()
-    }
-
-    private fun navigateToIntroScreen() {
-        val intentToMain = Intent(this@SplashScreenActivity, IntroScreenActivity::class.java)
-        intentToMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intentToMain)
-    }
-    private fun navigateToHomepageScreen() {
-        val intentToMain = Intent(this@SplashScreenActivity, MainActivity::class.java)
-        intentToMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intentToMain)
     }
 }

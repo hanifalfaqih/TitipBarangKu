@@ -85,6 +85,7 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
     fun getAllDepositWithStore(): LiveData<List<DepositWithStore>> = consignmentDao.getAllDepositWithStore()
     fun getAllDepositInStore(idStore: Int): LiveData<List<DepositModel>> = consignmentDao.getAllDepositInStore(idStore)
     fun getAllDeposit(): LiveData<List<DepositModel>> = consignmentDao.getAllDeposit()
+    fun getAllProductDeposit(): LiveData<List<ProductDepositModel>> = consignmentDao.getAllProductDeposit()
     fun getAllProductInDeposit(): LiveData<List<ProductDepositWithProduct>> = consignmentDao.getAllProductInDeposit()
     fun filterByCurrentMonth(listDeposit: List<DepositModel>, listProductDeposit: List<ProductDepositWithProduct>): List<ProductDepositWithProduct> {
         val currentMonth = Calendar.getInstance().get(Calendar.MONTH)

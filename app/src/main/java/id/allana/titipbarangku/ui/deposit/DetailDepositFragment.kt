@@ -39,6 +39,7 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
 
     override fun initView() {
         initRecyclerView()
+        setupMenu()
         args.dataDepositWithStore.let { depositWithStore ->
             depositWithStore?.let {
                 idDeposit = it.deposit.id
@@ -46,7 +47,28 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
                 viewModel.getUpdateStatusDeposit(it.deposit.status)
             }
         }
+    }
+    private fun initRecyclerView() {
+        getViewBinding().rvProductInDeposit.apply {
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            adapter = this@DetailDepositFragment.detailDepositAdapter
+        }
 
+        this.detailDepositAdapter.setOnItemClickCallback(object: DetailDepositAdapter.OnItemClickCallback {
+            override fun onButtonUpdateQuantity(data: ProductDepositModel, isEmpty: Boolean) {
+                if (isEmpty) {
+                    requireView().snackbar(getString(R.string.value_cant_empty), R.id.nav_view)
+                } else if (data.returnQuantity > data.quantity) {
+                    requireView().snackbar(getString(R.string.value_cant_more_than_quantity), R.id.nav_view)
+                } else {
+                    viewModel.updateProductDeposit(data)
+                }
+            }
+        })
+    }
+
+    private fun setupMenu() {
         (requireActivity() as MenuHost).addMenuProvider(object: MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.detail_deposit_menu, menu)
@@ -68,25 +90,6 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun initRecyclerView() {
-        getViewBinding().rvProductInDeposit.apply {
-            layoutManager = LinearLayoutManager(context)
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-            adapter = this@DetailDepositFragment.detailDepositAdapter
-        }
-
-        this.detailDepositAdapter.setOnItemClickCallback(object: DetailDepositAdapter.OnItemClickCallback {
-            override fun onButtonUpdateQuantity(data: ProductDepositModel, isEmpty: Boolean) {
-                if (isEmpty) {
-                    requireView().snackbar(getString(R.string.value_cant_empty), R.id.nav_view)
-                } else if (data.returnQuantity > data.quantity) {
-                    requireView().snackbar(getString(R.string.value_cant_more_than_quantity), R.id.nav_view)
-                } else {
-                    viewModel.updateProductDeposit(data)
-                }
-            }
-        })
-    }
 
     private fun setDataToView(data: DepositWithStore) {
         getViewBinding().apply {
@@ -95,8 +98,13 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
             viewModel.getUpdateStatusDeposit(data.deposit.status)
         }
     }
-
     override fun observeData() {
+        observeAllProductInDeposit()
+        observeUpdateStatusDeposit()
+        observeCheckProductInDeposit()
+    }
+
+    private fun observeAllProductInDeposit() {
         viewModel.getAllProductInDeposit(idDeposit = idDeposit.toInt()).observe(viewLifecycleOwner) { list ->
             viewModel.checkProductInDeposit(list)
             detailDepositAdapter.submitList(list)
@@ -122,6 +130,9 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
                 }
             }
         }
+
+    }
+    private fun observeUpdateStatusDeposit() {
         viewModel.getUpdateStatusDepositLiveData().observe(viewLifecycleOwner) { updateStatusDeposit ->
             if (updateStatusDeposit.name == "DEPOSIT") {
                 getViewBinding().tvStatusDeposit.text = getString(R.string.deposit)
@@ -135,6 +146,8 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
                 getViewBinding().btnFinishDeposit.isEnabled = false
             }
         }
+    }
+    private fun observeCheckProductInDeposit() {
         viewModel.checkProductInDepositLiveData().observe(viewLifecycleOwner) { isEmpty ->
             if (isEmpty) {
                 stateDataEmpty(true)
@@ -142,6 +155,7 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
                 stateDataEmpty(false)
             }
         }
+
     }
 
     private fun showAlertDialog(data: DepositWithStore) {
@@ -168,14 +182,9 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
     }
 
     private fun stateDataEmpty(isEmpty: Boolean) {
-        getViewBinding().also {
-            if (isEmpty) {
-                it.ivStateDataEmpty.visibility = View.VISIBLE
-                it.tvStateDataEmpty.visibility = View.VISIBLE
-            } else {
-                it.ivStateDataEmpty.visibility = View.GONE
-                it.tvStateDataEmpty.visibility = View.GONE
-            }
+        getViewBinding().apply {
+            ivStateDataEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+            tvStateDataEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
         }
     }
 }

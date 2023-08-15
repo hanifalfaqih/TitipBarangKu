@@ -1,15 +1,14 @@
 package id.allana.titipbarangku.ui.intro
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroCustomLayoutFragment.Companion.newInstance
-import id.allana.titipbarangku.MainActivity
 import id.allana.titipbarangku.R
 import id.allana.titipbarangku.ui.homepage.HomepageViewModel
+import id.allana.titipbarangku.util.navigateToLoginScreen
 
 
 class IntroScreenActivity : AppIntro2() {
@@ -32,9 +31,7 @@ class IntroScreenActivity : AppIntro2() {
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+        navigateToLoginScreen(this)
         setUserFirstTimeOpenApp()
     }
 

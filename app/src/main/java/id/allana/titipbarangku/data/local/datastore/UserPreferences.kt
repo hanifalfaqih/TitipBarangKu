@@ -7,6 +7,8 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -16,6 +18,7 @@ class UserPreferences(private val dataStore: DataStore<Preferences>) {
 
     private val INTRO_KEY = booleanPreferencesKey("intro_key")
     private val STORE_NAME_KEY = stringPreferencesKey("store_name_key")
+    private val AUTH_KEY = stringPreferencesKey("auth_key")
 
     fun getUserFirstTimeOpenApp(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
@@ -39,6 +42,34 @@ class UserPreferences(private val dataStore: DataStore<Preferences>) {
         dataStore.edit { preferences ->
             preferences[STORE_NAME_KEY] = userStoreName
         }
+    }
+
+    fun getAuthUser(context: Context): String {
+        val masterKeyAlias = MasterKey.Builder(context)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+
+        val encryptedPreferences = EncryptedSharedPreferences.create(
+            context,
+            "encrypted_shared_prefs",
+            masterKeyAlias,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+        return encryptedPreferences.getString(AUTH_KEY.name, null) ?: ""
+    }
+
+    fun setAuthUser(auth: String, context: Context) {
+        val masterKeyAlias = MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
+
+        val encryptedPreferences = EncryptedSharedPreferences.create(
+            context,
+            "encrypted_shared_prefs",
+            masterKeyAlias,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+        encryptedPreferences.edit().putString(AUTH_KEY.name, auth).apply()
     }
 
     companion object {

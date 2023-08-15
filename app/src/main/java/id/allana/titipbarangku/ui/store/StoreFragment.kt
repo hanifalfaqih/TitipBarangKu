@@ -51,27 +51,26 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(FragmentStoreBinding::i
     }
 
     override fun observeData() {
+        observeAllStore()
+        observeCheckDatabaseEmpty()
+    }
+
+    private fun observeAllStore() {
         viewModel.getAllStore().observe(viewLifecycleOwner) { listStore ->
             viewModel.checkDatabaseEmpty(listStore)
             storeAdapter.submitList(listStore)
         }
+    }
+
+    private fun observeCheckDatabaseEmpty() {
         viewModel.checkDatabaseEmptyLiveData().observe(viewLifecycleOwner) { isEmpty ->
-            if (isEmpty) {
-                stateDataEmpty(true)
-            } else {
-                stateDataEmpty(false)
-            }
+            if (isEmpty) stateDataEmpty(true) else stateDataEmpty(false)
         }
     }
     private fun stateDataEmpty(isEmpty: Boolean) {
-        getViewBinding().also {
-            if (isEmpty) {
-                it.ivStateDataEmpty.visibility = View.VISIBLE
-                it.tvStateDataEmpty.visibility = View.VISIBLE
-            } else {
-                it.ivStateDataEmpty.visibility = View.GONE
-                it.tvStateDataEmpty.visibility = View.GONE
-            }
+        getViewBinding().apply {
+            ivStateDataEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+            tvStateDataEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
         }
     }
 }
