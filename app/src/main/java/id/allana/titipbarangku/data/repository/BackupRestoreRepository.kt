@@ -2,9 +2,9 @@ package id.allana.titipbarangku.data.repository
 
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
+import id.allana.titipbarangku.data.local.room.ConsignmentDao
 import id.allana.titipbarangku.data.model.CategoryModel
 import id.allana.titipbarangku.data.model.DepositModel
 import id.allana.titipbarangku.data.model.ProductDepositModel
@@ -15,112 +15,234 @@ import id.allana.titipbarangku.data.model.firebasemodel.DepositModelFirebase
 import id.allana.titipbarangku.data.model.firebasemodel.ProductDepositModelFirebase
 import id.allana.titipbarangku.data.model.firebasemodel.ProductModelFirebase
 import id.allana.titipbarangku.data.model.firebasemodel.StoreModelFirebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
-class BackupRestoreRepository {
+class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
 
     private val authUid = Firebase.auth.uid.toString()
-    private val insertDataCategory = Firebase.database.reference.child(authUid).child("categories")
-    private val insertDataProduct = Firebase.database.reference.child(authUid).child("products")
-    private val insertDataStore = Firebase.database.reference.child(authUid).child("stores")
-    private val insertDataDeposit = Firebase.database.reference.child(authUid).child("deposits")
-    private val insertDataProductDeposit = Firebase.database.reference.child(authUid).child("product_deposits")
+    private val insertDataCategory = Firebase.firestore.collection(authUid).document("category").collection("categories")
+    private val insertDataProduct = Firebase.firestore.collection(authUid).document("product").collection("products")
+    private val insertDataStore = Firebase.firestore.collection(authUid).document("store").collection("stores")
+    private val insertDataDeposit = Firebase.firestore.collection(authUid).document("deposit").collection("deposits")
+    private val insertDataProductDeposit = Firebase.firestore.collection(authUid).document("product_deposit").collection("product_deposits")
 
+    /**
+     * BACKUP TO FIREBASE
+     */
     fun insertCategoryToFirebase(listCategory: List<CategoryModel>, callback: (Boolean) -> Unit) {
-        val list = mutableListOf<CategoryModelFirebase>()
-
-        for (category in listCategory) {
-            val categoryModelFirebase = CategoryModelFirebase(
-                id = category.id,
-                categoryName = category.categoryName
-            )
-            list.add(categoryModelFirebase)
+        insertDataCategory.get().addOnCompleteListener { task ->
+            /**
+             * DELETE ALL DATA REFERENCE IN FIREBASE BEFORE BACKUP
+             */
+            if (task.isSuccessful) {
+                for (document in task.result!!) {
+                    document.reference.delete().addOnSuccessListener { Log.d("DELETE CATEGORIES", "Success Delete Categories") }.addOnFailureListener { Log.d("DELETE CATEGORIES", "Failed Delete Categories") }
+                }
+            }
+            /**
+             * INSERT ALL DATA IN FIREBASE
+             */
+            for (item in listCategory) {
+                val category = CategoryModelFirebase(
+                    id = item.id,
+                    categoryName = item.categoryName
+                )
+                insertDataCategory.document(category.id.toString()).set(category.toMap()).addOnSuccessListener { callback(true) }.addOnFailureListener { callback(false) }
+            }
         }
-
-        val gson = Gson()
-        val jsonList = gson.toJson(list)
-
-        insertDataCategory.setValue(jsonList).addOnSuccessListener { callback(true) }.addOnFailureListener { callback(false) }
-        Log.d(BackupRestoreRepository::class.java.simpleName, list.toString())
     }
-
     fun insertProductToFirebase(listProduct: List<ProductModel>, callback: (Boolean) -> Unit) {
-        val list = mutableListOf<ProductModelFirebase>()
-
-        for (product in listProduct) {
-            val productModelFirebase = ProductModelFirebase(
-                id = product.id,
-                idCategory = product.idCategory,
-                name = product.name,
-                price = product.price
-            )
-            list.add(productModelFirebase)
+        insertDataProduct.get().addOnCompleteListener { task ->
+            /**
+             * DELETE ALL DATA REFERENCE IN FIREBASE BEFORE BACKUP
+             */
+            if (task.isSuccessful) {
+                for (document in task.result!!) {
+                    document.reference.delete().addOnSuccessListener { Log.d("DELETE CATEGORIES", "Success Delete Categories") }.addOnFailureListener { Log.d("DELETE CATEGORIES", "Failed Delete Categories") }
+                }
+            }
+            /**
+             * INSERT ALL DATA IN FIREBASE
+             */
+            for (item in listProduct) {
+                val product = ProductModelFirebase(
+                    id = item.id,
+                    idCategory = item.idCategory,
+                    name = item.name,
+                    price = item.price
+                )
+                insertDataProduct.document(product.id.toString()).set(product.toMap()).addOnSuccessListener { callback(true) }.addOnFailureListener { callback(false) }
+            }
         }
-
-        val gson = Gson()
-        val jsonList = gson.toJson(list)
-
-        insertDataProduct.setValue(jsonList).addOnSuccessListener { callback(true) }.addOnFailureListener { callback(false) }
     }
-
     fun insertStoreToFirebase(listStore: List<StoreModel>, callback: (Boolean) -> Unit) {
-        val list = mutableListOf<StoreModelFirebase>()
-
-        for (store in listStore) {
-            val storeModelFirebase = StoreModelFirebase(
-                id = store.id,
-                name = store.name,
-                address = store.address,
-                ownerName = store.ownerName,
-                ownerPhoneNumber = store.ownerPhoneNumber
-            )
-            list.add(storeModelFirebase)
+        insertDataStore.get().addOnCompleteListener { task ->
+            /**
+             * DELETE ALL DATA REFERENCE IN FIREBASE BEFORE BACKUP
+             */
+            if (task.isSuccessful) {
+                for (document in task.result!!) {
+                    document.reference.delete().addOnSuccessListener {
+                        Log.d(
+                            "DELETE CATEGORIES",
+                            "Success Delete Categories"
+                        )
+                    }.addOnFailureListener {
+                        Log.d(
+                            "DELETE CATEGORIES",
+                            "Failed Delete Categories"
+                        )
+                    }
+                }
+            }
+            /**
+             * INSERT ALL DATA IN FIREBASE
+             */
+            for (item in listStore) {
+                val store = StoreModelFirebase(
+                    id = item.id,
+                    name = item.name,
+                    address = item.address,
+                    ownerName = item.ownerName,
+                    ownerPhoneNumber = item.ownerPhoneNumber
+                )
+                insertDataStore.document(store.id.toString()).set(store.toMap())
+                    .addOnSuccessListener { callback(true) }
+                    .addOnFailureListener { callback(false) }
+            }
         }
-
-        val gson = Gson()
-        val jsonList = gson.toJson(list)
-
-        insertDataStore.setValue(jsonList).addOnSuccessListener { callback(true) }.addOnFailureListener { callback(false) }
     }
-
     fun insertDepositToFirebase(listDeposit: List<DepositModel>, callback: (Boolean) -> Unit) {
-        val list = mutableListOf<DepositModelFirebase>()
-
-        for (deposit in listDeposit) {
-            val depositModelFirebase = DepositModelFirebase(
-                id = deposit.id,
-                idStore = deposit.idStore,
-                startDateDeposit = deposit.startDateDeposit,
-                finishDateDeposit = deposit.finishDateDeposit,
-                status = deposit.status.toString()
-            )
-            list.add(depositModelFirebase)
+        insertDataDeposit.get().addOnCompleteListener { task ->
+            /**
+             * DELETE ALL DATA REFERENCE IN FIREBASE BEFORE BACKUP
+             */
+            if (task.isSuccessful) {
+                for (document in task.result!!) {
+                    document.reference.delete().addOnSuccessListener {
+                        Log.d(
+                            "DELETE CATEGORIES",
+                            "Success Delete Categories"
+                        )
+                    }.addOnFailureListener {
+                        Log.d(
+                            "DELETE CATEGORIES",
+                            "Failed Delete Categories"
+                        )
+                    }
+                }
+            }
+            /**
+             * INSERT ALL DATA IN FIREBASE
+             */
+            for (item in listDeposit) {
+                val deposit = DepositModelFirebase(
+                    id = item.id,
+                    idStore = item.idStore,
+                    startDateDeposit = item.startDateDeposit,
+                    finishDateDeposit = item.finishDateDeposit,
+                    status = item.status.name
+                )
+                insertDataDeposit.document(deposit.id.toString()).set(deposit.toMap())
+                    .addOnSuccessListener { callback(true) }
+                    .addOnFailureListener { callback(false) }
+            }
         }
-
-        val gson = Gson()
-        val jsonList = gson.toJson(list)
-
-        insertDataDeposit.setValue(jsonList).addOnSuccessListener { callback(true) }.addOnFailureListener { callback(false) }
     }
-
     fun insertProductDepositToFirebase(listProductDeposit: List<ProductDepositModel>, callback: (Boolean) -> Unit) {
-        val list = mutableListOf<ProductDepositModelFirebase>()
-
-        for (productDeposit in listProductDeposit) {
-            val productDepositModelFirebase = ProductDepositModelFirebase(
-                id = productDeposit.id,
-                idDeposit = productDeposit.idDeposit,
-                idProduct = productDeposit.idProduct,
-                quantity = productDeposit.quantity,
-                returnQuantity = productDeposit.returnQuantity,
-                totalProductSold = productDeposit.totalProductSold,
-                isExpanded = productDeposit.isExpanded
-            )
-            list.add(productDepositModelFirebase)
+        insertDataProductDeposit.get().addOnCompleteListener { task ->
+            /**
+             * DELETE ALL DATA REFERENCE IN FIREBASE BEFORE BACKUP
+             */
+            if (task.isSuccessful) {
+                for (document in task.result!!) {
+                    document.reference.delete().addOnSuccessListener {
+                        Log.d(
+                            "DELETE CATEGORIES",
+                            "Success Delete Categories"
+                        )
+                    }.addOnFailureListener {
+                        Log.d(
+                            "DELETE CATEGORIES",
+                            "Failed Delete Categories"
+                        )
+                    }
+                }
+            }
+            /**
+             * INSERT ALL DATA IN FIREBASE
+             */
+            for (item in listProductDeposit) {
+                val productDeposit = ProductDepositModelFirebase(
+                    id = item.id,
+                    idDeposit = item.idDeposit,
+                    idProduct = item.idProduct,
+                    quantity = item.quantity,
+                    returnQuantity = item.returnQuantity,
+                    totalProductSold = item.totalProductSold,
+                    isExpanded = item.isExpanded
+                )
+                insertDataProductDeposit.document(productDeposit.id.toString())
+                    .set(productDeposit.toMap()).addOnSuccessListener { callback(true) }
+                    .addOnFailureListener { callback(false) }
+            }
         }
-
-        val gson = Gson()
-        val jsonList = gson.toJson(list)
-
-        insertDataProductDeposit.setValue(jsonList).addOnSuccessListener { callback(true) }.addOnFailureListener { callback(false) }
     }
+
+    /**
+     * RESTORE FROM FIREBASE
+     */
+    suspend fun getCategoryFromFirebase(): List<CategoryModelFirebase> {
+        return withContext(Dispatchers.IO) {
+            return@withContext insertDataCategory.get().await().toObjects(CategoryModelFirebase::class.java)
+        }
+    }
+    suspend fun getProductFromFirebase(): List<ProductModelFirebase> {
+        return withContext(Dispatchers.IO) {
+            return@withContext insertDataProduct.get().await().toObjects(ProductModelFirebase::class.java)
+        }
+    }
+    suspend fun getDepositFromFirebase(): List<DepositModelFirebase> {
+        return withContext(Dispatchers.IO) {
+            return@withContext insertDataDeposit.get().await().toObjects(DepositModelFirebase::class.java)
+        }
+    }
+    suspend fun getStoreFromFirebase(): List<StoreModelFirebase> {
+        return withContext(Dispatchers.IO) {
+            return@withContext insertDataStore.get().await().toObjects(StoreModelFirebase::class.java)
+        }
+    }
+    suspend fun getProductDepositFromFirebase(): List<ProductDepositModelFirebase> {
+        return withContext(Dispatchers.IO) {
+            return@withContext insertDataProductDeposit.get().await().toObjects(ProductDepositModelFirebase::class.java)
+        }
+    }
+
+    /**
+     * INSERT TO ROOM FROM FIREBASE
+     */
+    suspend fun insertAllCategories(listCategories: List<CategoryModel>, callback: (Boolean) -> Unit) {
+        val listRowId = consignmentDao.insertAllCategoriesFromFirebase(listCategories)
+        if (listRowId.isNotEmpty()) callback(true) else callback(false)
+    }
+    suspend fun insertAllProducts(listProducts: List<ProductModel>, callback: (Boolean) -> Unit) {
+        val listRowId = consignmentDao.insertAllProductsFromFirebase(listProducts)
+        if (listRowId.isNotEmpty()) callback(true) else callback(false)
+    }
+    suspend fun insertAllDeposits(listDeposits: List<DepositModel>, callback: (Boolean) -> Unit) {
+        val listRowId = consignmentDao.insertAllDepositsFromFirebase(listDeposits)
+        if (listRowId.isNotEmpty()) callback(true) else callback(false)
+    }
+    suspend fun insertAllStores(listStores: List<StoreModel>, callback: (Boolean) -> Unit) {
+        val listRowId = consignmentDao.insertAllStoresFromFirebase(listStores)
+        if (listRowId.isNotEmpty()) callback(true) else callback(false)
+    }
+    suspend fun insertAllProductDeposits(listProductDeposits: List<ProductDepositModel>, callback: (Boolean) -> Unit) {
+        val listRowId = consignmentDao.insertAllProductDepositsFromFirebase(listProductDeposits)
+        if (listRowId.isNotEmpty()) callback(true) else callback(false)
+    }
+
 }
+

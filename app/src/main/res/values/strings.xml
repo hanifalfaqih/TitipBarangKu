@@ -5,7 +5,6 @@
     <string name="title_deposit">Deposit</string>
     <string name="title_product">Produk</string>
     <string name="title_category">Kategori</string>
-
     <string name="format_show_list">: %s</string>
     <string name="format_date_deposit">%s - %s</string>
     <string name="delete_data">"Hapus data"</string>
@@ -93,7 +92,7 @@
     <string name="feature_store">Fitur Toko</string>
     <string name="text_desc_feature_store">Simpan semua data toko langganan dimana kamu biasanya menitipkan barang daganganmu</string>
     <string name="text_desc_titipin">Titipin adalah aplikasi pencatatan konsinyasi barang (deposit). \nDengan 4 fitur utama, fitur kategori, fitur produk, fitur deposit, fitur toko</string>
-    <string name="greeting_business_name">%s, %s</string>
+    <string name="greeting_business_name">%s %s</string>
     <string name="store_name_must_be_filled">Nama toko harus diisi!</string>
     <string name="store_address_must_be_filled">Alamat toko harus diisi!</string>
     <string name="store_owner_name_must_be_filled">Nama pemilik toko harus diisi!</string>
@@ -107,4 +106,35 @@
     <string name="please_sign_in_first">Silakan masuk terlebih dahulu!</string>
     <string name="backup">Cadangkan</string>
     <string name="restore">Pulihkan</string>
+    <string name="good_morning">Selamat pagi!</string>
+    <string name="good_afternoon">Selamat siang!</string>
+    <string name="good_evening">Selamat sore!</string>
+    <string name="good_night">Selamat malam!</string>
+    <string name="data_category">Data kategori</string>
+    <string name="data_product">Data produk</string>
+    <string name="data_deposit">Data deposit</string>
+    <string name="data_store">Data toko</string>
+    <string name="data_product_deposit">Data produk deposit</string>
+    <string name="success_backup">berhasil dicadangkan</string>
+    <string name="failure_backup">gagal dicadangkan</string>
+    <string name="success_restore">berhasil dipulihkan</string>
+    <string name="failure_restore">gagal dipulihkan</string>
+    <string name="logout_account">Keluar Akun</string>
+    <string name="msg_logout_account">Yakin ingin keluar dari akun Anda?</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

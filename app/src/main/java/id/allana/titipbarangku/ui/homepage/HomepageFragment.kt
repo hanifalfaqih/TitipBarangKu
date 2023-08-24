@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import id.allana.titipbarangku.R
@@ -64,10 +65,10 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
 
     private fun getCurrentHour(): String {
         return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
-            in 0..11 -> "Selamat pagi!"
-            in 12..15 -> "Selamat siang!"
-            in 16..18 -> "Selamat sore!"
-            else -> "Selamat malam!"
+            in 0..11 -> getString(R.string.good_morning)
+            in 12..15 -> getString(R.string.good_afternoon)
+            in 16..18 -> getString(R.string.good_evening)
+            else -> getString(R.string.good_night)
         }
     }
 
@@ -81,19 +82,20 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
         (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menu.clear()
-                menuInflater.inflate(R.menu.homepage_deposit_menu, menu)
+                menuInflater.inflate(R.menu.homepage_menu, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.menu_logout -> {
-                        handleLogout()
+                        showAlertDialog()
                     }
                     R.id.menu_backup -> {
                         backupDataToFirebase()
                     }
                     R.id.menu_restore -> {
-                        // Handle menu_restore
+                        Log.d("Homepage Fragment", "RESTORE DATA")
+                        restoreDataFromFirebase()
                     }
                 }
                 return true
@@ -104,11 +106,16 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
     private fun handleLogout() {
         Log.d("HOMEPAGE FRAGMENT", "BUTTON SIGN OUT: CLICKED!")
         Firebase.auth.signOut()
+        homepageViewModel.setAuthUser("", requireContext())
         navigateToLoginScreen()
     }
 
     private fun backupDataToFirebase() {
         backupCategory()
+    }
+
+    private fun restoreDataFromFirebase() {
+        restoreCategory()
     }
 
     /**
@@ -118,7 +125,7 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
     private fun backupCategory() {
         categoryViewModel.getAllCategory().observe(viewLifecycleOwner) { categories ->
             homepageViewModel.backupCategoryToFirebase(categories) { isCategorySuccess ->
-                handleBackupResult(isCategorySuccess, "Data kategori")
+                handleBackupResult(isCategorySuccess, getString(R.string.data_category))
                 backupProduct()
             }
         }
@@ -131,7 +138,7 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
     private fun backupProduct() {
         productViewModel.getAllProduct().observe(viewLifecycleOwner) { products ->
             homepageViewModel.backupProductToFirebase(products) { isProductSuccess ->
-                handleBackupResult(isProductSuccess, "Data produk")
+                handleBackupResult(isProductSuccess, getString(R.string.data_product))
                 backupDeposits()
             }
         }
@@ -144,7 +151,7 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
     private fun backupDeposits() {
         depositViewModel.getAllDeposit().observe(viewLifecycleOwner) { deposits ->
             homepageViewModel.backupDepositToFirebase(deposits) { isDepositSuccess ->
-                handleBackupResult(isDepositSuccess, "Data deposit")
+                handleBackupResult(isDepositSuccess, getString(R.string.data_deposit))
                 backupStores()
             }
         }
@@ -157,7 +164,7 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
     private fun backupStores() {
         storeViewModel.getAllStore().observe(viewLifecycleOwner) { stores ->
             homepageViewModel.backupStoreToFirebase(stores) { isStoreSuccess ->
-                handleBackupResult(isStoreSuccess, "Data toko")
+                handleBackupResult(isStoreSuccess, getString(R.string.data_store))
                 backupProductDeposits()
             }
         }
@@ -170,14 +177,75 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
     private fun backupProductDeposits() {
         productViewModel.getAllProductDeposit().observe(viewLifecycleOwner) { productDeposits ->
             homepageViewModel.backupProductDepositToFirebase(productDeposits) { isProductDepositSuccess ->
-                handleBackupResult(isProductDepositSuccess, "Data produk deposit")
+                handleBackupResult(isProductDepositSuccess, getString(R.string.data_product_deposit))
+            }
+        }
+    }
+
+    private fun restoreCategory() {
+        homepageViewModel.restoreCategoryFromFirebase().observe(viewLifecycleOwner) { listCategoryModelFirebase ->
+            val listCategoryModel = listCategoryModelFirebase.map { homepageViewModel.convertToCategoryModel(it) }
+            Log.d("Homepage Fragment", listCategoryModel.toString())
+            homepageViewModel.insertAllCategories(listCategoryModel) { isRestoreCategorySuccess ->
+                handleRestoreResult(isRestoreCategorySuccess, getString(R.string.data_category))
+            }
+            restoreProduct()
+        }
+    }
+
+    private fun restoreProduct() {
+        homepageViewModel.restoreProductFromFirebase().observe(viewLifecycleOwner) { listProductModelFirebase ->
+            val listProductModel = listProductModelFirebase.map { homepageViewModel.convertToProductModel(it) }
+            Log.d("Homepage Fragment", listProductModel.toString())
+            homepageViewModel.insertAllProducts(listProductModel) { isRestoreProductSuccess ->
+                handleRestoreResult(isRestoreProductSuccess, getString(R.string.data_product))
+            }
+            restoreStore()
+        }
+    }
+
+    private fun restoreStore() {
+        homepageViewModel.restoreStoreFromFirebase().observe(viewLifecycleOwner) { listStoreModelFirebase ->
+            val listStoreModel = listStoreModelFirebase.map { homepageViewModel.convertToStoreModel(it) }
+            Log.d("Homepage Fragment", listStoreModel.toString())
+            homepageViewModel.insertAllStores(listStoreModel) { isRestoreStoreSuccess ->
+                handleRestoreResult(isRestoreStoreSuccess, getString(R.string.data_store))
+            }
+            restoreDeposit()
+        }
+    }
+
+    private fun restoreDeposit() {
+        homepageViewModel.restoreDepositFromFirebase().observe(viewLifecycleOwner) { listDepositModelFirebase ->
+            val listDepositModel = listDepositModelFirebase.map { homepageViewModel.convertToDepositModel(it) }
+            Log.d("Homepage Fragment", listDepositModel.toString())
+            homepageViewModel.insertAllDeposits(listDepositModel) { isRestoreDepositSuccess ->
+                handleRestoreResult(isRestoreDepositSuccess, getString(R.string.data_deposit))
+            }
+            restoreProductDeposit()
+        }
+    }
+
+    private fun restoreProductDeposit() {
+        homepageViewModel.restoreProductDepositFromFirebase().observe(viewLifecycleOwner) { listProductDepositModelFirebase ->
+            val listProductDepositModel = listProductDepositModelFirebase.map { homepageViewModel.convertToProductDepositModel(it) }
+            Log.d("Homepage Fragment", listProductDepositModel.toString())
+            homepageViewModel.insertAllProductDeposits(listProductDepositModel) { isRestoreProductDepositSuccess ->
+                handleRestoreResult(isRestoreProductDepositSuccess, getString(R.string.data_product_deposit))
             }
         }
     }
 
     private fun handleBackupResult(isSuccess: Boolean, message: String) {
-        val successMessage = "berhasil dicadangkan"
-        val failureMessage = "gagal dicadangkan"
+        val successMessage = getString(R.string.success_backup)
+        val failureMessage = getString(R.string.failure_backup)
+        val resultMessage = if (isSuccess) successMessage else failureMessage
+        requireView().snackbar("$message $resultMessage", R.id.nav_view)
+    }
+
+    private fun handleRestoreResult(isSuccess: Boolean, message: String) {
+        val successMessage = getString(R.string.success_restore)
+        val failureMessage = getString(R.string.failure_restore)
         val resultMessage = if (isSuccess) successMessage else failureMessage
         requireView().snackbar("$message $resultMessage", R.id.nav_view)
     }
@@ -242,6 +310,19 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding>(FragmentHomepageB
         val intentToMain = Intent(requireContext(), LoginActivity::class.java)
         intentToMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intentToMain)
+    }
+
+    private fun showAlertDialog() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle(getString(R.string.logout_account))
+            setMessage(getString(R.string.msg_logout_account))
+            setPositiveButton(getString(R.string.logout)) { _, _ ->
+                handleLogout()
+            }
+            setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
+        }.show()
     }
 
 

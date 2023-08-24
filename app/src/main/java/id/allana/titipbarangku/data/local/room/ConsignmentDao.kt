@@ -94,4 +94,17 @@ interface ConsignmentDao {
     suspend fun deleteDeposit(deposit: DepositModel)
 
 
+    /**
+     * RESTORE
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllCategoriesFromFirebase(listCategories: List<CategoryModel>): List<Long>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllProductsFromFirebase(listProducts: List<ProductModel>): List<Long>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllDepositsFromFirebase(listDeposits: List<DepositModel>): List<Long>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllProductDepositsFromFirebase(listProductDeposits: List<ProductDepositModel>): List<Long>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllStoresFromFirebase(listStores: List<StoreModel>): List<Long>
 }

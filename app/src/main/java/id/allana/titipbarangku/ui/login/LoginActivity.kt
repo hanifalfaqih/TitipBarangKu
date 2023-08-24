@@ -6,7 +6,7 @@ import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
+import android.widget.TextView
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         // Change Sign In Button Text
-        val textSignInButton = binding.signInButton.getChildAt(0) as Button
+        val textSignInButton = binding.signInButton.getChildAt(0) as TextView
         textSignInButton.text = getString(R.string.login_with_google)
         binding.signInButton.setOnClickListener {
             Log.d(TAG, "BUTTON SIGN IN: CLICKED!")
