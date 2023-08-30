@@ -21,4 +21,14 @@ class UserPreferenceRepository(
     fun setAuthUser(auth: String, context: Context) {
         userPref.setAuthUser(auth, context)
     }
+
+    fun getAppLanguage(): Flow<String> = userPref.getAppLanguage()
+    suspend fun setAppLanguage(language: String) {
+        userPref.setAppLanguage(language)
+    }
+
+    fun getLastDateBackup(): Flow<String> = userPref.getLastDateBackup()
+    suspend fun setLastDateBackup(date: String) {
+        userPref.setLastDateBackup(date)
+    }
 }

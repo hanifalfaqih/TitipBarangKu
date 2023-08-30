@@ -12,6 +12,12 @@
         <action
             android:id="@+id/action_navigation_homepage_to_homepageBottomSheetFragment"
             app:destination="@id/homepageBottomSheetFragment" />
+        <action
+            android:id="@+id/action_navigation_homepage_to_settingActivity"
+            app:destination="@id/settingActivity" />
+        <action
+            android:id="@+id/action_navigation_homepage_to_detailDepositFragment"
+            app:destination="@id/detailDepositFragment" />
     </fragment>
 
     <fragment
@@ -131,4 +137,9 @@
         android:name="id.allana.titipbarangku.ui.homepage.HomepageBottomSheetFragment"
         android:label="HomepageBottomSheetFragment"
         tools:layout="@layout/fragment_homepage_bottom_sheet"/>
+    <activity
+        android:id="@+id/settingActivity"
+        android:name="id.allana.titipbarangku.ui.setting.SettingActivity"
+        android:label="activity_setting"
+        tools:layout="@layout/activity_setting" />
 </navigation>

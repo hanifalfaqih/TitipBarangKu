@@ -93,6 +93,18 @@ interface ConsignmentDao {
     @Delete
     suspend fun deleteDeposit(deposit: DepositModel)
 
+    @Delete
+    suspend fun deleteAllCategories(listCategories: List<CategoryModel>)
+    @Delete
+    suspend fun deleteAllProducts(listProducts: List<ProductModel>)
+    @Delete
+    suspend fun deleteAllDeposits(listDeposits: List<DepositModel>)
+    @Delete
+    suspend fun deleteAllStores(listStores: List<StoreModel>)
+    @Delete
+    suspend fun deleteAllProductDeposits(listProductDeposits: List<ProductDepositModel>)
+
+
 
     /**
      * RESTORE

@@ -3,21 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_backup"
-        android:icon="@drawable/ic_backup"
-        android:title="@string/backup"
+        android:id="@+id/menu_setting"
+        android:icon="@drawable/ic_setting"
+        android:title="@string/setting"
         app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/menu_restore"
-        android:icon="@drawable/ic_restore"
-        android:title="@string/restore"
-        app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/menu_logout"
-        android:icon="@drawable/ic_logout"
-        android:title="@string/logout"
-        app:showAsAction="always"/>
 
 </menu>

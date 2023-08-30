@@ -19,6 +19,8 @@ class UserPreferences(private val dataStore: DataStore<Preferences>) {
     private val INTRO_KEY = booleanPreferencesKey("intro_key")
     private val STORE_NAME_KEY = stringPreferencesKey("store_name_key")
     private val AUTH_KEY = stringPreferencesKey("auth_key")
+    private val APP_LANGUAGE_KEY = stringPreferencesKey("app_language_key")
+    private val LAST_DATE_BACKUP_KEY = stringPreferencesKey("last_date_backup_key")
 
     fun getUserFirstTimeOpenApp(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
@@ -70,6 +72,28 @@ class UserPreferences(private val dataStore: DataStore<Preferences>) {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
         encryptedPreferences.edit().putString(AUTH_KEY.name, auth).apply()
+    }
+
+    fun getAppLanguage(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[APP_LANGUAGE_KEY] ?: ""
+        }
+    }
+    suspend fun setAppLanguage(language: String) {
+        dataStore.edit { preferences ->
+            preferences[APP_LANGUAGE_KEY] = language
+        }
+    }
+
+    fun getLastDateBackup(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[LAST_DATE_BACKUP_KEY] ?: ""
+        }
+    }
+    suspend fun setLastDateBackup(date: String) {
+        dataStore.edit { preferences ->
+            preferences[LAST_DATE_BACKUP_KEY] = date
+        }
     }
 
     companion object {

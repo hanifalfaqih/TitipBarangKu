@@ -12,6 +12,7 @@ import id.allana.titipbarangku.data.model.DepositWithStore
 import id.allana.titipbarangku.data.model.Status
 import id.allana.titipbarangku.databinding.ItemDepositBinding
 import id.allana.titipbarangku.ui.deposit.DepositFragmentDirections
+import id.allana.titipbarangku.ui.homepage.HomepageFragmentDirections
 
 class DepositAdapter: ListAdapter<DepositWithStore, DepositAdapter.DepositViewHolder>(
     DepositComparator()
@@ -32,9 +33,19 @@ class DepositAdapter: ListAdapter<DepositWithStore, DepositAdapter.DepositViewHo
                     }
                 }
             }
+
             itemView.setOnClickListener {
-                val actionToDetailDeposit = DepositFragmentDirections.actionNavigationDepositToDetailDepositFragment(data)
-                it.findNavController().navigate(actionToDetailDeposit)
+                val navController = it.findNavController()
+                when (navController.currentDestination?.id) {
+                    R.id.navigation_homepage -> {
+                        val actionToDetailDepositFromHomepageFragment = HomepageFragmentDirections.actionNavigationHomepageToDetailDepositFragment(data)
+                        it.findNavController().navigate(actionToDetailDepositFromHomepageFragment)
+                    }
+                    R.id.navigation_deposit -> {
+                        val actionToDetailDepositFromDepositFragment = DepositFragmentDirections.actionNavigationDepositToDetailDepositFragment(data)
+                        it.findNavController().navigate(actionToDetailDepositFromDepositFragment)
+                    }
+                }
             }
         }
     }

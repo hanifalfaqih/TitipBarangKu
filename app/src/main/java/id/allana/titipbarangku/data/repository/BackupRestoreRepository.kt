@@ -22,11 +22,17 @@ import kotlinx.coroutines.withContext
 class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
 
     private val authUid = Firebase.auth.uid.toString()
-    private val insertDataCategory = Firebase.firestore.collection(authUid).document("category").collection("categories")
-    private val insertDataProduct = Firebase.firestore.collection(authUid).document("product").collection("products")
-    private val insertDataStore = Firebase.firestore.collection(authUid).document("store").collection("stores")
-    private val insertDataDeposit = Firebase.firestore.collection(authUid).document("deposit").collection("deposits")
-    private val insertDataProductDeposit = Firebase.firestore.collection(authUid).document("product_deposit").collection("product_deposits")
+    private val insertDataCategory =
+        Firebase.firestore.collection(authUid).document("category").collection("categories")
+    private val insertDataProduct =
+        Firebase.firestore.collection(authUid).document("product").collection("products")
+    private val insertDataStore =
+        Firebase.firestore.collection(authUid).document("store").collection("stores")
+    private val insertDataDeposit =
+        Firebase.firestore.collection(authUid).document("deposit").collection("deposits")
+    private val insertDataProductDeposit =
+        Firebase.firestore.collection(authUid).document("product_deposit")
+            .collection("product_deposits")
 
     /**
      * BACKUP TO FIREBASE
@@ -38,7 +44,17 @@ class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
              */
             if (task.isSuccessful) {
                 for (document in task.result!!) {
-                    document.reference.delete().addOnSuccessListener { Log.d("DELETE CATEGORIES", "Success Delete Categories") }.addOnFailureListener { Log.d("DELETE CATEGORIES", "Failed Delete Categories") }
+                    document.reference.delete().addOnSuccessListener {
+                        Log.d(
+                            "DELETE CATEGORIES",
+                            "Success -> DELETE LAST CATEGORIES AND INSERT NEW CATEGORIES"
+                        )
+                    }.addOnFailureListener {
+                        Log.d(
+                            "DELETE CATEGORIES",
+                            "Failed -> DELETE LAST CATEGORIES AND INSERT NEW CATEGORIES"
+                        )
+                    }
                 }
             }
             /**
@@ -49,10 +65,13 @@ class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
                     id = item.id,
                     categoryName = item.categoryName
                 )
-                insertDataCategory.document(category.id.toString()).set(category.toMap()).addOnSuccessListener { callback(true) }.addOnFailureListener { callback(false) }
+                insertDataCategory.document(category.id.toString()).set(category.toMap())
+                    .addOnSuccessListener { callback(true) }
+                    .addOnFailureListener { callback(false) }
             }
         }
     }
+
     fun insertProductToFirebase(listProduct: List<ProductModel>, callback: (Boolean) -> Unit) {
         insertDataProduct.get().addOnCompleteListener { task ->
             /**
@@ -60,7 +79,17 @@ class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
              */
             if (task.isSuccessful) {
                 for (document in task.result!!) {
-                    document.reference.delete().addOnSuccessListener { Log.d("DELETE CATEGORIES", "Success Delete Categories") }.addOnFailureListener { Log.d("DELETE CATEGORIES", "Failed Delete Categories") }
+                    document.reference.delete().addOnSuccessListener {
+                        Log.d(
+                            "DELETE PRODUCT",
+                            "Success -> DELETE LAST PRODUCTS AND INSERT NEW PRODUCTS"
+                        )
+                    }.addOnFailureListener {
+                        Log.d(
+                            "DELETE PRODUCT",
+                            "Failed -> DELETE LAST PRODUCTS AND INSERT NEW PRODUCTS"
+                        )
+                    }
                 }
             }
             /**
@@ -73,10 +102,13 @@ class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
                     name = item.name,
                     price = item.price
                 )
-                insertDataProduct.document(product.id.toString()).set(product.toMap()).addOnSuccessListener { callback(true) }.addOnFailureListener { callback(false) }
+                insertDataProduct.document(product.id.toString()).set(product.toMap())
+                    .addOnSuccessListener { callback(true) }
+                    .addOnFailureListener { callback(false) }
             }
         }
     }
+
     fun insertStoreToFirebase(listStore: List<StoreModel>, callback: (Boolean) -> Unit) {
         insertDataStore.get().addOnCompleteListener { task ->
             /**
@@ -86,13 +118,13 @@ class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
                 for (document in task.result!!) {
                     document.reference.delete().addOnSuccessListener {
                         Log.d(
-                            "DELETE CATEGORIES",
-                            "Success Delete Categories"
+                            "DELETE STORE",
+                            "Success -> DELETE LAST STORES AND INSERT NEW STORES"
                         )
                     }.addOnFailureListener {
                         Log.d(
                             "DELETE CATEGORIES",
-                            "Failed Delete Categories"
+                            "Failed -> DELETE LAST STORES AND INSERT NEW STORES"
                         )
                     }
                 }
@@ -114,6 +146,7 @@ class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
             }
         }
     }
+
     fun insertDepositToFirebase(listDeposit: List<DepositModel>, callback: (Boolean) -> Unit) {
         insertDataDeposit.get().addOnCompleteListener { task ->
             /**
@@ -123,13 +156,13 @@ class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
                 for (document in task.result!!) {
                     document.reference.delete().addOnSuccessListener {
                         Log.d(
-                            "DELETE CATEGORIES",
-                            "Success Delete Categories"
+                            "DELETE DEPOSIT",
+                            "Success -> DELETE LAST DEPOSITS AND INSERT NEW DEPOSITS"
                         )
                     }.addOnFailureListener {
                         Log.d(
-                            "DELETE CATEGORIES",
-                            "Failed Delete Categories"
+                            "DELETE DEPOSIT",
+                            "Failed -> DELETE LAST DEPOSITS AND INSERT NEW DEPOSITS"
                         )
                     }
                 }
@@ -151,7 +184,11 @@ class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
             }
         }
     }
-    fun insertProductDepositToFirebase(listProductDeposit: List<ProductDepositModel>, callback: (Boolean) -> Unit) {
+
+    fun insertProductDepositToFirebase(
+        listProductDeposit: List<ProductDepositModel>,
+        callback: (Boolean) -> Unit
+    ) {
         insertDataProductDeposit.get().addOnCompleteListener { task ->
             /**
              * DELETE ALL DATA REFERENCE IN FIREBASE BEFORE BACKUP
@@ -160,13 +197,13 @@ class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
                 for (document in task.result!!) {
                     document.reference.delete().addOnSuccessListener {
                         Log.d(
-                            "DELETE CATEGORIES",
-                            "Success Delete Categories"
+                            "DELETE PRODUCT DEPOSITS",
+                            "Success -> DELETE LAST PRODUCT DEPOSITS AND INSERT NEW PRODUCT DEPOSITS"
                         )
                     }.addOnFailureListener {
                         Log.d(
-                            "DELETE CATEGORIES",
-                            "Failed Delete Categories"
+                            "DELETE PRODUCT DEPOSITS",
+                            "Failed -> ELETE LAST PRODUCT DEPOSITS AND INSERT NEW PRODUCT DEPOSITS"
                         )
                     }
                 }
@@ -196,50 +233,69 @@ class BackupRestoreRepository(private val consignmentDao: ConsignmentDao) {
      */
     suspend fun getCategoryFromFirebase(): List<CategoryModelFirebase> {
         return withContext(Dispatchers.IO) {
-            return@withContext insertDataCategory.get().await().toObjects(CategoryModelFirebase::class.java)
+            return@withContext insertDataCategory.get().await()
+                .toObjects(CategoryModelFirebase::class.java)
         }
     }
+
     suspend fun getProductFromFirebase(): List<ProductModelFirebase> {
         return withContext(Dispatchers.IO) {
-            return@withContext insertDataProduct.get().await().toObjects(ProductModelFirebase::class.java)
+            return@withContext insertDataProduct.get().await()
+                .toObjects(ProductModelFirebase::class.java)
         }
     }
+
     suspend fun getDepositFromFirebase(): List<DepositModelFirebase> {
         return withContext(Dispatchers.IO) {
-            return@withContext insertDataDeposit.get().await().toObjects(DepositModelFirebase::class.java)
+            return@withContext insertDataDeposit.get().await()
+                .toObjects(DepositModelFirebase::class.java)
         }
     }
+
     suspend fun getStoreFromFirebase(): List<StoreModelFirebase> {
         return withContext(Dispatchers.IO) {
-            return@withContext insertDataStore.get().await().toObjects(StoreModelFirebase::class.java)
+            return@withContext insertDataStore.get().await()
+                .toObjects(StoreModelFirebase::class.java)
         }
     }
+
     suspend fun getProductDepositFromFirebase(): List<ProductDepositModelFirebase> {
         return withContext(Dispatchers.IO) {
-            return@withContext insertDataProductDeposit.get().await().toObjects(ProductDepositModelFirebase::class.java)
+            return@withContext insertDataProductDeposit.get().await()
+                .toObjects(ProductDepositModelFirebase::class.java)
         }
     }
 
     /**
      * INSERT TO ROOM FROM FIREBASE
      */
-    suspend fun insertAllCategories(listCategories: List<CategoryModel>, callback: (Boolean) -> Unit) {
+    suspend fun insertAllCategories(
+        listCategories: List<CategoryModel>,
+        callback: (Boolean) -> Unit
+    ) {
         val listRowId = consignmentDao.insertAllCategoriesFromFirebase(listCategories)
         if (listRowId.isNotEmpty()) callback(true) else callback(false)
     }
+
     suspend fun insertAllProducts(listProducts: List<ProductModel>, callback: (Boolean) -> Unit) {
         val listRowId = consignmentDao.insertAllProductsFromFirebase(listProducts)
         if (listRowId.isNotEmpty()) callback(true) else callback(false)
     }
+
     suspend fun insertAllDeposits(listDeposits: List<DepositModel>, callback: (Boolean) -> Unit) {
         val listRowId = consignmentDao.insertAllDepositsFromFirebase(listDeposits)
         if (listRowId.isNotEmpty()) callback(true) else callback(false)
     }
+
     suspend fun insertAllStores(listStores: List<StoreModel>, callback: (Boolean) -> Unit) {
         val listRowId = consignmentDao.insertAllStoresFromFirebase(listStores)
         if (listRowId.isNotEmpty()) callback(true) else callback(false)
     }
-    suspend fun insertAllProductDeposits(listProductDeposits: List<ProductDepositModel>, callback: (Boolean) -> Unit) {
+
+    suspend fun insertAllProductDeposits(
+        listProductDeposits: List<ProductDepositModel>,
+        callback: (Boolean) -> Unit
+    ) {
         val listRowId = consignmentDao.insertAllProductDepositsFromFirebase(listProductDeposits)
         if (listRowId.isNotEmpty()) callback(true) else callback(false)
     }

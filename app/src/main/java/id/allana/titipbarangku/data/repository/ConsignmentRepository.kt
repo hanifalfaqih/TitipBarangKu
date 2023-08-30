@@ -73,6 +73,22 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
         consignmentDao.deleteDeposit(deposit)
     }
 
+    suspend fun deleteAllCategories(listCategories: List<CategoryModel>) {
+        consignmentDao.deleteAllCategories(listCategories)
+    }
+    suspend fun deleteAllProducts(listProducts: List<ProductModel>) {
+        consignmentDao.deleteAllProducts(listProducts)
+    }
+    suspend fun deleteAllDeposits(listDeposits: List<DepositModel>) {
+        consignmentDao.deleteAllDeposits(listDeposits)
+    }
+    suspend fun deleteAllStores(listStores: List<StoreModel>) {
+        consignmentDao.deleteAllStores(listStores)
+    }
+    suspend fun deleteAllProductDeposits(listProductDeposit: List<ProductDepositModel>) {
+        consignmentDao.deleteAllProductDeposits(listProductDeposit)
+    }
+
     /**
      * READ
      */
@@ -87,11 +103,16 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
     fun getAllDeposit(): LiveData<List<DepositModel>> = consignmentDao.getAllDeposit()
     fun getAllProductDeposit(): LiveData<List<ProductDepositModel>> = consignmentDao.getAllProductDeposit()
     fun getAllProductInDeposit(): LiveData<List<ProductDepositWithProduct>> = consignmentDao.getAllProductInDeposit()
+
+    /**
+     * FILTER TOTAL SALES CURRENT MONTH
+     */
     fun filterByCurrentMonth(listDeposit: List<DepositModel>, listProductDeposit: List<ProductDepositWithProduct>): List<ProductDepositWithProduct> {
+        val dateFormatter = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
         val currentMonth = Calendar.getInstance().get(Calendar.MONTH)
 
         val currentListDeposit = listDeposit.filter { deposit ->
-            val depositStartDate = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID")).parse(deposit.startDateDeposit)
+            val depositStartDate = dateFormatter.parse(deposit.startDateDeposit)
             val depositMonth = Calendar.getInstance().apply {
                 time = depositStartDate as Date
             }.get(Calendar.MONTH)
@@ -101,6 +122,36 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
         return listProductDeposit.filter { productDeposit ->
             currentListDeposit.any { it.id == productDeposit.productDeposit.idDeposit }
         }
+    }
+
+    fun filterByEachMonth(listDeposit: List<DepositModel>, listProductDeposit: List<ProductDepositWithProduct>): Map<Int, List<ProductDepositWithProduct>> {
+        val dateFormatter = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+
+        val filteredDataByMonth = mutableMapOf<Int, List<ProductDepositWithProduct>>()
+
+        for (month in Calendar.JANUARY..Calendar.DECEMBER) {
+            val currentListDepositForMonth = listDeposit.filter { deposit ->
+                val depositStartDate = dateFormatter.parse(deposit.startDateDeposit)
+                val depositCalendar = Calendar.getInstance().apply {
+                    time = depositStartDate as Date
+                }
+                val depositYear = depositCalendar.get(Calendar.YEAR)
+                val depositMonth = depositCalendar.get(Calendar.MONTH)
+
+                depositYear == currentYear && depositMonth == month
+            }
+
+            val productDepositForMonth = listProductDeposit.filter { productDeposit ->
+                currentListDepositForMonth.any { it.id == productDeposit.productDeposit.idDeposit }
+            }
+
+            if (productDepositForMonth.isNotEmpty()) {
+                filteredDataByMonth[month] = productDepositForMonth
+            }
+        }
+
+        return filteredDataByMonth
     }
 
     fun calculateTotalProductSoldWithPrice(listProductDeposit: List<ProductDepositWithProduct>): Int {
@@ -116,4 +167,47 @@ class ConsignmentRepository(private val consignmentDao: ConsignmentDao) {
         }
         return totalAmount
     }
+    fun calculateTotalProductSoldWithPriceEachMonth(listProductDeposit: Map<Int, List<ProductDepositWithProduct>>): Map<Int, Int> {
+        val result = mutableMapOf<Int, Int>()
+
+        for ((month, products) in listProductDeposit) {
+            var totalAmount = 0
+
+            for (productDeposit in products) {
+                val productPrice = productDeposit.product?.price ?: 0
+                val totalProductSold = if (productDeposit.productDeposit.totalProductSold == "-") {
+                    0
+                } else {
+                    productDeposit.productDeposit.totalProductSold.toInt()
+                }
+                totalAmount += totalProductSold * productPrice
+            }
+
+            result[month] = totalAmount
+        }
+
+        return result
+    }
+//    fun calculateTotalProductSoldWithPriceEachMonth(listProductDeposit: Map<Int, List<ProductDepositWithProduct>>): List<Map<Int, Int>> {
+//        val result = mutableListOf<Map<Int, Int>>()
+//
+//        for ((month, products) in listProductDeposit) {
+//            var totalAmount = 0
+//
+//            for (productDeposit in products) {
+//                val productPrice = productDeposit.product?.price ?: 0
+//                val totalProductSold = if (productDeposit.productDeposit.totalProductSold == "-") {
+//                    0
+//                } else {
+//                    productDeposit.productDeposit.totalProductSold.toInt()
+//                }
+//                totalAmount += totalProductSold * productPrice
+//            }
+//
+//            val resultMap = mutableMapOf(month to totalAmount)
+//            result.add(resultMap)
+//        }
+//
+//        return result
+//    }
 }

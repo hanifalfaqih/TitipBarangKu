@@ -12,3 +12,11 @@ fun formatDate(year: Int, month: Int, dayOfMonth: Int): String {
     return dateFormat.format(calendar.time)
 
 }
+
+fun formatDateWithTime(dayOfMonth: Int, month: Int, year: Int, hour: Int, minute: Int): String {
+    val calendar = Calendar.getInstance()
+    calendar.set(year, month - 1, dayOfMonth, hour, minute)
+
+    val dateFormat = SimpleDateFormat("dd MMMM yyyy - HH:mm", Locale("id", "ID"))
+    return dateFormat.format(calendar.time)
+}

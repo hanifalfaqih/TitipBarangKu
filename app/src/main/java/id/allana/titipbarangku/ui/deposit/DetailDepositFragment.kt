@@ -59,7 +59,7 @@ class DetailDepositFragment : BaseFragment<FragmentDetailDepositBinding>(Fragmen
             override fun onButtonUpdateQuantity(data: ProductDepositModel, isEmpty: Boolean) {
                 if (isEmpty) {
                     requireView().snackbar(getString(R.string.value_cant_empty), R.id.nav_view)
-                } else if (data.returnQuantity > data.quantity) {
+                } else if (data.returnQuantity >= data.quantity) {
                     requireView().snackbar(getString(R.string.value_cant_more_than_quantity), R.id.nav_view)
                 } else {
                     viewModel.updateProductDeposit(data)

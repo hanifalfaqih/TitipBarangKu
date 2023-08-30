@@ -13,6 +13,14 @@
         android:theme="@style/Theme.TitipBarangKu"
         tools:targetApi="31">
         <activity
+            android:name=".ui.setting.saleshistory.MonthlySalesHistoryActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.setting.SettingActivity" />
+        <activity
+            android:name=".ui.setting.SettingActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity

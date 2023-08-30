@@ -27,7 +27,7 @@ class DepositViewModel(application: Application) : AndroidViewModel(application)
     private val checkDatabaseEmpty = MutableLiveData<Boolean>()
 
     fun insertDeposit(deposit: DepositModel) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             val depositId = repository.insertDeposit(deposit)
             _idDeposit.value = depositId
         }
