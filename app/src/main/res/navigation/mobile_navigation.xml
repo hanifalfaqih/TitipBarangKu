@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_navigation_homepage_to_homepageBottomSheetFragment"
             app:destination="@id/homepageBottomSheetFragment" />
+        <action
+            android:id="@+id/action_navigation_homepage_to_detailDepositFragment"
+            app:destination="@id/detailDepositFragment" />
     </fragment>
 
     <fragment
